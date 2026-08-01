@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diaspora Plugins | Pro Audio VST/AU Plugins</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen font-sans">
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-wider text-white">
+                <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-sm font-black">DP</span>
+                DIASPORA <span class="text-blue-500 font-normal">PLUGINS</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+                <a href="/plugins/" class="hover:text-blue-400 transition">Plugins</a>
+                <a href="/bundles/" class="hover:text-blue-400 transition">Bundles</a>
+                <a href="/subscriptions/" class="hover:text-blue-400 transition text-amber-400 font-semibold">Subscriptions</a>
+                <a href="/new-products/" class="hover:text-blue-400 transition">New</a>
+                <a href="/support/" class="hover:text-blue-400 transition">Support & Activation</a>
+            </div>
+
+            <!-- User Actions -->
+            <div class="flex items-center gap-4 text-sm">
+                <a href="/downloads/" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 hover:bg-slate-800 text-slate-300 transition">
+                    <i class="fa-solid font-xs fa-download text-blue-400"></i> Downloads
+                </a>
+                <a href="/login/" class="hover:text-white text-slate-300 transition">Log In</a>
+                <a href="/signup/" class="bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-lg transition shadow-lg shadow-blue-600/20">
+                    Get Started
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="py-20 px-4 text-center max-w-4xl mx-auto">
+            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs uppercase tracking-widest px-3 py-1 rounded-full font-semibold">
+                Next-Gen Audio DSP
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mt-6 text-white">
+                Studio-Grade Processing for Modern Producers
+            </h1>
+            <p class="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">
+                Discover world-class mixing, mastering, and creative sound design plugins built for modern music creators.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="/plugins/" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold transition">Explore Plugins</a>
+                <a href="/subscriptions/" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3 rounded-xl font-semibold transition">View Subscription Pass</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <a href="/" class="font-bold text-lg text-white">DIASPORA PLUGINS</a>
+                    <p class="text-xs leading-relaxed text-slate-400">
+                        Empowering audio engineers and music producers worldwide with cutting-edge DSP technology and intuitive interfaces.
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex items-center gap-4 text-slate-400 pt-2">
+                        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube text-lg"></i></a>
+                        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-lg"></i></a>
+                        <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="hover:text-white transition"><i class="fa-brands fa-x-twitter text-lg"></i></a>
+                        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook text-lg"></i></a>
+                        <a href="https://discord.com" target="_blank" aria-label="Discord" class="hover:text-indigo-400 transition"><i class="fa-brands fa-discord text-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Products -->
+                <div>
+                    <h3 class="text-white font-semibold mb-3">Products</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="/plugins/" class="hover:text-white transition">All Plugins</a></li>
+                        <li><a href="/bundles/" class="hover:text-white transition">Plugin Bundles</a></li>
+                        <li><a href="/subscriptions/" class="hover:text-white transition">All Access Pass</a></li>
+                        <li><a href="/new-products/" class="hover:text-white transition">New Releases</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Support -->
+                <div>
+                    <h3 class="text-white font-semibold mb-3">Support & Account</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="/support/" class="hover:text-white transition">Download & Activation Guide</a></li>
+                        <li><a href="/downloads/" class="hover:text-white transition">Central Installer</a></li>
+                        <li><a href="/dashboard/" class="hover:text-white transition">My Account / Licenses</a></li>
+                        <li><a href="/support/" class="hover:text-white transition">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Legal & System -->
+                <div>
+                    <h3 class="text-white font-semibold mb-3">Legal & System</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition">EULA Agreement</a></li>
+                        <li><a href="#" class="hover:text-white transition">System Requirements</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div class="mt-12 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
