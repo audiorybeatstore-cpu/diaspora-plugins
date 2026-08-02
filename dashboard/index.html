@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* Dynamic Theme System Variables */
         :root[data-accent="blue"] {
             --accent-500: #3b82f6;
             --accent-600: #2563eb;
@@ -66,12 +65,12 @@
         .border-accent-border { border-color: var(--accent-border); }
     </style>
 </head>
-<body class="bg-slate-950 dark:bg-slate-950 text-slate-100 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200">
+<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200">
 
     <!-- PROMOTIONAL BANNER -->
     <div id="promo-banner" class="bg-accent-500 text-slate-950 font-bold text-xs py-2 px-4 text-center tracking-wide flex items-center justify-between">
         <div class="flex-grow text-center">
-            <span id="promo-banner-text" class="uppercase">Latest Releases & Discounts Available</span>
+            <span class="uppercase">Latest Releases & Discounts Available</span>
         </div>
         <button id="close-banner-btn" class="text-slate-950 hover:opacity-75"><i class="fa-solid fa-xmark"></i></button>
     </div>
@@ -80,43 +79,32 @@
     <header class="sticky top-0 z-30 bg-slate-950/95 border-b border-slate-800 backdrop-blur-md">
         <nav class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
             
-            <!-- Logo & Desktop Links -->
             <div class="flex items-center gap-8">
                 <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-wider text-white whitespace-nowrap">
                     <span class="bg-accent-500 text-slate-950 px-2 py-0.5 rounded text-sm font-black shadow-md">DP</span>
                     DIASPORA <span class="text-accent-500 font-normal">PLUGINS</span>
                 </a>
-
-                <div class="hidden xl:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-300">
-                    <a href="/plugins/" class="hover:text-accent-500 transition">Products</a>
-                    <a href="/downloads/" class="hover:text-accent-500 transition">Downloads</a>
-                    <a href="/support/" class="hover:text-accent-500 transition">Support</a>
-                </div>
             </div>
 
-            <!-- Search, Controls, Cart & Sticky Dropdown -->
             <div class="hidden md:flex items-center gap-4 text-xs">
-                <!-- Live Search Box -->
+                <!-- Search Box -->
                 <div class="relative">
                     <input type="text" id="global-search" placeholder="Search menu..." class="bg-slate-900 border border-slate-800 rounded-full pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 w-36 lg:w-48 transition">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
                 </div>
 
-                <!-- Color Theme Engine Toggle -->
+                <!-- Theme Switchers (Data Attributes instead of inline JS) -->
                 <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 px-2 py-1 rounded-lg">
-                    <button type="button" id="dark-mode-toggle" title="Toggle Light/Dark" class="p-1 text-slate-400 hover:text-white">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
+                    <button type="button" id="dark-mode-toggle" class="p-1 text-slate-400 hover:text-white"><i class="fa-solid fa-moon"></i></button>
                     <span class="text-slate-700">|</span>
-                    <!-- Color Swatches -->
-                    <button type="button" onclick="setAccentTheme('blue')" class="w-3 h-3 rounded-full bg-blue-500 ring-1 ring-white/20"></button>
-                    <button type="button" onclick="setAccentTheme('red')" class="w-3 h-3 rounded-full bg-red-500 ring-1 ring-white/20"></button>
-                    <button type="button" onclick="setAccentTheme('green')" class="w-3 h-3 rounded-full bg-emerald-500 ring-1 ring-white/20"></button>
-                    <button type="button" onclick="setAccentTheme('yellow')" class="w-3 h-3 rounded-full bg-yellow-500 ring-1 ring-white/20"></button>
-                    <button type="button" onclick="setAccentTheme('brown')" class="w-3 h-3 rounded-full bg-yellow-800 ring-1 ring-white/20"></button>
+                    <button type="button" data-accent-btn="blue" class="w-3 h-3 rounded-full bg-blue-500 ring-1 ring-white/20"></button>
+                    <button type="button" data-accent-btn="red" class="w-3 h-3 rounded-full bg-red-500 ring-1 ring-white/20"></button>
+                    <button type="button" data-accent-btn="green" class="w-3 h-3 rounded-full bg-emerald-500 ring-1 ring-white/20"></button>
+                    <button type="button" data-accent-btn="yellow" class="w-3 h-3 rounded-full bg-yellow-500 ring-1 ring-white/20"></button>
+                    <button type="button" data-accent-btn="brown" class="w-3 h-3 rounded-full bg-yellow-800 ring-1 ring-white/20"></button>
                 </div>
 
-                <!-- Notifications Button (Modal Trigger) -->
+                <!-- Notifications Button -->
                 <button type="button" id="open-notifications-modal" class="relative text-slate-300 hover:text-white p-2 bg-slate-900 border border-slate-800 rounded-lg">
                     <i class="fa-regular fa-bell text-sm"></i>
                     <span id="unread-count" class="hidden absolute -top-1 -right-1 bg-accent-500 text-slate-950 text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
@@ -130,10 +118,9 @@
                         <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i>
                     </button>
                     
-                    <!-- Dropdown Menu (Toggle Sticky) -->
                     <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
-                        <a href="#personal-details" onclick="switchTab('personal-details'); closeDropdown();" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">Personal Details</a>
-                        <a href="#about-me" onclick="switchTab('about-me'); closeDropdown();" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">About Me</a>
+                        <button type="button" data-nav-target="personal-details" class="dropdown-link block w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">Personal Details</button>
+                        <button type="button" data-nav-target="about-me" class="dropdown-link block w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">About Me</button>
                         <div class="border-t border-slate-800 my-1"></div>
                         <button type="button" id="logout-btn" class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-800 flex items-center gap-2">
                             <i class="fa-solid fa-right-from-bracket"></i> Sign Out
@@ -141,425 +128,168 @@
                     </div>
                 </div>
 
-                <!-- Cart Button (Modal Drawer Trigger) -->
+                <!-- Cart Button -->
                 <button type="button" id="open-cart-modal" class="relative flex items-center gap-1.5 bg-accent-500 hover:bg-accent-600 text-slate-950 px-3 py-1.5 rounded-lg font-bold transition">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="cart-count" class="bg-slate-950 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
                 </button>
             </div>
-
-            <!-- Mobile Hamburger Toggle -->
-            <button id="mobile-menu-toggle" type="button" class="md:hidden text-slate-300 hover:text-white text-xl p-2">
-                <i class="fa-solid fa-bars"></i>
-            </button>
         </nav>
     </header>
 
-    <!-- BREADCRUMB NAVIGATION -->
-    <div class="bg-slate-900/40 border-b border-slate-800/60 py-2.5 px-4 lg:px-8 text-xs text-slate-400">
-        <div class="max-w-[1440px] mx-auto flex items-center gap-2">
-            <a href="/" class="hover:text-slate-200">Home</a>
-            <span>&rsaquo;</span>
-            <a href="/dashboard/" class="hover:text-slate-200">Account</a>
-            <span>&rsaquo;</span>
-            <span id="breadcrumb-current" class="text-white font-medium">My Products</span>
-        </div>
-    </div>
-
-    <!-- MAIN DASHBOARD CONTENT -->
+    <!-- MAIN CONTENT AREA -->
     <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8">
-        
         <div class="mb-6">
             <h1 class="text-3xl font-black text-white tracking-tight">Welcome, <span id="user-name-display" class="text-accent-500">User</span></h1>
         </div>
 
-        <!-- Global Status Bar -->
-        <div id="status-banner" class="hidden mb-6 p-4 rounded-xl border text-xs flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <i id="status-icon" class="text-base"></i>
-                <span id="status-message"></span>
-            </div>
-            <button id="close-status-btn" type="button" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-
-        <!-- 2-COLUMN DASHBOARD GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             
-            <!-- LEFT SIDEBAR -->
+            <!-- LEFT NAVIGATION SIDEBAR -->
             <aside class="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-6">
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Products</h3>
-                    <ul class="space-y-1 text-xs" id="nav-group-products">
-                        <li><button type="button" onclick="switchTab('my-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-accent-500 font-semibold bg-accent-bg border border-accent-border" data-tab="my-products">My Products</button></li>
-                        <li><button type="button" onclick="switchTab('plugins-picked')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="plugins-picked">Plugins Picked for Me</button></li>
-                        <li><button type="button" onclick="switchTab('get-latest-version')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="get-latest-version">Get Latest Version</button></li>
-                        <li><button type="button" onclick="switchTab('register-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="register-products">Register New Products</button></li>
+                    <ul class="space-y-1 text-xs">
+                        <li><button type="button" data-tab="my-products" class="tab-link w-full text-left px-3 py-2 rounded-lg text-accent-500 font-semibold bg-accent-bg border border-accent-border">My Products</button></li>
+                        <li><button type="button" data-tab="plugins-picked" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Plugins Picked for Me</button></li>
+                        <li><button type="button" data-tab="register-products" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Register New Products</button></li>
                     </ul>
                 </div>
-
-                <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Billing & Promotions</h3>
-                    <ul class="space-y-1 text-xs" id="nav-group-billing">
-                        <li><button type="button" onclick="switchTab('my-coupons')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="my-coupons">My Coupons</button></li>
-                        <li><button type="button" onclick="switchTab('my-invoices')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="my-invoices">My Invoices</button></li>
-                        <li><button type="button" onclick="switchTab('my-credit-cards')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="my-credit-cards">My Credit Cards</button></li>
-                    </ul>
-                </div>
-
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Account Settings</h3>
-                    <ul class="space-y-1 text-xs" id="nav-group-settings">
-                        <li><button type="button" onclick="switchTab('personal-details')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="personal-details">Personal Details</button></li>
-                        <li><button type="button" onclick="switchTab('about-me')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="about-me">About Me</button></li>
-                        <li><button type="button" onclick="switchTab('email-preferences')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800" data-tab="email-preferences">Email Preferences</button></li>
+                    <ul class="space-y-1 text-xs">
+                        <li><button type="button" data-tab="personal-details" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Personal Details</button></li>
+                        <li><button type="button" data-tab="about-me" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">About Me</button></li>
+                        <li><button type="button" data-tab="email-preferences" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Email Preferences</button></li>
                     </ul>
                 </div>
             </aside>
 
-            <!-- RIGHT DYNAMIC PANELS CONTAINER -->
+            <!-- RIGHT PANELS -->
             <section class="lg:col-span-3">
 
-                <!-- TAB 1: MY PRODUCTS -->
+                <!-- TAB: MY PRODUCTS -->
                 <div id="tab-my-products" class="tab-content bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
-                        <h2 class="text-lg font-bold text-white">Registered Products & Licenses</h2>
-                        <a href="/downloads/" class="text-xs bg-accent-500 text-slate-950 font-bold px-3 py-1.5 rounded-lg transition">Download Installer</a>
-                    </div>
-                    <div id="user-products-list" class="space-y-3">
-                        <div class="text-center py-12 px-4 rounded-xl border border-dashed border-slate-800 bg-slate-950/50">
-                            <i class="fa-solid fa-box-open text-3xl text-slate-600 mb-3"></i>
-                            <p class="text-sm font-medium text-slate-300">No registered licenses found.</p>
-                        </div>
+                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Registered Products</h2>
+                    <div id="user-products-list" class="text-center py-12 border border-dashed border-slate-800 rounded-xl text-xs text-slate-400">
+                        No products registered.
                     </div>
                 </div>
 
-                <!-- TAB 2: PLUGINS PICKED FOR ME -->
+                <!-- TAB: PLUGINS PICKED FOR ME -->
                 <div id="tab-plugins-picked" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-2">Recommended for You</h2>
-                    <div id="recommended-plugins-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                        <!-- Populated via API/Firestore -->
+                    <h2 class="text-lg font-bold text-white mb-4">Recommended Plugins</h2>
+                    <div id="recommended-plugins-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-400">
+                        Loading recommendations...
                     </div>
                 </div>
 
-                <!-- TAB 3: GET LATEST VERSION -->
-                <div id="tab-get-latest-version" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Get Latest Version</h2>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 text-xs text-slate-300 leading-relaxed space-y-3">
-                        <p class="font-semibold text-slate-200">None of your products can be updated to their latest version. Possible reasons:</p>
-                        <ul class="list-disc list-inside space-y-1 text-slate-400 pl-2">
-                            <li>There are no registered products in your account.</li>
-                            <li>All of your products are already at their latest versions.</li>
-                            <li>You are not eligible to update your license/s to the latest version. To be eligible, extend your Diaspora Update Plan.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- TAB 4: REGISTER NEW PRODUCTS -->
+                <!-- TAB: REGISTER NEW PRODUCTS -->
                 <div id="tab-register-products" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Register New Products</h2>
-                    <form id="register-key-form" class="space-y-4">
-                        <div>
-                            <label for="serial-key-input" class="block text-xs font-semibold text-slate-300 mb-2">Serial / Registration Key</label>
-                            <input type="text" id="serial-key-input" name="serialKey" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-accent-500">
-                        </div>
-                        <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs px-6 py-2.5 rounded-xl transition">Redeem License</button>
+                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Register License Key</h2>
+                    <form id="register-key-form" class="space-y-4 text-xs">
+                        <input type="text" id="serial-key-input" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white">
+                        <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl">Redeem Code</button>
                     </form>
                 </div>
 
-                <!-- TAB 5: ABOUT ME (SYNCED WITH FIRESTORE) -->
+                <!-- TAB: ABOUT ME -->
                 <div id="tab-about-me" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
-                    <div>
-                        <h2 class="text-xl font-bold text-white">About Me</h2>
-                        <p class="text-xs text-slate-400 mt-1">Select your production background to tailor updates and recommendations.</p>
-                    </div>
-
-                    <form id="about-me-form" class="space-y-6">
-                        <div>
-                            <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Which role(s) best describe your workflow?</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-300">
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Music Producer" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Music Producer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Mixing/Recording Engineer" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Mixing/Recording Engineer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Musician" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Musician</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Beat Maker" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Beat Maker</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Mastering Engineer" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Mastering Engineer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Singer/Songwriter" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Singer/Songwriter</label>
-                            </div>
+                    <h2 class="text-xl font-bold text-white">About Me</h2>
+                    <form id="about-me-form" class="space-y-4 text-xs">
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Music Producer" class="rounded bg-slate-950 text-accent-500"> Music Producer</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Mixing Engineer" class="rounded bg-slate-950 text-accent-500"> Mixing Engineer</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Sound Designer" class="rounded bg-slate-950 text-accent-500"> Sound Designer</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Singer/Songwriter" class="rounded bg-slate-950 text-accent-500"> Singer/Songwriter</label>
                         </div>
-                        <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs px-6 py-2.5 rounded-xl transition">Save Preferences to Cloud</button>
+                        <button type="submit" class="bg-accent-500 text-slate-950 font-bold px-6 py-2.5 rounded-xl">Save Roles to Firestore</button>
                     </form>
                 </div>
 
-                <!-- TAB 6: PERSONAL DETAILS (SYNCED WITH FIRESTORE) -->
-                <div id="tab-personal-details" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
-                    <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800">Edit Personal Details</h2>
-                    
-                    <form id="personal-details-form" class="space-y-4 text-xs">
+                <!-- TAB: PERSONAL DETAILS -->
+                <div id="tab-personal-details" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
+                    <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800">Personal Details</h2>
+                    <form id="personal-details-form" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-slate-400 mb-1">Username / Account ID</label>
-                                <input type="text" id="field-username" name="username" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500 font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Primary Email</label>
-                                <input type="email" id="field-email" name="email" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500 font-mono">
+                                <label class="block text-slate-400 mb-1">Email</label>
+                                <input type="email" id="field-email" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">First Name</label>
-                                <input type="text" id="field-first-name" name="firstName" placeholder="First Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
+                                <input type="text" id="field-first-name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">Last Name</label>
-                                <input type="text" id="field-last-name" name="lastName" placeholder="Last Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
+                                <input type="text" id="field-last-name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">Phone Number</label>
-                                <input type="tel" id="field-phone" name="phone" placeholder="+1 (555) 000-0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
-                            </div>
-                            <div>
-                                <label class="block text-slate-300 mb-1">Company Name</label>
-                                <input type="text" id="field-company" name="company" placeholder="Studio or Company Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
-                            </div>
-                            <div>
-                                <label class="block text-slate-300 mb-1">Address</label>
-                                <input type="text" id="field-address" name="address" placeholder="Street Address" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
-                            </div>
-                            <div>
-                                <label class="block text-slate-300 mb-1">City</label>
-                                <input type="text" id="field-city" name="city" placeholder="City" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-accent-500">
+                                <label class="block text-slate-300 mb-1">Phone</label>
+                                <input type="tel" id="field-phone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white">
                             </div>
                         </div>
-                        <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs px-6 py-2.5 rounded-xl transition">Submit & Save to Profile</button>
+                        <button type="submit" class="bg-accent-500 text-slate-950 font-bold px-6 py-2.5 rounded-xl">Save Details</button>
                     </form>
                 </div>
 
-                <!-- TAB 7: MY INVOICES -->
-                <div id="tab-my-invoices" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">My Invoices</h2>
-                    <div id="user-invoices-container" class="text-xs text-slate-400"><p>No purchase invoices found.</p></div>
-                </div>
-
-                <!-- TAB 8: MY CREDIT CARDS -->
-                <div id="tab-my-credit-cards" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Saved Payment Methods</h2>
-                    <div id="user-payment-methods-container" class="text-xs text-slate-400"><p>No credit cards saved.</p></div>
-                </div>
-
-                <!-- TAB 9: EMAIL PREFERENCES (SYNCED WITH FIRESTORE) -->
+                <!-- TAB: EMAIL PREFERENCES -->
                 <div id="tab-email-preferences" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
                     <h2 class="text-lg font-bold text-white pb-3 border-b border-slate-800">Email Preferences</h2>
                     <form id="email-prefs-form" class="space-y-3">
                         <label class="flex items-center gap-3 text-slate-300">
-                            <input type="checkbox" id="pref-marketing" name="marketing" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Receive news, product announcements, and discount codes
+                            <input type="checkbox" id="pref-marketing" class="rounded text-accent-500"> Receive promotional news & discounts
                         </label>
                         <label class="flex items-center gap-3 text-slate-300">
-                            <input type="checkbox" id="pref-updates" name="updates" class="rounded bg-slate-950 border-slate-800 text-accent-500"> Receive security updates and license notices
+                            <input type="checkbox" id="pref-updates" class="rounded text-accent-500"> Receive product security & update notices
                         </label>
-                        <button type="submit" class="mt-2 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs px-5 py-2 rounded-xl transition">Update Preferences</button>
+                        <button type="submit" class="bg-accent-500 text-slate-950 font-bold px-5 py-2 rounded-xl">Save Preferences</button>
                     </form>
-                </div>
-
-                <!-- TAB 10: MY COUPONS -->
-                <div id="tab-my-coupons" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">My Coupons</h2>
-                    <div id="user-coupons-container" class="text-xs text-slate-400"><p>No active promotional vouchers available.</p></div>
                 </div>
 
             </section>
         </div>
     </main>
 
-    <!-- SHOPPING CART MODAL DRAWER -->
-    <div id="cart-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden transition-opacity">
+    <!-- MODAL DRAWER: CART -->
+    <div id="cart-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden">
         <div class="fixed right-0 top-0 h-full w-full max-w-md bg-slate-900 border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
             <div>
                 <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-accent-500"></i> Shopping Cart</h3>
-                    <button type="button" id="close-cart-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <h3 class="text-base font-bold text-white"><i class="fa-solid fa-cart-shopping text-accent-500"></i> Shopping Cart</h3>
+                    <button id="close-cart-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div id="cart-modal-items" class="py-6 text-xs text-slate-400 text-center">Your shopping cart is empty.</div>
+                <div class="py-6 text-xs text-slate-400 text-center">Your cart is empty.</div>
             </div>
-            <div class="pt-4 border-t border-slate-800">
-                <div class="flex justify-between text-xs font-bold text-white mb-4"><span>Total:</span><span id="cart-total-price">$0.00</span></div>
-                <button type="button" class="w-full bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs py-3 rounded-xl transition">Proceed to Checkout</button>
-            </div>
+            <button class="w-full bg-accent-500 text-slate-950 font-bold text-xs py-3 rounded-xl">Checkout</button>
         </div>
     </div>
 
-    <!-- NOTIFICATIONS MODAL -->
+    <!-- MODAL DRAWER: NOTIFICATIONS -->
     <div id="notifications-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden">
         <div class="fixed right-0 top-0 h-full w-full max-w-sm bg-slate-900 border-l border-slate-800 p-6 flex flex-col shadow-2xl">
             <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-regular fa-bell text-accent-500"></i> Notifications</h3>
-                <button type="button" id="close-notifications-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <h3 class="text-base font-bold text-white"><i class="fa-regular fa-bell text-accent-500"></i> Notifications</h3>
+                <button id="close-notifications-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div id="notifications-modal-list" class="py-6 text-xs text-slate-400 text-center flex-grow">No new notifications.</div>
+            <div class="py-6 text-xs text-slate-400 text-center">No new notifications.</div>
         </div>
     </div>
 
-    <!-- FIRESTORE INTEGRATION & CLIENT SCRIPTS -->
+    <!-- CLIENT SCRIPT & FIRESTORE INTEGRATION -->
     <script type="module">
-        import { auth, db, signOut, onAuthStateChanged, doc, getDoc, setDoc, updateDoc } from '../assets/js/firebase-client.js';
+        // Direct SDK Imports (Avoid export errors from local wrapper)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Import your standard firebase config if needed or use existing auth module
+        import { auth, db } from '../assets/js/firebase-client.js';
 
         let currentUser = null;
 
-        // --- STICKY DROPDOWN CONTROL ---
-        const userMenuBtn = document.getElementById('user-menu-btn');
-        const userMenuDropdown = document.getElementById('user-menu-dropdown');
-
-        userMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userMenuDropdown.classList.toggle('hidden');
-        });
-
-        window.closeDropdown = () => userMenuDropdown.classList.add('hidden');
-        document.addEventListener('click', () => closeDropdown());
-
-        // --- MODAL CONTROLS ---
-        const cartOverlay = document.getElementById('cart-modal-overlay');
-        const notificationsOverlay = document.getElementById('notifications-modal-overlay');
-
-        document.getElementById('open-cart-modal').addEventListener('click', () => cartOverlay.classList.remove('hidden'));
-        document.getElementById('close-cart-modal').addEventListener('click', () => cartOverlay.classList.add('hidden'));
-
-        document.getElementById('open-notifications-modal').addEventListener('click', () => notificationsOverlay.classList.remove('hidden'));
-        document.getElementById('close-notifications-modal').addEventListener('click', () => notificationsOverlay.classList.add('hidden'));
-
-        // --- THEME SWATCH & ACCENT SYSTEM ---
-        window.setAccentTheme = function(themeName) {
-            document.documentElement.setAttribute('data-accent', themeName);
-            localStorage.setItem('diaspora_accent', themeName);
-        };
-
-        const savedAccent = localStorage.getItem('diaspora_accent') || 'blue';
-        setAccentTheme(savedAccent);
-
-        // --- DARK / LIGHT MODE SWITCHER ---
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        darkModeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('diaspora_theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-        });
-
-        // --- FIRESTORE PROFILE SYNC ---
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = '/login/';
-                return;
-            }
-
-            currentUser = user;
-            document.getElementById('user-email-header').textContent = user.email;
-            document.getElementById('user-name-display').textContent = user.displayName || user.email.split('@')[0];
-            document.getElementById('field-username').value = user.email;
-            document.getElementById('field-email').value = user.email;
-
-            // Load user document from Firestore
-            try {
-                const userDocRef = doc(db, 'users', user.uid);
-                const docSnap = await getDoc(userDocRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-
-                    // Personal details population
-                    if (data.firstName) document.getElementById('field-first-name').value = data.firstName;
-                    if (data.lastName) document.getElementById('field-last-name').value = data.lastName;
-                    if (data.phone) document.getElementById('field-phone').value = data.phone;
-                    if (data.company) document.getElementById('field-company').value = data.company;
-                    if (data.address) document.getElementById('field-address').value = data.address;
-                    if (data.city) document.getElementById('field-city').value = data.city;
-
-                    // Roles population (About Me)
-                    if (data.roles && Array.isArray(data.roles)) {
-                        document.querySelectorAll('input[name="roles"]').forEach(cb => {
-                            cb.checked = data.roles.includes(cb.value);
-                        });
-                    }
-
-                    // Preferences
-                    if (data.emailPreferences) {
-                        document.getElementById('pref-marketing').checked = !!data.emailPreferences.marketing;
-                        document.getElementById('pref-updates').checked = !!data.emailPreferences.updates;
-                    }
-                }
-            } catch (err) {
-                console.error("Firestore loading error:", err);
-            }
-        });
-
-        // --- SAVE PERSONAL DETAILS TO FIRESTORE ---
-        document.getElementById('personal-details-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-
-            const payload = {
-                firstName: document.getElementById('field-first-name').value,
-                lastName: document.getElementById('field-last-name').value,
-                phone: document.getElementById('field-phone').value,
-                company: document.getElementById('field-company').value,
-                address: document.getElementById('field-address').value,
-                city: document.getElementById('field-city').value,
-                updatedAt: new Date().toISOString()
-            };
-
-            try {
-                await setDoc(doc(db, 'users', currentUser.uid), payload, { merge: true });
-                alert("Personal details updated successfully in Firestore!");
-            } catch (err) {
-                console.error("Error updating profile:", err);
-            }
-        });
-
-        // --- SAVE ABOUT ME ROLES TO FIRESTORE ---
-        document.getElementById('about-me-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-
-            const selectedRoles = Array.from(document.querySelectorAll('input[name="roles"]:checked')).map(cb => cb.value);
-
-            try {
-                await setDoc(doc(db, 'users', currentUser.uid), { roles: selectedRoles, updatedAt: new Date().toISOString() }, { merge: true });
-                alert("About Me roles synced with Firestore!");
-            } catch (err) {
-                console.error("Error saving roles:", err);
-            }
-        });
-
-        // --- SAVE EMAIL PREFERENCES TO FIRESTORE ---
-        document.getElementById('email-prefs-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-
-            const prefs = {
-                marketing: document.getElementById('pref-marketing').checked,
-                updates: document.getElementById('pref-updates').checked
-            };
-
-            try {
-                await setDoc(doc(db, 'users', currentUser.uid), { emailPreferences: prefs, updatedAt: new Date().toISOString() }, { merge: true });
-                alert("Email preferences saved to Firestore!");
-            } catch (err) {
-                console.error("Error saving preferences:", err);
-            }
-        });
-
-        // --- SEARCH BAR MENU FILTER ---
-        document.getElementById('global-search').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            document.querySelectorAll('.tab-link').forEach(link => {
-                const text = link.textContent.toLowerCase();
-                link.parentElement.style.display = text.includes(query) ? 'block' : 'none';
-            });
-        });
-
-        // --- LOGOUT LOGIC ---
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await signOut(auth);
-            window.location.href = '/login/';
-        });
-
-        // --- TAB SWITCHER ---
-        window.switchTab = function(tabId) {
+        // --- 1. TAB SWITCHER (BOUND PROGRAMMATICALLY) ---
+        function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`tab-${tabId}`);
             if (target) target.classList.remove('hidden');
@@ -571,9 +301,134 @@
             const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
             if (activeBtn) {
                 activeBtn.className = "tab-link w-full text-left px-3 py-2 rounded-lg text-accent-500 font-semibold bg-accent-bg border border-accent-border";
-                document.getElementById('breadcrumb-current').textContent = activeBtn.textContent;
             }
-        };
+        }
+
+        document.querySelectorAll('[data-tab]').forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        document.querySelectorAll('.dropdown-link').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab(btn.dataset.navTarget);
+                document.getElementById('user-menu-dropdown').classList.add('hidden');
+            });
+        });
+
+        // --- 2. ACCENT & THEME SYSTEM ---
+        function setAccentTheme(themeName) {
+            document.documentElement.setAttribute('data-accent', themeName);
+            localStorage.setItem('diaspora_accent', themeName);
+        }
+
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => setAccentTheme(btn.dataset.accentBtn));
+        });
+
+        const savedAccent = localStorage.getItem('diaspora_accent') || 'blue';
+        setAccentTheme(savedAccent);
+
+        // --- 3. STICKY USER DROPDOWN & MODALS ---
+        const userMenuBtn = document.getElementById('user-menu-btn');
+        const userMenuDropdown = document.getElementById('user-menu-dropdown');
+
+        userMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userMenuDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', () => userMenuDropdown.classList.add('hidden'));
+
+        // Modals
+        document.getElementById('open-cart-modal').addEventListener('click', () => {
+            document.getElementById('cart-modal-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-cart-modal').addEventListener('click', () => {
+            document.getElementById('cart-modal-overlay').classList.add('hidden');
+        });
+
+        document.getElementById('open-notifications-modal').addEventListener('click', () => {
+            document.getElementById('notifications-modal-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-notifications-modal').addEventListener('click', () => {
+            document.getElementById('notifications-modal-overlay').classList.add('hidden');
+        });
+
+        // --- 4. FIRESTORE USER SYNC ---
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = '/login/';
+                return;
+            }
+
+            currentUser = user;
+            document.getElementById('user-email-header').textContent = user.email;
+            document.getElementById('user-name-display').textContent = user.displayName || user.email.split('@')[0];
+            document.getElementById('field-email').value = user.email;
+
+            try {
+                const userDocRef = doc(db, 'users', user.uid);
+                const docSnap = await getDoc(userDocRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    if (data.firstName) document.getElementById('field-first-name').value = data.firstName;
+                    if (data.lastName) document.getElementById('field-last-name').value = data.lastName;
+                    if (data.phone) document.getElementById('field-phone').value = data.phone;
+                    
+                    if (data.roles && Array.isArray(data.roles)) {
+                        document.querySelectorAll('input[name="roles"]').forEach(cb => {
+                            cb.checked = data.roles.includes(cb.value);
+                        });
+                    }
+                    if (data.emailPreferences) {
+                        document.getElementById('pref-marketing').checked = !!data.emailPreferences.marketing;
+                        document.getElementById('pref-updates').checked = !!data.emailPreferences.updates;
+                    }
+                }
+            } catch (err) {
+                console.error("Firestore sync error:", err);
+            }
+        });
+
+        // Save Forms to Firestore
+        document.getElementById('personal-details-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+            await setDoc(doc(db, 'users', currentUser.uid), {
+                firstName: document.getElementById('field-first-name').value,
+                lastName: document.getElementById('field-last-name').value,
+                phone: document.getElementById('field-phone').value,
+                updatedAt: new Date().toISOString()
+            }, { merge: true });
+            alert("Details saved to Firestore!");
+        });
+
+        document.getElementById('about-me-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+            const roles = Array.from(document.querySelectorAll('input[name="roles"]:checked')).map(cb => cb.value);
+            await setDoc(doc(db, 'users', currentUser.uid), { roles, updatedAt: new Date().toISOString() }, { merge: true });
+            alert("Roles saved to Firestore!");
+        });
+
+        document.getElementById('email-prefs-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser) return;
+            await setDoc(doc(db, 'users', currentUser.uid), {
+                emailPreferences: {
+                    marketing: document.getElementById('pref-marketing').checked,
+                    updates: document.getElementById('pref-updates').checked
+                }
+            }, { merge: true });
+            alert("Preferences saved to Firestore!");
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await signOut(auth);
+            window.location.href = '/login/';
+        });
     </script>
 </body>
 </html>
