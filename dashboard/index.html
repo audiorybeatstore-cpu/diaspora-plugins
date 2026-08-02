@@ -67,7 +67,7 @@
 </head>
 <body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative">
 
-    <!-- TOAST NOTIFICATION CONTAINER (REPLACES JS ALERTS) -->
+    <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- PROMOTIONAL BANNER -->
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <!-- Right Controls -->
+            <!-- Right Controls (Desktop Only Icons hidden on mobile to avoid overflow) -->
             <div class="flex items-center gap-2 lg:gap-3 text-xs">
                 
                 <!-- Live Search -->
@@ -115,7 +115,7 @@
 
                 <!-- Theme & Accent Dropdown Switcher -->
                 <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2 py-1.5 rounded-xl">
-                    <button type="button" id="dark-mode-toggle" title="Toggle Light/Dark Mode" class="p-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">
+                    <button type="button" class="dark-mode-toggle p-1 text-slate-600 dark:text-slate-300 hover:text-accent-500" title="Toggle Light/Dark Mode">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
                     </button>
@@ -123,11 +123,11 @@
                     
                     <!-- Color Dropdown -->
                     <div class="relative">
-                        <button type="button" id="accent-dropdown-btn" class="flex items-center gap-1 p-1">
-                            <span id="current-color-dot" class="w-3.5 h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-1">
+                            <span class="w-3.5 h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
                             <i class="fa-solid fa-chevron-down text-[9px] text-slate-500"></i>
                         </button>
-                        <div id="accent-dropdown-menu" class="hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                        <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
                             <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition"></button>
                             <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition"></button>
                             <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition"></button>
@@ -137,49 +137,67 @@
                     </div>
                 </div>
 
-                <!-- Notifications Modal Button -->
-                <button type="button" id="open-notifications-modal" class="relative text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white p-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-xl transition">
+                <!-- Notifications Modal Button (Hidden on small mobile screens, moved to mobile drawer) -->
+                <button type="button" class="open-notifications-btn hidden sm:flex relative text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white p-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-xl transition">
                     <i class="fa-regular fa-bell text-sm"></i>
-                    <span id="unread-count" class="hidden absolute -top-1 -right-1 bg-accent-500 text-slate-950 text-[9px] font-bold w-4 h-4 rounded-full items-center justify-center">0</span>
+                    <span class="unread-count hidden absolute -top-1 -right-1 bg-accent-500 text-slate-950 text-[9px] font-bold w-4 h-4 rounded-full items-center justify-center">0</span>
                 </button>
 
-                <!-- Sticky User Dropdown -->
-                <div class="relative">
+                <!-- User Dropdown (Hidden on small mobile screens, moved to mobile drawer) -->
+                <div class="relative hidden sm:block">
                     <button type="button" id="user-menu-btn" class="flex items-center gap-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-3 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-700 transition">
                         <i class="fa-solid fa-circle-user text-accent-500"></i>
-                        <span id="user-email-header" class="max-w-[110px] sm:max-w-[140px] truncate font-medium">officialbigi10@gmail.c...</span>
+                        <span class="user-email-header max-w-[110px] sm:max-w-[140px] truncate font-medium">...</span>
                         <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i>
                     </button>
                     
                     <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl py-2 z-50">
-                        <button type="button" data-nav-target="personal-details" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">Personal Details</button>
-                        <button type="button" data-nav-target="about-me" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">About Me</button>
-                        <button type="button" data-nav-target="email-preferences" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">Email Preferences</button>
+                        <button type="button" data-nav-target="personal-details" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition">Personal Details</button>
+                        <button type="button" data-nav-target="about-me" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition">About Me</button>
+                        <button type="button" data-nav-target="email-preferences" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 transition">Email Preferences</button>
                         <div class="border-t border-slate-200 dark:border-slate-800 my-1"></div>
-                        <button type="button" id="logout-btn" class="w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800/80 flex items-center gap-2 transition">
+                        <button type="button" class="logout-btn w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800/80 flex items-center gap-2 transition">
                             <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                         </button>
                     </div>
                 </div>
 
-                <!-- Modal Cart Drawer Trigger -->
-                <button type="button" id="open-cart-modal" class="flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-slate-950 px-3 py-1.5 rounded-xl font-bold transition">
+                <!-- Modal Cart Drawer Trigger (Hidden on small mobile screens, moved to mobile drawer) -->
+                <button type="button" class="open-cart-btn hidden sm:flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-slate-950 px-3 py-1.5 rounded-xl font-bold transition">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count" class="bg-slate-950 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                    <span class="cart-count bg-slate-950 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
                 </button>
             </div>
         </nav>
     </header>
 
-    <!-- MOBILE HAMBURGER DRAWER -->
+    <!-- MOBILE HAMBURGER DRAWER WITH INTEGRATED ACCOUNT ACTIONS -->
     <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
         <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between overflow-y-auto">
             <div>
+                <!-- Header with Close Button -->
                 <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
                     <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
                     <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
 
+                <!-- User Profile Summary & Quick Actions on Mobile -->
+                <div class="bg-slate-50 dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-xl p-3 mb-6">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-circle-user text-accent-500 text-lg"></i>
+                        <span class="user-email-header text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">...</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <button type="button" class="open-notifications-btn flex items-center justify-center gap-2 py-2 px-3 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-lg font-bold text-slate-700 dark:text-slate-300">
+                            <i class="fa-regular fa-bell text-accent-500"></i> Alerts
+                        </button>
+                        <button type="button" class="open-cart-btn flex items-center justify-center gap-2 py-2 px-3 bg-accent-500 text-slate-950 rounded-lg font-bold">
+                            <i class="fa-solid fa-cart-shopping"></i> Cart (<span class="cart-count">0</span>)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Links -->
                 <div class="space-y-6 text-xs">
                     <div>
                         <h4 class="font-bold text-slate-400 uppercase tracking-wider mb-2">PRODUCTS</h4>
@@ -212,6 +230,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sign Out Button on Mobile -->
+            <div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+                <button type="button" class="logout-btn w-full py-2.5 text-center text-xs font-bold text-red-500 bg-red-500/10 hover:bg-red-500/20 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                </button>
+            </div>
         </div>
     </div>
 
@@ -230,7 +255,7 @@
     <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8">
         
         <div class="mb-6">
-            <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Welcome, <span id="user-name-display" class="text-accent-500">ismael kombo</span></h1>
+            <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Welcome, <span id="user-name-display" class="text-accent-500">...</span></h1>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
@@ -284,13 +309,13 @@
                     </div>
                 </div>
 
-                <!-- TAB 2: PLUGINS PICKED FOR ME -->
+                <!-- TAB 2: PLUGINS PICKED FOR ME (DYNAMIC FIRESTORE CONTENT) -->
                 <div id="tab-plugins-picked" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
                     <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">Plugins Picked for Me</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-500 dark:text-slate-400">
-                        <div class="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50 dark:bg-[#080d1a]">
-                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Vocal Precision Rack</h4>
-                            <p class="mt-1">AI-assisted vocal tuning & dynamics processing plugin.</p>
+                    <div id="plugins-picked-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-500 dark:text-slate-400">
+                        <div class="col-span-full text-center py-8">
+                            <i class="fa-solid fa-spinner fa-spin text-accent-500 text-2xl mb-2"></i>
+                            <p>Loading personalized recommendations...</p>
                         </div>
                     </div>
                 </div>
@@ -417,7 +442,7 @@
             <div>
                 <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
                     <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-accent-500"></i> Shopping Cart</h3>
-                    <button type="button" id="close-cart-modal" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button type="button" class="close-cart-modal text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
                 <div class="py-8 text-xs text-slate-500 dark:text-slate-400 text-center">Your shopping cart is currently empty.</div>
             </div>
@@ -432,7 +457,7 @@
         <div class="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-[#0e1628] border-l border-slate-200 dark:border-slate-800 p-6 flex flex-col shadow-2xl">
             <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
                 <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-regular fa-bell text-accent-500"></i> Notifications</h3>
-                <button type="button" id="close-notifications-modal" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button type="button" class="close-notifications-modal text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="py-8 text-xs text-slate-500 dark:text-slate-400 text-center">No new notifications at this time.</div>
         </div>
@@ -442,11 +467,11 @@
     <script type="module">
         import { auth, db } from '../assets/js/firebase-client.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         let currentUser = null;
 
-        // --- REPLACEMENT FOR JS POPUPS (CUSTOM TOAST) ---
+        // Custom Toast Notification
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -462,19 +487,17 @@
 
             container.appendChild(toast);
 
-            // Animate In
             requestAnimationFrame(() => {
                 toast.classList.remove('translate-y-4', 'opacity-0');
             });
 
-            // Animate Out & Remove after 3.5 seconds
             setTimeout(() => {
                 toast.classList.add('translate-y-4', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
 
-        // --- 1. TAB & BREADCRUMB SWITCHER ---
+        // 1. TAB & BREADCRUMB SWITCHER
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`tab-${tabId}`);
@@ -502,7 +525,6 @@
             });
         });
 
-        // Mobile drawer tab links
         document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 switchTab(btn.dataset.mobileTab);
@@ -510,45 +532,42 @@
             });
         });
 
-        // --- 2. ACCENT COLOR DROPDOWN & DARK/LIGHT MODE ---
+        // 2. ACCENT COLOR & THEME SWITCHER
         function setAccentTheme(themeName) {
             document.documentElement.setAttribute('data-accent', themeName);
             localStorage.setItem('diaspora_accent', themeName);
         }
 
-        const accentDropdownBtn = document.getElementById('accent-dropdown-btn');
-        const accentDropdownMenu = document.getElementById('accent-dropdown-menu');
-
-        accentDropdownBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            accentDropdownMenu.classList.toggle('hidden');
+        document.querySelectorAll('.accent-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.nextElementSibling.classList.toggle('hidden');
+            });
         });
 
         document.querySelectorAll('[data-accent-btn]').forEach(btn => {
             btn.addEventListener('click', () => {
                 setAccentTheme(btn.dataset.accentBtn);
-                accentDropdownMenu.classList.add('hidden');
+                document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
             });
         });
 
-        // Restore Accent
         setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
 
-        // Dark / Light Toggle
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        darkModeToggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+            });
         });
 
-        // Restore Mode
         if (localStorage.getItem('diaspora_theme') === 'light') {
             document.documentElement.classList.remove('dark');
         } else {
             document.documentElement.classList.add('dark');
         }
 
-        // --- 3. MOBILE MENU TOGGLE ---
+        // 3. MOBILE MENU & DRAWER TOGGLE
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileDrawerOverlay = document.getElementById('mobile-drawer-overlay');
         const closeMobileDrawer = document.getElementById('close-mobile-drawer');
@@ -556,33 +575,41 @@
         mobileMenuBtn.addEventListener('click', () => mobileDrawerOverlay.classList.remove('hidden'));
         closeMobileDrawer.addEventListener('click', () => mobileDrawerOverlay.classList.add('hidden'));
 
-        // --- 4. STICKY USER DROPDOWN & MODALS ---
+        // 4. USER DROPDOWN & MODALS
         const userMenuBtn = document.getElementById('user-menu-btn');
         const userMenuDropdown = document.getElementById('user-menu-dropdown');
 
-        userMenuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userMenuDropdown.classList.toggle('hidden');
-        });
+        if (userMenuBtn) {
+            userMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userMenuDropdown.classList.toggle('hidden');
+            });
+        }
 
         document.addEventListener('click', () => {
-            userMenuDropdown.classList.add('hidden');
-            accentDropdownMenu.classList.add('hidden');
+            if (userMenuDropdown) userMenuDropdown.classList.add('hidden');
+            document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
         });
 
-        // Modals
-        document.getElementById('open-cart-modal').addEventListener('click', () => {
-            document.getElementById('cart-modal-overlay').classList.remove('hidden');
+        // Modals listeners
+        document.querySelectorAll('.open-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('cart-modal-overlay').classList.remove('hidden');
+                mobileDrawerOverlay.classList.add('hidden');
+            });
         });
-        document.getElementById('close-cart-modal').addEventListener('click', () => {
-            document.getElementById('cart-modal-overlay').classList.add('hidden');
+        document.querySelectorAll('.close-cart-modal').forEach(btn => {
+            btn.addEventListener('click', () => document.getElementById('cart-modal-overlay').classList.add('hidden'));
         });
 
-        document.getElementById('open-notifications-modal').addEventListener('click', () => {
-            document.getElementById('notifications-modal-overlay').classList.remove('hidden');
+        document.querySelectorAll('.open-notifications-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('notifications-modal-overlay').classList.remove('hidden');
+                mobileDrawerOverlay.classList.add('hidden');
+            });
         });
-        document.getElementById('close-notifications-modal').addEventListener('click', () => {
-            document.getElementById('notifications-modal-overlay').classList.add('hidden');
+        document.querySelectorAll('.close-notifications-modal').forEach(btn => {
+            btn.addEventListener('click', () => document.getElementById('notifications-modal-overlay').classList.add('hidden'));
         });
 
         // Banner Close
@@ -599,7 +626,7 @@
             });
         });
 
-        // --- 5. FIRESTORE AUTH & DATA ---
+        // 5. FIRESTORE AUTH & DYNAMIC DATA LOADING
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 window.location.href = '/login/';
@@ -607,16 +634,20 @@
             }
 
             currentUser = user;
-            document.getElementById('user-email-header').textContent = user.email;
-            document.getElementById('user-name-display').textContent = user.displayName || user.email.split('@')[0];
-            document.getElementById('field-email').value = user.email;
+
+            // Set Email & Display Name across desktop & mobile UI
+            document.querySelectorAll('.user-email-header').forEach(el => el.textContent = user.email);
+            const userDocRef = doc(db, 'users', user.uid);
 
             try {
-                const userDocRef = doc(db, 'users', user.uid);
                 const docSnap = await getDoc(userDocRef);
+                let fullName = '';
 
                 if (docSnap.exists()) {
                     const data = docSnap.data();
+                    if (data.firstName || data.lastName) {
+                        fullName = `${data.firstName || ''} ${data.lastName || ''}`.trim();
+                    }
                     if (data.firstName) document.getElementById('field-first-name').value = data.firstName;
                     if (data.lastName) document.getElementById('field-last-name').value = data.lastName;
                     if (data.phone) document.getElementById('field-phone').value = data.phone;
@@ -631,22 +662,94 @@
                         document.getElementById('pref-updates').checked = !!data.emailPreferences.updates;
                     }
                 }
+
+                document.getElementById('user-name-display').textContent = fullName || user.displayName || user.email.split('@')[0];
+                document.getElementById('field-email').value = user.email;
+
+                // Load Picked Plugins dynamically from Firestore
+                await loadPickedPlugins(user.uid);
+
             } catch (err) {
                 console.error("Firestore sync error:", err);
             }
         });
 
-        // Save Forms with Custom Toast Alerts
+        // DYNAMIC FIRESTORE FUNCTION FOR "PLUGINS PICKED FOR ME"
+        async function loadPickedPlugins(uid) {
+            const container = document.getElementById('plugins-picked-container');
+            try {
+                // Fetch from user-specific subcollection or global recommended collection
+                const pickedColRef = collection(db, 'users', uid, 'picked_plugins');
+                const snapshot = await getDocs(pickedColRef);
+
+                if (snapshot.empty) {
+                    // Try fallback to global recommendations
+                    const globalColRef = collection(db, 'picked_plugins');
+                    const globalSnapshot = await getDocs(globalColRef);
+
+                    if (globalSnapshot.empty) {
+                        container.innerHTML = `
+                            <div class="col-span-full text-center py-12 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-[#080d1a]">
+                                <i class="fa-solid fa-wand-magic-sparkles text-3xl text-slate-400 mb-2"></i>
+                                <p class="text-sm font-bold text-slate-800 dark:text-white">No plugin recommendations yet.</p>
+                                <p class="text-xs text-slate-500">Check back later for personalized picks!</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    renderPluginCards(container, globalSnapshot);
+                    return;
+                }
+
+                renderPluginCards(container, snapshot);
+
+            } catch (err) {
+                console.error("Error loading picked plugins:", err);
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-xs text-red-400">
+                        Failed to load recommendations. Please try refreshing.
+                    </div>
+                `;
+            }
+        }
+
+        function renderPluginCards(container, snapshot) {
+            let html = '';
+            snapshot.forEach(doc => {
+                const item = doc.data();
+                html += `
+                    <div class="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50 dark:bg-[#080d1a] flex flex-col justify-between hover:border-accent-border transition">
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <h4 class="font-bold text-slate-900 dark:text-white text-sm">${item.name || 'Untitled Plugin'}</h4>
+                                ${item.badge ? `<span class="bg-accent-500/20 text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded-full">${item.badge}</span>` : ''}
+                            </div>
+                            <p class="mt-1 text-slate-500 dark:text-slate-400 leading-relaxed">${item.description || 'No description available.'}</p>
+                        </div>
+                        ${item.link ? `<a href="${item.link}" class="mt-3 inline-block font-bold text-accent-500 hover:underline text-xs">Learn More &raquo;</a>` : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // SAVE FORM HANDLERS
         document.getElementById('personal-details-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUser) return;
             try {
+                const firstName = document.getElementById('field-first-name').value;
+                const lastName = document.getElementById('field-last-name').value;
                 await setDoc(doc(db, 'users', currentUser.uid), {
-                    firstName: document.getElementById('field-first-name').value,
-                    lastName: document.getElementById('field-last-name').value,
+                    firstName,
+                    lastName,
                     phone: document.getElementById('field-phone').value,
                     updatedAt: new Date().toISOString()
                 }, { merge: true });
+
+                const fullName = `${firstName} ${lastName}`.trim();
+                if (fullName) document.getElementById('user-name-display').textContent = fullName;
                 showToast("Personal details saved successfully!");
             } catch(err) {
                 showToast("Failed to save personal details.", "error");
@@ -687,10 +790,12 @@
             showToast("Serial key processing standard...");
         });
 
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            await signOut(auth);
-            window.location.href = '/login/';
+        // Sign Out Event Listeners (Desktop & Mobile)
+        document.querySelectorAll('.logout-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                await signOut(auth);
+                window.location.href = '/login/';
+            });
         });
     </script>
 </body>
