@@ -234,46 +234,45 @@
         });
     </script>
 
-    <!-- Supabase Login Integration -->
-    <script type="module">
-        import { supabase } from '../assets/js/supabase-client.js';
+    <!-- Firebase Login Integration -->
+<script type="module">
+    import { auth, signInWithEmailAndPassword } from '../assets/js/firebase-client.js';
 
-        const loginForm = document.getElementById('login-form');
-        const alertBox = document.getElementById('alert-box');
-        const submitBtn = document.getElementById('submit-btn');
+    const loginForm = document.getElementById('login-form');
+    const alertBox = document.getElementById('alert-box');
+    const submitBtn = document.getElementById('submit-btn');
 
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            // Loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin text-xs"></i> Logging in...`;
-            alertBox.classList.add('hidden');
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin text-xs"></i> Logging in...`;
+        alertBox.classList.add('hidden');
 
-            try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password,
-                });
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            
+            // Success! Redirect to dashboard
+            window.location.href = '/dashboard/';
 
-                if (error) throw error;
-
-                // Redirect user to dashboard
-                window.location.href = '/dashboard/';
-
-            } catch (err) {
-                // Show error message
-                alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-red-500/10 border-red-500/30 text-red-400";
-                alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${err.message}`;
-                alertBox.classList.remove('hidden');
-                
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<span>Log In</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+        } catch (err) {
+            let message = 'Failed to log in. Please check your credentials.';
+            if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+                message = 'Invalid email or password.';
             }
-        });
-    </script>
+
+            alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-red-500/10 border-red-500/30 text-red-400";
+            alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${message}`;
+            alertBox.classList.remove('hidden');
+            
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>Log In</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+        }
+    });
+</script>
 </body>
 </html>
