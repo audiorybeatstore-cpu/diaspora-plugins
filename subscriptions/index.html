@@ -1,1 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions & Membership | Diaspora Plugins</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: {
+                            500: 'var(--accent-500)',
+                            600: 'var(--accent-600)',
+                            bg: 'var(--accent-bg)',
+                            border: 'var(--accent-border)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root[data-accent="blue"] {
+            --accent-500: #3b82f6;
+            --accent-600: #2563eb;
+            --accent-bg: rgba(59, 130, 246, 0.15);
+            --accent-border: rgba(59, 130, 246, 0.4);
+        }
+        :root[data-accent="red"] {
+            --accent-500: #ef4444;
+            --accent-600: #dc2626;
+            --accent-bg: rgba(239, 68, 68, 0.15);
+            --accent-border: rgba(239, 68, 68, 0.4);
+        }
+        :root[data-accent="green"] {
+            --accent-500: #10b981;
+            --accent-600: #059669;
+            --accent-bg: rgba(16, 185, 129, 0.15);
+            --accent-border: rgba(16, 185, 129, 0.4);
+        }
+        :root[data-accent="yellow"] {
+            --accent-500: #eab308;
+            --accent-600: #ca8a04;
+            --accent-bg: rgba(234, 179, 8, 0.15);
+            --accent-border: rgba(234, 179, 8, 0.4);
+        }
+        :root[data-accent="brown"] {
+            --accent-500: #a16207;
+            --accent-600: #854d0e;
+            --accent-bg: rgba(161, 98, 7, 0.15);
+            --accent-border: rgba(161, 98, 7, 0.4);
+        }
 
+        .bg-accent-500 { background-color: var(--accent-500); }
+        .bg-accent-600 { background-color: var(--accent-600); }
+        .bg-accent-bg { background-color: var(--accent-bg); }
+        .text-accent-500 { color: var(--accent-500); }
+        .border-accent-border { border-color: var(--accent-border); }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative">
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- MAIN HEADER NAVIGATION -->
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <nav class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
+            
+            <!-- Left Logo & Navigation Links -->
+            <div class="flex items-center gap-4 lg:gap-8">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-2 text-lg">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <a href="/" class="flex items-center gap-2 font-black text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap">
+                    <span class="bg-accent-500 text-slate-950 px-2 py-0.5 rounded text-sm font-black shadow-md">DP</span>
+                    DIASPORA <span class="text-accent-500 font-normal">PLUGINS</span>
+                </a>
+
+                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                    <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
+                    <a href="/subscriptions/" class="text-accent-500 transition">SUBSCRIPTIONS</a>
+                    <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
+                    <a href="/support/" class="hover:text-accent-500 transition">SUPPORT</a>
+                    <a href="/learn/" class="hover:text-accent-500 transition">LEARN</a>
+                </div>
+            </div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-2 lg:gap-3 text-xs">
+                <!-- Theme Switcher -->
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2 py-1.5 rounded-xl">
+                    <button type="button" class="dark-mode-toggle p-1 text-slate-600 dark:text-slate-300 hover:text-accent-500" title="Toggle Light/Dark Mode">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
+                    <div class="relative">
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-1">
+                            <span class="w-3.5 h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[9px] text-slate-500"></i>
+                        </button>
+                        <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                            <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="yellow" class="w-4 h-4 rounded-full bg-yellow-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="brown" class="w-4 h-4 rounded-full bg-yellow-800 hover:scale-125 transition"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account State Button -->
+                <div id="auth-state-container">
+                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-4 py-2 rounded-xl font-bold transition">Sign In</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
+        <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+                    <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
+                    <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="space-y-3 text-xs font-bold uppercase tracking-wider flex flex-col">
+                    <a href="/products/" class="py-2 text-slate-700 dark:text-slate-300">Products</a>
+                    <a href="/subscriptions/" class="py-2 text-accent-500">Subscriptions</a>
+                    <a href="/downloads/" class="py-2 text-slate-700 dark:text-slate-300">Downloads</a>
+                    <a href="/support/" class="py-2 text-slate-700 dark:text-slate-300">Support</a>
+                    <a href="/dashboard/" class="py-2 text-slate-700 dark:text-slate-300">My Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BREADCRUMBS -->
+    <div class="bg-slate-200 dark:bg-[#050811] border-b border-slate-300 dark:border-slate-800/60 py-2.5 px-4 lg:px-8 text-[11px] text-slate-600 dark:text-slate-400">
+        <div class="max-w-[1440px] mx-auto flex items-center gap-2">
+            <a href="/" class="hover:text-slate-900 dark:hover:text-slate-200">Diaspora</a>
+            <span>&rsaquo;</span>
+            <span class="text-slate-900 dark:text-white font-medium">Subscriptions</span>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-12">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+                Unlock Everything with <span class="text-accent-500">Diaspora Pass</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Get unlimited access to our entire suite of premium plugins, future releases, and priority support with flexible billing options.
+            </p>
+        </div>
+
+        <!-- PRICING CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
+            
+            <!-- MONTHLY PLAN -->
+            <div class="bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-accent-border transition">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Monthly Pass</h3>
+                    <p class="text-xs text-slate-500 mb-6">Flexibility to cancel anytime with zero commitments.</p>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-black text-slate-900 dark:text-white">$19.99</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">/ month</span>
+                    </div>
+                    <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all 30+ plugins</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Continuous updates</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> 2 Machine licenses</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Standard support</li>
+                    </ul>
+                </div>
+                <button type="button" data-plan-id="monthly" data-plan-name="Monthly Pass" data-plan-price="19.99" class="select-plan-btn w-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition text-xs">
+                    Choose Monthly
+                </button>
+            </div>
+
+            <!-- ANNUAL PLAN (FEATURED) -->
+            <div class="bg-white dark:bg-[#0d1424] border-2 border-accent-500 rounded-2xl p-6 flex flex-col justify-between shadow-xl relative scale-100 sm:scale-105">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-500 text-slate-950 font-black text-[10px] uppercase px-3 py-0.5 rounded-full tracking-wider">
+                    Most Popular
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Annual Pass</h3>
+                    <p class="text-xs text-slate-500 mb-6">Save over 35% with complete uninterrupted access.</p>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-black text-slate-900 dark:text-white">$149.99</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">/ year</span>
+                    </div>
+                    <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all 30+ plugins</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Continuous updates</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> 4 Machine licenses</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Priority support response</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Exclusive preset expansions</li>
+                    </ul>
+                </div>
+                <button type="button" data-plan-id="annual" data-plan-name="Annual Pass" data-plan-price="149.99" class="select-plan-btn w-full bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-3 rounded-xl transition text-xs shadow-lg">
+                    Get Annual Pass
+                </button>
+            </div>
+
+            <!-- PRO / LIFETIME PLAN -->
+            <div class="bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-accent-border transition">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Lifetime Access</h3>
+                    <p class="text-xs text-slate-500 mb-6">One-time payment for lifetime updates & software.</p>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-3xl font-black text-slate-900 dark:text-white">$499.99</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">/ once</span>
+                    </div>
+                    <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> All current & future plugins</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Free lifetime upgrades</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> 10 Machine licenses</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Direct VIP developer support</li>
+                    </ul>
+                </div>
+                <button type="button" data-plan-id="lifetime" data-plan-name="Lifetime Access" data-plan-price="499.99" class="select-plan-btn w-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition text-xs">
+                    Get Lifetime Access
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-200 dark:bg-[#050811] border-t border-slate-300 dark:border-slate-800/80 py-6 text-xs text-slate-600 dark:text-slate-500">
+        <div class="max-w-[1440px] mx-auto px-4 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <a href="/privacy/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Privacy Policy</a>
+                <a href="/terms/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Terms of Service</a>
+                <a href="/support/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PAYMENT MODAL -->
+    <div id="payment-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
+            <button type="button" id="close-payment-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Complete Subscription</h3>
+            <p class="text-xs text-slate-500 mb-4">You are subscribing to <span id="modal-plan-name" class="font-bold text-accent-500"></span></p>
+
+            <div class="bg-slate-50 dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-xl p-3 flex justify-between items-center mb-6 text-xs">
+                <span class="text-slate-600 dark:text-slate-400">Total Due Now:</span>
+                <span id="modal-plan-price" class="text-base font-black text-slate-900 dark:text-white">$0.00</span>
+            </div>
+
+            <form id="payment-form" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-slate-700 dark:text-slate-300 mb-1">Cardholder Name</label>
+                    <input type="text" required placeholder="John Doe" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-slate-700 dark:text-slate-300 mb-1">Card Number</label>
+                    <input type="text" required placeholder="•••• •••• •••• ••••" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-700 dark:text-slate-300 mb-1">Expiry Date</label>
+                        <input type="text" required placeholder="MM/YY" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-700 dark:text-slate-300 mb-1">CVC / CVV</label>
+                        <input type="text" required placeholder="123" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <button type="submit" id="pay-button" class="w-full bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-3 rounded-xl transition mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock"></i> Pay & Activate Subscription
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CLIENT LOGIC -->
+    <script type="module">
+        import { auth, db } from '../assets/js/firebase-client.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        let currentUser = null;
+        let selectedPlan = null;
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold text-white transition-all transform translate-y-4 opacity-0 border ${
+                type === 'error' ? 'bg-red-600 border-red-500' : 'bg-slate-900 dark:bg-slate-800 border-accent-border text-slate-100'
+            }`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation text-red-300' : 'fa-circle-check text-accent-500'}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Theme Switcher & Colors
+        function setAccentTheme(themeName) {
+            document.documentElement.setAttribute('data-accent', themeName);
+            localStorage.setItem('diaspora_accent', themeName);
+        }
+
+        document.querySelectorAll('.accent-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.nextElementSibling.classList.toggle('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAccentTheme(btn.dataset.accentBtn);
+                document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
+            });
+        });
+
+        setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
+
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+            });
+        });
+
+        if (localStorage.getItem('diaspora_theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Mobile Menu Drawer
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-mobile-drawer').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.add('hidden');
+        });
+
+        // Open Payment Modal Procedure
+        function openPaymentModal(plan) {
+            selectedPlan = plan;
+            document.getElementById('modal-plan-name').textContent = plan.name;
+            document.getElementById('modal-plan-price').textContent = `$${plan.price}`;
+            document.getElementById('payment-modal-overlay').classList.remove('hidden');
+        }
+
+        document.getElementById('close-payment-modal').addEventListener('click', () => {
+            document.getElementById('payment-modal-overlay').classList.add('hidden');
+        });
+
+        // Auth Listener & Handle Saved Intent
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            const authContainer = document.getElementById('auth-state-container');
+
+            if (user) {
+                authContainer.innerHTML = `
+                    <a href="/dashboard/" class="flex items-center gap-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-3 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 font-medium">
+                        <i class="fa-solid fa-circle-user text-accent-500"></i>
+                        <span>Dashboard</span>
+                    </a>
+                `;
+
+                // Resume saved purchase plan after returning from login
+                const pendingPlanStr = sessionStorage.getItem('pending_subscription_plan');
+                if (pendingPlanStr) {
+                    try {
+                        const pendingPlan = JSON.parse(pendingPlanStr);
+                        sessionStorage.removeItem('pending_subscription_plan');
+                        openPaymentModal(pendingPlan);
+                    } catch (e) {
+                        sessionStorage.removeItem('pending_subscription_plan');
+                    }
+                }
+            } else {
+                authContainer.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-4 py-2 rounded-xl font-bold transition">Sign In</a>`;
+            }
+        });
+
+        // Plan Selection Logic
+        document.querySelectorAll('.select-plan-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const plan = {
+                    id: btn.dataset.planId,
+                    name: btn.dataset.planName,
+                    price: btn.dataset.planPrice
+                };
+
+                if (!currentUser) {
+                    // Save chosen plan intent and redirect to login
+                    sessionStorage.setItem('pending_subscription_plan', JSON.stringify(plan));
+                    window.location.href = `/login/?returnUrl=${encodeURIComponent('/subscriptions/')}`;
+                    return;
+                }
+
+                openPaymentModal(plan);
+            });
+        });
+
+        // Form Submit Payment Handler
+        document.getElementById('payment-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser || !selectedPlan) return;
+
+            const payBtn = document.getElementById('pay-button');
+            payBtn.disabled = true;
+            payBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing Payment...`;
+
+            try {
+                // Update Firestore user subscription record
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    subscription: {
+                        planId: selectedPlan.id,
+                        planName: selectedPlan.name,
+                        status: 'active',
+                        activatedAt: new Date().toISOString()
+                    }
+                }, { merge: true });
+
+                showToast("Payment successful! Redirecting to dashboard...");
+                setTimeout(() => {
+                    window.location.href = '/dashboard/';
+                }, 1500);
+
+            } catch (err) {
+                console.error("Payment registration error:", err);
+                showToast("Failed to process subscription. Please try again.", "error");
+                payBtn.disabled = false;
+                payBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Pay & Activate Subscription`;
+            }
+        });
+    </script>
+</body>
+</html>
