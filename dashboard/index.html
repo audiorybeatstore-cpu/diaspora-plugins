@@ -65,10 +65,13 @@
         .border-accent-border { border-color: var(--accent-border); }
     </style>
 </head>
-<body class="bg-[#080d1a] text-slate-100 flex flex-col min-h-screen font-sans antialiased">
+<body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative">
+
+    <!-- TOAST NOTIFICATION CONTAINER (REPLACES JS ALERTS) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- PROMOTIONAL BANNER -->
-    <div id="promo-banner" class="bg-amber-400 text-slate-950 font-black text-xs py-2 px-4 text-center tracking-wide flex items-center justify-between">
+    <div id="promo-banner" class="bg-accent-500 text-slate-950 font-black text-xs py-2 px-4 text-center tracking-wide flex items-center justify-between transition-colors">
         <div class="flex-grow text-center">
             <span>THIS WEEK: BUY 2 PLUGINS, GET 2 FREE | <a href="/plugins/" class="underline font-bold">Shop Now &raquo;</a></span>
         </div>
@@ -76,67 +79,84 @@
     </div>
 
     <!-- MAIN HEADER NAVIGATION -->
-    <header class="sticky top-0 z-30 bg-[#080d1a]/95 border-b border-slate-800/80 backdrop-blur-md">
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
         <nav class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
             
-            <!-- Left: Logo & Navigation Links -->
-            <div class="flex items-center gap-8">
-                <a href="/" class="flex items-center gap-2 font-black text-lg tracking-wider text-white whitespace-nowrap">
+            <!-- Left Logo & Navigation Links -->
+            <div class="flex items-center gap-4 lg:gap-8">
+                <!-- Hamburger Menu Trigger (Mobile) -->
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-2 text-lg">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <a href="/" class="flex items-center gap-2 font-black text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap">
                     <span class="bg-accent-500 text-slate-950 px-2 py-0.5 rounded text-sm font-black shadow-md">DP</span>
                     DIASPORA <span class="text-accent-500 font-normal">PLUGINS</span>
                 </a>
 
-                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-300">
+                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
                     <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
                     <a href="/solutions/" class="hover:text-accent-500 transition">SOLUTIONS</a>
                     <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
                     <a href="/support/" class="hover:text-accent-500 transition">SUPPORT</a>
                     <a href="/learn/" class="hover:text-accent-500 transition">LEARN</a>
-                    <a href="/specials/" class="text-amber-400 hover:text-amber-300 transition">SPECIALS</a>
+                    <a href="/specials/" class="text-amber-500 hover:text-amber-400 transition">SPECIALS</a>
                 </div>
             </div>
 
-            <!-- Right Controls: Search, Theme Toggles, Notifications, Sticky User, Cart Modal Trigger -->
-            <div class="flex items-center gap-3 text-xs">
+            <!-- Right Controls -->
+            <div class="flex items-center gap-2 lg:gap-3 text-xs">
                 
                 <!-- Live Search -->
                 <div class="relative hidden sm:block">
-                    <input type="text" id="global-search" placeholder="Search..." class="bg-[#0e1628] border border-slate-800 rounded-full pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 w-36 lg:w-48 transition">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                    <input type="text" id="global-search" placeholder="Search..." class="bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-full pl-8 pr-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-accent-500 w-36 lg:w-48 transition">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 dark:text-slate-500 text-xs"></i>
                 </div>
 
-                <!-- Dark Mode & Accent Color Switchers -->
-                <div class="hidden lg:flex items-center gap-1.5 bg-[#0e1628] border border-slate-800 px-2.5 py-1.5 rounded-xl">
-                    <button type="button" id="dark-mode-toggle" title="Toggle Mode" class="p-0.5 text-slate-400 hover:text-white"><i class="fa-solid fa-moon"></i></button>
-                    <span class="text-slate-700">|</span>
-                    <button type="button" data-accent-btn="blue" class="w-3 h-3 rounded-full bg-blue-500 ring-1 ring-white/20 hover:scale-110 transition"></button>
-                    <button type="button" data-accent-btn="red" class="w-3 h-3 rounded-full bg-red-500 ring-1 ring-white/20 hover:scale-110 transition"></button>
-                    <button type="button" data-accent-btn="green" class="w-3 h-3 rounded-full bg-emerald-500 ring-1 ring-white/20 hover:scale-110 transition"></button>
-                    <button type="button" data-accent-btn="yellow" class="w-3 h-3 rounded-full bg-yellow-500 ring-1 ring-white/20 hover:scale-110 transition"></button>
-                    <button type="button" data-accent-btn="brown" class="w-3 h-3 rounded-full bg-yellow-800 ring-1 ring-white/20 hover:scale-110 transition"></button>
+                <!-- Theme & Accent Dropdown Switcher -->
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2 py-1.5 rounded-xl">
+                    <button type="button" id="dark-mode-toggle" title="Toggle Light/Dark Mode" class="p-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
+                    
+                    <!-- Color Dropdown -->
+                    <div class="relative">
+                        <button type="button" id="accent-dropdown-btn" class="flex items-center gap-1 p-1">
+                            <span id="current-color-dot" class="w-3.5 h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[9px] text-slate-500"></i>
+                        </button>
+                        <div id="accent-dropdown-menu" class="hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                            <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="yellow" class="w-4 h-4 rounded-full bg-yellow-500 hover:scale-125 transition"></button>
+                            <button type="button" data-accent-btn="brown" class="w-4 h-4 rounded-full bg-yellow-800 hover:scale-125 transition"></button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Notifications Modal Button -->
-                <button type="button" id="open-notifications-modal" class="relative text-slate-300 hover:text-white p-2 bg-[#0e1628] border border-slate-800 rounded-xl transition">
+                <button type="button" id="open-notifications-modal" class="relative text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white p-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-xl transition">
                     <i class="fa-regular fa-bell text-sm"></i>
-                    <span id="unread-count" class="absolute -top-1 -right-1 bg-accent-500 text-slate-950 text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+                    <span id="unread-count" class="hidden absolute -top-1 -right-1 bg-accent-500 text-slate-950 text-[9px] font-bold w-4 h-4 rounded-full items-center justify-center">0</span>
                 </button>
 
-                <!-- Sticky Email User Menu -->
+                <!-- Sticky User Dropdown -->
                 <div class="relative">
-                    <button type="button" id="user-menu-btn" class="flex items-center gap-2 bg-[#0e1628] border border-slate-800 px-3 py-1.5 rounded-xl text-slate-200 hover:border-slate-700 transition">
+                    <button type="button" id="user-menu-btn" class="flex items-center gap-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-3 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-700 transition">
                         <i class="fa-solid fa-circle-user text-accent-500"></i>
-                        <span id="user-email-header" class="max-w-[140px] truncate font-medium">officialbigi10@gmail.c...</span>
+                        <span id="user-email-header" class="max-w-[110px] sm:max-w-[140px] truncate font-medium">officialbigi10@gmail.c...</span>
                         <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i>
                     </button>
                     
-                    <!-- Sticky Dropdown -->
-                    <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-[#0e1628] border border-slate-800 rounded-xl shadow-2xl py-2 z-50">
-                        <button type="button" data-nav-target="personal-details" class="dropdown-link block w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-800/80 hover:text-white transition">Personal Details</button>
-                        <button type="button" data-nav-target="about-me" class="dropdown-link block w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-800/80 hover:text-white transition">About Me</button>
-                        <button type="button" data-nav-target="email-preferences" class="dropdown-link block w-full text-left px-4 py-2 text-slate-300 hover:bg-slate-800/80 hover:text-white transition">Email Preferences</button>
-                        <div class="border-t border-slate-800 my-1"></div>
-                        <button type="button" id="logout-btn" class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-800/80 flex items-center gap-2 transition">
+                    <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl py-2 z-50">
+                        <button type="button" data-nav-target="personal-details" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">Personal Details</button>
+                        <button type="button" data-nav-target="about-me" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">About Me</button>
+                        <button type="button" data-nav-target="email-preferences" class="dropdown-link block w-full text-left px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white transition">Email Preferences</button>
+                        <div class="border-t border-slate-200 dark:border-slate-800 my-1"></div>
+                        <button type="button" id="logout-btn" class="w-full text-left px-4 py-2 text-red-500 hover:bg-slate-100 dark:hover:bg-slate-800/80 flex items-center gap-2 transition">
                             <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                         </button>
                     </div>
@@ -151,14 +171,58 @@
         </nav>
     </header>
 
+    <!-- MOBILE HAMBURGER DRAWER -->
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
+        <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between overflow-y-auto">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+                    <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
+                    <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+
+                <div class="space-y-6 text-xs">
+                    <div>
+                        <h4 class="font-bold text-slate-400 uppercase tracking-wider mb-2">PRODUCTS</h4>
+                        <ul class="space-y-1">
+                            <li><button type="button" data-mobile-tab="my-products" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">My Products</button></li>
+                            <li><button type="button" data-mobile-tab="plugins-picked" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Plugins Picked for Me</button></li>
+                            <li><button type="button" data-mobile-tab="get-latest-version" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Get Latest Version</button></li>
+                            <li><button type="button" data-mobile-tab="register-products" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Register New Products</button></li>
+                            <li><button type="button" data-mobile-tab="wish-list" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Wish List</button></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-400 uppercase tracking-wider mb-2">FREE STUFF</h4>
+                        <ul class="space-y-1">
+                            <li><button type="button" data-mobile-tab="my-coupons" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">My Coupons</button></li>
+                            <li><button type="button" data-mobile-tab="my-rewards" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">My Rewards</button></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-slate-400 uppercase tracking-wider mb-2">SETTINGS</h4>
+                        <ul class="space-y-1">
+                            <li><button type="button" data-mobile-tab="personal-details" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Personal Details</button></li>
+                            <li><button type="button" data-mobile-tab="about-me" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">About Me</button></li>
+                            <li><button type="button" data-mobile-tab="email-preferences" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">Email Preferences</button></li>
+                            <li><button type="button" data-mobile-tab="my-credit-cards" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">My Credit Cards</button></li>
+                            <li><button type="button" data-mobile-tab="my-invoices" class="mobile-tab-btn w-full text-left py-1.5 text-slate-700 dark:text-slate-300">My Invoices</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BREADCRUMBS -->
-    <div class="bg-[#050811] border-b border-slate-800/60 py-2.5 px-4 lg:px-8 text-[11px] text-slate-400">
+    <div class="bg-slate-200 dark:bg-[#050811] border-b border-slate-300 dark:border-slate-800/60 py-2.5 px-4 lg:px-8 text-[11px] text-slate-600 dark:text-slate-400">
         <div class="max-w-[1440px] mx-auto flex items-center gap-2">
-            <a href="/" class="hover:text-slate-200">Diaspora</a>
+            <a href="/" class="hover:text-slate-900 dark:hover:text-slate-200">Diaspora</a>
             <span>&rsaquo;</span>
-            <a href="/dashboard/" class="hover:text-slate-200">My Account</a>
+            <a href="/dashboard/" class="hover:text-slate-900 dark:hover:text-slate-200">My Account</a>
             <span>&rsaquo;</span>
-            <span id="breadcrumb-current" class="text-white font-medium">My Products</span>
+            <span id="breadcrumb-current" class="text-slate-900 dark:text-white font-medium">My Products</span>
         </div>
     </div>
 
@@ -166,43 +230,40 @@
     <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8">
         
         <div class="mb-6">
-            <h1 class="text-3xl font-black text-white tracking-tight">Welcome, <span id="user-name-display" class="text-accent-500">ismael kombo</span></h1>
+            <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Welcome, <span id="user-name-display" class="text-accent-500">ismael kombo</span></h1>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             
-            <!-- LEFT NAVIGATION SIDEBAR (COMPLETE WITH ALL ORIGINAL GROUPS & LINKS) -->
-            <aside class="lg:col-span-1 bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-5 space-y-6">
-                <!-- Group 1: Products -->
+            <!-- LEFT NAVIGATION SIDEBAR (DESKTOP) -->
+            <aside class="hidden lg:block lg:col-span-1 bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 space-y-6">
                 <div>
-                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800/80">PRODUCTS</h3>
+                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-200 dark:border-slate-800/80">PRODUCTS</h3>
                     <ul class="space-y-1 text-xs">
                         <li><button type="button" data-tab="my-products" class="tab-link w-full text-left px-3 py-2 rounded-xl text-accent-500 font-semibold bg-accent-bg border border-accent-border">My Products</button></li>
-                        <li><button type="button" data-tab="plugins-picked" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Plugins Picked for Me</button></li>
-                        <li><button type="button" data-tab="get-latest-version" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Get Latest Version</button></li>
-                        <li><button type="button" data-tab="register-products" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Register New Products</button></li>
-                        <li><button type="button" data-tab="wish-list" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Wish List</button></li>
+                        <li><button type="button" data-tab="plugins-picked" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Plugins Picked for Me</button></li>
+                        <li><button type="button" data-tab="get-latest-version" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Get Latest Version</button></li>
+                        <li><button type="button" data-tab="register-products" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Register New Products</button></li>
+                        <li><button type="button" data-tab="wish-list" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Wish List</button></li>
                     </ul>
                 </div>
 
-                <!-- Group 2: Free Stuff -->
                 <div>
-                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800/80">FREE STUFF</h3>
+                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-200 dark:border-slate-800/80">FREE STUFF</h3>
                     <ul class="space-y-1 text-xs">
-                        <li><button type="button" data-tab="my-coupons" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">My Coupons</button></li>
-                        <li><button type="button" data-tab="my-rewards" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">My Rewards</button></li>
+                        <li><button type="button" data-tab="my-coupons" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">My Coupons</button></li>
+                        <li><button type="button" data-tab="my-rewards" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">My Rewards</button></li>
                     </ul>
                 </div>
 
-                <!-- Group 3: Settings -->
                 <div>
-                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800/80">SETTINGS</h3>
+                    <h3 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-200 dark:border-slate-800/80">SETTINGS</h3>
                     <ul class="space-y-1 text-xs">
-                        <li><button type="button" data-tab="personal-details" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Personal Details</button></li>
-                        <li><button type="button" data-tab="about-me" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">About Me</button></li>
-                        <li><button type="button" data-tab="email-preferences" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">Email Preferences</button></li>
-                        <li><button type="button" data-tab="my-credit-cards" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">My Credit Cards</button></li>
-                        <li><button type="button" data-tab="my-invoices" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60">My Invoices</button></li>
+                        <li><button type="button" data-tab="personal-details" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Personal Details</button></li>
+                        <li><button type="button" data-tab="about-me" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">About Me</button></li>
+                        <li><button type="button" data-tab="email-preferences" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">Email Preferences</button></li>
+                        <li><button type="button" data-tab="my-credit-cards" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">My Credit Cards</button></li>
+                        <li><button type="button" data-tab="my-invoices" class="tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60">My Invoices</button></li>
                     </ul>
                 </div>
             </aside>
@@ -211,111 +272,111 @@
             <section class="lg:col-span-3">
 
                 <!-- TAB 1: MY PRODUCTS -->
-                <div id="tab-my-products" class="tab-content bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-800/80">
-                        <h2 class="text-xl font-bold text-white">My Registered Products</h2>
+                <div id="tab-my-products" class="tab-content bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-800/80">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">My Registered Products</h2>
                         <a href="/downloads/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold text-xs px-4 py-2 rounded-xl transition">Get Central Installer</a>
                     </div>
-                    <div id="user-products-list" class="text-center py-16 border border-dashed border-slate-800/80 rounded-2xl bg-[#080d1a]/50">
-                        <i class="fa-solid fa-box-open text-4xl text-slate-600 mb-3 block"></i>
-                        <p class="text-sm font-bold text-white mb-1">No registered licenses found.</p>
-                        <p class="text-xs text-slate-400">Register a new product serial key to get started.</p>
+                    <div id="user-products-list" class="text-center py-16 border border-dashed border-slate-300 dark:border-slate-800/80 rounded-2xl bg-slate-50 dark:bg-[#080d1a]/50">
+                        <i class="fa-solid fa-box-open text-4xl text-slate-400 dark:text-slate-600 mb-3 block"></i>
+                        <p class="text-sm font-bold text-slate-800 dark:text-white mb-1">No registered licenses found.</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Register a new product serial key to get started.</p>
                     </div>
                 </div>
 
                 <!-- TAB 2: PLUGINS PICKED FOR ME -->
-                <div id="tab-plugins-picked" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">Plugins Picked for Me</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-400">
-                        <div class="border border-slate-800 rounded-xl p-4 bg-[#080d1a]">
-                            <h4 class="font-bold text-white text-sm">Vocal Precision Rack</h4>
+                <div id="tab-plugins-picked" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">Plugins Picked for Me</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-500 dark:text-slate-400">
+                        <div class="border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-slate-50 dark:bg-[#080d1a]">
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Vocal Precision Rack</h4>
                             <p class="mt-1">AI-assisted vocal tuning & dynamics processing plugin.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- TAB 3: GET LATEST VERSION -->
-                <div id="tab-get-latest-version" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">Get Latest Version</h2>
-                    <p class="text-xs text-slate-400">All of your registered products are up to date.</p>
+                <div id="tab-get-latest-version" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">Get Latest Version</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">All of your registered products are up to date.</p>
                 </div>
 
                 <!-- TAB 4: REGISTER NEW PRODUCTS -->
-                <div id="tab-register-products" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">Register New Products</h2>
+                <div id="tab-register-products" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">Register New Products</h2>
                     <form id="register-key-form" class="space-y-4 text-xs">
-                        <label class="block text-slate-300">Serial Key</label>
-                        <input type="text" id="serial-key-input" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-[#080d1a] border border-slate-800 rounded-xl px-4 py-3 text-white focus:border-accent-500 focus:outline-none">
+                        <label class="block text-slate-700 dark:text-slate-300">Serial Key</label>
+                        <input type="text" id="serial-key-input" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
                         <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">Redeem Serial Key</button>
                     </form>
                 </div>
 
                 <!-- TAB 5: WISH LIST -->
-                <div id="tab-wish-list" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">Wish List</h2>
-                    <p class="text-xs text-slate-400">Your wish list is currently empty.</p>
+                <div id="tab-wish-list" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">Wish List</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Your wish list is currently empty.</p>
                 </div>
 
                 <!-- TAB 6: MY COUPONS -->
-                <div id="tab-my-coupons" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">My Coupons</h2>
-                    <p class="text-xs text-slate-400">No active promotional vouchers found.</p>
+                <div id="tab-my-coupons" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">My Coupons</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">No active promotional vouchers found.</p>
                 </div>
 
                 <!-- TAB 7: MY REWARDS -->
-                <div id="tab-my-rewards" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">My Rewards</h2>
-                    <p class="text-xs text-slate-400">You have 0 active reward points.</p>
+                <div id="tab-my-rewards" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">My Rewards</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">You have 0 active reward points.</p>
                 </div>
 
-                <!-- TAB 8: PERSONAL DETAILS (FIRESTORE SYNC) -->
-                <div id="tab-personal-details" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6 space-y-4 text-xs">
-                    <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800/80">Personal Details</h2>
+                <!-- TAB 8: PERSONAL DETAILS -->
+                <div id="tab-personal-details" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 space-y-4 text-xs">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white pb-3 border-b border-slate-200 dark:border-slate-800/80">Personal Details</h2>
                     <form id="personal-details-form" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-slate-400 mb-1">Email</label>
-                                <input type="email" id="field-email" readonly class="w-full bg-[#080d1a] border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500">
+                                <label class="block text-slate-500 dark:text-slate-400 mb-1">Email</label>
+                                <input type="email" id="field-email" readonly class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-500">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">First Name</label>
-                                <input type="text" id="field-first-name" class="w-full bg-[#080d1a] border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-accent-500 focus:outline-none">
+                                <label class="block text-slate-700 dark:text-slate-300 mb-1">First Name</label>
+                                <input type="text" id="field-first-name" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">Last Name</label>
-                                <input type="text" id="field-last-name" class="w-full bg-[#080d1a] border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-accent-500 focus:outline-none">
+                                <label class="block text-slate-700 dark:text-slate-300 mb-1">Last Name</label>
+                                <input type="text" id="field-last-name" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">Phone Number</label>
-                                <input type="tel" id="field-phone" class="w-full bg-[#080d1a] border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:border-accent-500 focus:outline-none">
+                                <label class="block text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+                                <input type="tel" id="field-phone" class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-slate-900 dark:text-white focus:border-accent-500 focus:outline-none">
                             </div>
                         </div>
                         <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">Save Personal Details</button>
                     </form>
                 </div>
 
-                <!-- TAB 9: ABOUT ME (FIRESTORE SYNC) -->
-                <div id="tab-about-me" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6 space-y-6">
-                    <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800/80">About Me</h2>
+                <!-- TAB 9: ABOUT ME -->
+                <div id="tab-about-me" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 space-y-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white pb-3 border-b border-slate-200 dark:border-slate-800/80">About Me</h2>
                     <form id="about-me-form" class="space-y-4 text-xs">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <label class="flex items-center gap-2 text-slate-300"><input type="checkbox" name="roles" value="Music Producer" class="rounded bg-[#080d1a] text-accent-500"> Music Producer</label>
-                            <label class="flex items-center gap-2 text-slate-300"><input type="checkbox" name="roles" value="Mixing/Recording Engineer" class="rounded bg-[#080d1a] text-accent-500"> Mixing/Recording Engineer</label>
-                            <label class="flex items-center gap-2 text-slate-300"><input type="checkbox" name="roles" value="Sound Designer" class="rounded bg-[#080d1a] text-accent-500"> Sound Designer</label>
-                            <label class="flex items-center gap-2 text-slate-300"><input type="checkbox" name="roles" value="Singer/Songwriter" class="rounded bg-[#080d1a] text-accent-500"> Singer/Songwriter</label>
+                            <label class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><input type="checkbox" name="roles" value="Music Producer" class="rounded bg-slate-100 dark:bg-[#080d1a] text-accent-500"> Music Producer</label>
+                            <label class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><input type="checkbox" name="roles" value="Mixing/Recording Engineer" class="rounded bg-slate-100 dark:bg-[#080d1a] text-accent-500"> Mixing/Recording Engineer</label>
+                            <label class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><input type="checkbox" name="roles" value="Sound Designer" class="rounded bg-slate-100 dark:bg-[#080d1a] text-accent-500"> Sound Designer</label>
+                            <label class="flex items-center gap-2 text-slate-700 dark:text-slate-300"><input type="checkbox" name="roles" value="Singer/Songwriter" class="rounded bg-slate-100 dark:bg-[#080d1a] text-accent-500"> Singer/Songwriter</label>
                         </div>
                         <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-2.5 rounded-xl transition">Save Workflow Roles</button>
                     </form>
                 </div>
 
-                <!-- TAB 10: EMAIL PREFERENCES (FIRESTORE SYNC) -->
-                <div id="tab-email-preferences" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6 space-y-4 text-xs">
-                    <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800/80">Email Preferences</h2>
+                <!-- TAB 10: EMAIL PREFERENCES -->
+                <div id="tab-email-preferences" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 space-y-4 text-xs">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white pb-3 border-b border-slate-200 dark:border-slate-800/80">Email Preferences</h2>
                     <form id="email-prefs-form" class="space-y-3">
-                        <label class="flex items-center gap-3 text-slate-300">
+                        <label class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
                             <input type="checkbox" id="pref-marketing" class="rounded text-accent-500"> Receive news, announcements, and discount offers
                         </label>
-                        <label class="flex items-center gap-3 text-slate-300">
+                        <label class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
                             <input type="checkbox" id="pref-updates" class="rounded text-accent-500"> Receive security notices and license updates
                         </label>
                         <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-5 py-2 rounded-xl transition">Update Preferences</button>
@@ -323,15 +384,15 @@
                 </div>
 
                 <!-- TAB 11: MY CREDIT CARDS -->
-                <div id="tab-my-credit-cards" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">My Credit Cards</h2>
-                    <p class="text-xs text-slate-400">No saved payment methods.</p>
+                <div id="tab-my-credit-cards" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">My Credit Cards</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">No saved payment methods.</p>
                 </div>
 
                 <!-- TAB 12: MY INVOICES -->
-                <div id="tab-my-invoices" class="tab-content hidden bg-[#0d1424]/90 border border-slate-800/80 rounded-2xl p-6">
-                    <h2 class="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800/80">My Invoices</h2>
-                    <p class="text-xs text-slate-400">No purchase invoices found.</p>
+                <div id="tab-my-invoices" class="tab-content hidden bg-white dark:bg-[#0d1424]/90 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-200 dark:border-slate-800/80">My Invoices</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">No purchase invoices found.</p>
                 </div>
 
             </section>
@@ -339,28 +400,28 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-[#050811] border-t border-slate-800/80 py-6 text-xs text-slate-500">
+    <footer class="bg-slate-200 dark:bg-[#050811] border-t border-slate-300 dark:border-slate-800/80 py-6 text-xs text-slate-600 dark:text-slate-500">
         <div class="max-w-[1440px] mx-auto px-4 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
             <div class="flex items-center gap-4">
-                <a href="/privacy/" class="hover:text-slate-300 transition">Privacy Policy</a>
-                <a href="/terms/" class="hover:text-slate-300 transition">Terms of Service</a>
-                <a href="/support/" class="hover:text-slate-300 transition">Support</a>
+                <a href="/privacy/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Privacy Policy</a>
+                <a href="/terms/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Terms of Service</a>
+                <a href="/support/" class="hover:text-slate-900 dark:hover:text-slate-300 transition">Support</a>
             </div>
         </div>
     </footer>
 
     <!-- MODAL DRAWER: SHOPPING CART -->
     <div id="cart-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden">
-        <div class="fixed right-0 top-0 h-full w-full max-w-md bg-[#0e1628] border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
+        <div class="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-[#0e1628] border-l border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
             <div>
-                <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                    <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-accent-500"></i> Shopping Cart</h3>
-                    <button type="button" id="close-cart-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-accent-500"></i> Shopping Cart</h3>
+                    <button type="button" id="close-cart-modal" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div class="py-8 text-xs text-slate-400 text-center">Your shopping cart is currently empty.</div>
+                <div class="py-8 text-xs text-slate-500 dark:text-slate-400 text-center">Your shopping cart is currently empty.</div>
             </div>
-            <div class="pt-4 border-t border-slate-800">
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
                 <button type="button" class="w-full bg-accent-500 text-slate-950 font-bold text-xs py-3 rounded-xl hover:bg-accent-600 transition">Proceed to Checkout</button>
             </div>
         </div>
@@ -368,22 +429,50 @@
 
     <!-- MODAL DRAWER: NOTIFICATIONS -->
     <div id="notifications-modal-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden">
-        <div class="fixed right-0 top-0 h-full w-full max-w-sm bg-[#0e1628] border-l border-slate-800 p-6 flex flex-col shadow-2xl">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-regular fa-bell text-accent-500"></i> Notifications</h3>
-                <button type="button" id="close-notifications-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <div class="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-[#0e1628] border-l border-slate-200 dark:border-slate-800 p-6 flex flex-col shadow-2xl">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-regular fa-bell text-accent-500"></i> Notifications</h3>
+                <button type="button" id="close-notifications-modal" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="py-8 text-xs text-slate-400 text-center">No new notifications at this time.</div>
+            <div class="py-8 text-xs text-slate-500 dark:text-slate-400 text-center">No new notifications at this time.</div>
         </div>
     </div>
 
-    <!-- CLIENT SCRIPT & FIRESTORE LOGIC -->
+    <!-- CLIENT SCRIPT -->
     <script type="module">
         import { auth, db } from '../assets/js/firebase-client.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         let currentUser = null;
+
+        // --- REPLACEMENT FOR JS POPUPS (CUSTOM TOAST) ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold text-white transition-all transform translate-y-4 opacity-0 border ${
+                type === 'error' ? 'bg-red-600 border-red-500' : 'bg-slate-900 dark:bg-slate-800 border-accent-border text-slate-100'
+            }`;
+
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation text-red-300' : 'fa-circle-check text-accent-500'}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate In
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            });
+
+            // Animate Out & Remove after 3.5 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
 
         // --- 1. TAB & BREADCRUMB SWITCHER ---
         function switchTab(tabId) {
@@ -392,7 +481,7 @@
             if (target) target.classList.remove('hidden');
 
             document.querySelectorAll('.tab-link').forEach(btn => {
-                btn.className = "tab-link w-full text-left px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800/60";
+                btn.className = "tab-link w-full text-left px-3 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60";
             });
 
             const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
@@ -413,24 +502,61 @@
             });
         });
 
-        // --- 2. THEME & ACCENT SYSTEM ---
+        // Mobile drawer tab links
+        document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab(btn.dataset.mobileTab);
+                document.getElementById('mobile-drawer-overlay').classList.add('hidden');
+            });
+        });
+
+        // --- 2. ACCENT COLOR DROPDOWN & DARK/LIGHT MODE ---
         function setAccentTheme(themeName) {
             document.documentElement.setAttribute('data-accent', themeName);
             localStorage.setItem('diaspora_accent', themeName);
         }
 
-        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
-            btn.addEventListener('click', () => setAccentTheme(btn.dataset.accentBtn));
+        const accentDropdownBtn = document.getElementById('accent-dropdown-btn');
+        const accentDropdownMenu = document.getElementById('accent-dropdown-menu');
+
+        accentDropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            accentDropdownMenu.classList.toggle('hidden');
         });
 
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAccentTheme(btn.dataset.accentBtn);
+                accentDropdownMenu.classList.add('hidden');
+            });
+        });
+
+        // Restore Accent
         setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
 
-        // Dark/Light Toggle
-        document.getElementById('dark-mode-toggle').addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
+        // Dark / Light Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        darkModeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
         });
 
-        // --- 3. STICKY USER DROPDOWN & MODALS ---
+        // Restore Mode
+        if (localStorage.getItem('diaspora_theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        // --- 3. MOBILE MENU TOGGLE ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileDrawerOverlay = document.getElementById('mobile-drawer-overlay');
+        const closeMobileDrawer = document.getElementById('close-mobile-drawer');
+
+        mobileMenuBtn.addEventListener('click', () => mobileDrawerOverlay.classList.remove('hidden'));
+        closeMobileDrawer.addEventListener('click', () => mobileDrawerOverlay.classList.add('hidden'));
+
+        // --- 4. STICKY USER DROPDOWN & MODALS ---
         const userMenuBtn = document.getElementById('user-menu-btn');
         const userMenuDropdown = document.getElementById('user-menu-dropdown');
 
@@ -439,7 +565,10 @@
             userMenuDropdown.classList.toggle('hidden');
         });
 
-        document.addEventListener('click', () => userMenuDropdown.classList.add('hidden'));
+        document.addEventListener('click', () => {
+            userMenuDropdown.classList.add('hidden');
+            accentDropdownMenu.classList.add('hidden');
+        });
 
         // Modals
         document.getElementById('open-cart-modal').addEventListener('click', () => {
@@ -470,7 +599,7 @@
             });
         });
 
-        // --- 4. FIRESTORE USER SYNC ---
+        // --- 5. FIRESTORE AUTH & DATA ---
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 window.location.href = '/login/';
@@ -507,37 +636,55 @@
             }
         });
 
-        // Save Forms
+        // Save Forms with Custom Toast Alerts
         document.getElementById('personal-details-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUser) return;
-            await setDoc(doc(db, 'users', currentUser.uid), {
-                firstName: document.getElementById('field-first-name').value,
-                lastName: document.getElementById('field-last-name').value,
-                phone: document.getElementById('field-phone').value,
-                updatedAt: new Date().toISOString()
-            }, { merge: true });
-            alert("Details saved to Firestore!");
+            try {
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    firstName: document.getElementById('field-first-name').value,
+                    lastName: document.getElementById('field-last-name').value,
+                    phone: document.getElementById('field-phone').value,
+                    updatedAt: new Date().toISOString()
+                }, { merge: true });
+                showToast("Personal details saved successfully!");
+            } catch(err) {
+                showToast("Failed to save personal details.", "error");
+            }
         });
 
         document.getElementById('about-me-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUser) return;
-            const roles = Array.from(document.querySelectorAll('input[name="roles"]:checked')).map(cb => cb.value);
-            await setDoc(doc(db, 'users', currentUser.uid), { roles, updatedAt: new Date().toISOString() }, { merge: true });
-            alert("Roles saved to Firestore!");
+            try {
+                const roles = Array.from(document.querySelectorAll('input[name="roles"]:checked')).map(cb => cb.value);
+                await setDoc(doc(db, 'users', currentUser.uid), { roles, updatedAt: new Date().toISOString() }, { merge: true });
+                showToast("Workflow roles updated!");
+            } catch(err) {
+                showToast("Failed to update roles.", "error");
+            }
         });
 
         document.getElementById('email-prefs-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!currentUser) return;
-            await setDoc(doc(db, 'users', currentUser.uid), {
-                emailPreferences: {
-                    marketing: document.getElementById('pref-marketing').checked,
-                    updates: document.getElementById('pref-updates').checked
-                }
-            }, { merge: true });
-            alert("Preferences saved to Firestore!");
+            try {
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    emailPreferences: {
+                        marketing: document.getElementById('pref-marketing').checked,
+                        updates: document.getElementById('pref-updates').checked
+                    }
+                }, { merge: true });
+                showToast("Email preferences updated!");
+            } catch(err) {
+                showToast("Failed to save preferences.", "error");
+            }
+        });
+
+        // Serial Key Form
+        document.getElementById('register-key-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast("Serial key processing standard...");
         });
 
         // Logout
