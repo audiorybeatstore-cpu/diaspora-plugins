@@ -28,83 +28,74 @@
 </head>
 <body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- TOP PROMO BANNER (Waves Style) -->
-    <div class="bg-amber-400 text-slate-950 font-bold text-xs py-2 px-4 text-center tracking-wide">
-        THIS WEEK: <span class="uppercase">Buy 2 Plugins, Get 2 Free</span> | <a href="/specials/" class="underline hover:text-slate-800">Shop Now &raquo;</a>
-    </div>
-
-    <!-- ================= HEADER / NAVIGATION (WAVES ALIGNMENT) ================= -->
+    <!-- NAVIGATION HEADER -->
     <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800">
         <nav class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
             
-            <!-- LEFT: Logo & Main Navigation -->
+            <!-- LEFT: Brand Logo & Navigation -->
             <div class="flex items-center gap-8">
                 <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-wider text-white whitespace-nowrap">
                     <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-sm font-black shadow-md shadow-blue-500/20">DP</span>
                     DIASPORA <span class="text-blue-500 font-normal">PLUGINS</span>
                 </a>
 
-                <!-- Desktop Nav Links -->
                 <div class="hidden xl:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-300">
                     <a href="/plugins/" class="hover:text-blue-400 transition">Products</a>
-                    <a href="#" class="hover:text-blue-400 transition">Solutions</a>
                     <a href="/downloads/" class="hover:text-blue-400 transition">Downloads</a>
                     <a href="/support/" class="hover:text-blue-400 transition">Support</a>
-                    <a href="#" class="hover:text-blue-400 transition">Learn</a>
-                    <a href="#" class="text-amber-400 hover:text-amber-300 transition font-bold">Specials</a>
                 </div>
             </div>
 
-            <!-- RIGHT: Search, Notifications, Account Menu & Cart -->
+            <!-- RIGHT: Controls, Cart, Account Dropdown -->
             <div class="hidden md:flex items-center gap-5 text-xs">
-                <!-- Search Box -->
+                <!-- Search Field -->
                 <div class="relative">
-                    <input type="text" placeholder="Search..." class="bg-slate-900 border border-slate-800 rounded-full pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 w-36 lg:w-48 transition">
+                    <input type="text" id="global-search" placeholder="Search..." class="bg-slate-900 border border-slate-800 rounded-full pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 w-36 lg:w-48 transition">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
                 </div>
 
-                <!-- Notification Icon -->
-                <button type="button" class="relative text-slate-300 hover:text-white p-1">
+                <!-- Notifications -->
+                <button type="button" id="notifications-btn" class="relative text-slate-300 hover:text-white p-1">
                     <i class="fa-regular fa-bell text-base"></i>
-                    <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+                    <span id="unread-notifications-count" class="hidden absolute -top-1 -right-1 bg-blue-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
                 </button>
 
-                <!-- User Account Selector -->
+                <!-- User Account Menu -->
                 <div class="relative group">
-                    <button class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-200 hover:border-slate-700 transition">
+                    <button type="button" class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-200 hover:border-slate-700 transition">
                         <i class="fa-solid fa-circle-user text-blue-500"></i>
-                        <span id="user-email-header" class="max-w-[130px] truncate font-medium">Account</span>
+                        <span id="user-email-header" class="max-w-[130px] truncate font-medium">Loading...</span>
                         <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i>
                     </button>
-                    <!-- User Dropdown Menu -->
+                    
                     <div class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl py-2 hidden group-hover:block z-50">
                         <a href="#personal-details" onclick="switchTab('personal-details')" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">Personal Details</a>
                         <a href="#about-me" onclick="switchTab('about-me')" class="block px-4 py-2 text-slate-300 hover:bg-slate-800 hover:text-white">About Me</a>
                         <div class="border-t border-slate-800 my-1"></div>
-                        <button id="logout-btn" class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-800 flex items-center gap-2">
+                        <button type="button" id="logout-btn" class="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-800 flex items-center gap-2">
                             <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                         </button>
                     </div>
                 </div>
 
-                <!-- Cart Button (Waves Style) -->
+                <!-- Shopping Cart -->
                 <a href="/cart/" class="relative flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold transition">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="bg-blue-950 text-blue-200 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                    <span id="cart-count" class="bg-blue-950 text-blue-200 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
                 </a>
             </div>
 
-            <!-- Mobile Hamburger Button -->
+            <!-- Hamburger Button for Mobile -->
             <button id="mobile-menu-toggle" type="button" class="md:hidden text-slate-300 hover:text-white text-xl p-2">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </nav>
 
-        <!-- Mobile Drawer Navigation -->
+        <!-- Mobile Drawer Menu -->
         <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-slate-950 px-4 py-4 space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs text-slate-300">
-                <span id="user-email-mobile" class="font-mono text-blue-400">user@domain.com</span>
-                <button id="logout-btn-mobile" class="text-red-400 font-semibold flex items-center gap-1">
+                <span id="user-email-mobile" class="font-mono text-blue-400">Loading...</span>
+                <button type="button" id="logout-btn-mobile" class="text-red-400 font-semibold flex items-center gap-1">
                     <i class="fa-solid fa-right-from-bracket"></i> Log Out
                 </button>
             </div>
@@ -112,7 +103,7 @@
                 <a href="/plugins/" class="p-2 rounded bg-slate-900 text-slate-300">Products</a>
                 <a href="/downloads/" class="p-2 rounded bg-slate-900 text-slate-300">Downloads</a>
                 <a href="/support/" class="p-2 rounded bg-slate-900 text-slate-300">Support</a>
-                <a href="/cart/" class="p-2 rounded bg-blue-600/20 text-blue-400 border border-blue-500/30">Cart (0)</a>
+                <a href="/cart/" class="p-2 rounded bg-blue-600/20 text-blue-400 border border-blue-500/30">Cart (<span class="cart-count-mobile">0</span>)</a>
             </div>
         </div>
     </header>
@@ -120,22 +111,22 @@
     <!-- BREADCRUMBS -->
     <div class="bg-slate-900/40 border-b border-slate-800/60 py-2.5 px-4 lg:px-8 text-xs text-slate-400">
         <div class="max-w-[1440px] mx-auto flex items-center gap-2">
-            <a href="/" class="hover:text-slate-200">Diaspora</a>
+            <a href="/" class="hover:text-slate-200">Home</a>
             <span>&rsaquo;</span>
-            <a href="/dashboard/" class="hover:text-slate-200">My Account</a>
+            <a href="/dashboard/" class="hover:text-slate-200">Account</a>
             <span>&rsaquo;</span>
             <span id="breadcrumb-current" class="text-white font-medium">My Products</span>
         </div>
     </div>
 
-    <!-- ================= MAIN CONTENT AREA ================= -->
+    <!-- MAIN DASHBOARD CONTENT -->
     <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8">
         
         <div class="mb-6">
-            <h1 class="text-3xl font-black text-white tracking-tight">Welcome, <span id="user-name-display" class="text-blue-400">Producer</span></h1>
+            <h1 class="text-3xl font-black text-white tracking-tight">Welcome, <span id="user-name-display" class="text-blue-400">User</span></h1>
         </div>
 
-        <!-- Inline Status Notification Bar -->
+        <!-- Global Status Bar / Notification Output -->
         <div id="status-banner" class="hidden mb-6 p-4 rounded-xl border text-xs flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <i id="status-icon" class="text-base"></i>
@@ -146,113 +137,73 @@
             </button>
         </div>
 
-        <!-- 2-COLUMN LAYOUT: SIDEBAR + CONTENT BODY -->
+        <!-- 2-COLUMN DASHBOARD GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             
-            <!-- LEFT SIDEBAR NAVIGATION (WAVES STYLE) -->
+            <!-- LEFT SIDEBAR -->
             <aside class="lg:col-span-1 bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-6">
                 
-                <!-- Group 1: Products -->
                 <div>
                     <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Products</h3>
                     <ul class="space-y-1 text-xs">
-                        <li><button onclick="switchTab('my-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-blue-400 font-semibold bg-blue-600/10 border border-blue-500/20" data-tab="my-products">My Products</button></li>
-                        <li><button onclick="switchTab('plugins-picked')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="plugins-picked">Plugins Picked for Me</button></li>
-                        <li><button onclick="switchTab('get-latest-version')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="get-latest-version">Get Latest Version</button></li>
-                        <li><button onclick="switchTab('register-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="register-products">Register New Products</button></li>
-                        <li><button onclick="switchTab('wish-list')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="wish-list">Wish List</button></li>
+                        <li><button type="button" onclick="switchTab('my-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-blue-400 font-semibold bg-blue-600/10 border border-blue-500/20" data-tab="my-products">My Products</button></li>
+                        <li><button type="button" onclick="switchTab('plugins-picked')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="plugins-picked">Plugins Picked for Me</button></li>
+                        <li><button type="button" onclick="switchTab('get-latest-version')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="get-latest-version">Get Latest Version</button></li>
+                        <li><button type="button" onclick="switchTab('register-products')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="register-products">Register New Products</button></li>
                     </ul>
                 </div>
 
-                <!-- Group 2: Free Stuff & Rewards -->
                 <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Free Stuff</h3>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Billing & Promotions</h3>
                     <ul class="space-y-1 text-xs">
-                        <li><button onclick="switchTab('my-coupons')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-coupons">My Coupons</button></li>
-                        <li><button onclick="switchTab('my-rewards')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-rewards">My Rewards</button></li>
+                        <li><button type="button" onclick="switchTab('my-coupons')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-coupons">My Coupons</button></li>
+                        <li><button type="button" onclick="switchTab('my-invoices')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-invoices">My Invoices</button></li>
+                        <li><button type="button" onclick="switchTab('my-credit-cards')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-credit-cards">My Credit Cards</button></li>
                     </ul>
                 </div>
 
-                <!-- Group 3: Settings & Billing -->
                 <div>
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Settings</h3>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 pb-2 border-b border-slate-800">Account Settings</h3>
                     <ul class="space-y-1 text-xs">
-                        <li><button onclick="switchTab('personal-details')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="personal-details">Personal Details</button></li>
-                        <li><button onclick="switchTab('about-me')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="about-me">About Me</button></li>
-                        <li><button onclick="switchTab('email-preferences')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="email-preferences">Email Preferences</button></li>
-                        <li><button onclick="switchTab('my-credit-cards')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-credit-cards">My Credit Cards</button></li>
-                        <li><button onclick="switchTab('my-invoices')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="my-invoices">My Invoices</button></li>
+                        <li><button type="button" onclick="switchTab('personal-details')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="personal-details">Personal Details</button></li>
+                        <li><button type="button" onclick="switchTab('about-me')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="about-me">About Me</button></li>
+                        <li><button type="button" onclick="switchTab('email-preferences')" class="tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white" data-tab="email-preferences">Email Preferences</button></li>
                     </ul>
                 </div>
 
             </aside>
 
-            <!-- RIGHT DYNAMIC CONTENT PANELS -->
+            <!-- RIGHT DYNAMIC PANELS CONTAINER -->
             <section class="lg:col-span-3">
 
                 <!-- TAB 1: MY PRODUCTS -->
                 <div id="tab-my-products" class="tab-content bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800 flex items-center justify-between">
-                        <span>My Registered Products</span>
-                        <a href="/downloads/" class="text-xs bg-blue-600 hover:bg-blue-500 text-white font-semibold px-3 py-1.5 rounded-lg">Get Central Installer</a>
-                    </h2>
-                    <div class="text-center py-12 px-4 rounded-xl border border-dashed border-slate-800 bg-slate-950/50">
-                        <i class="fa-solid fa-box-open text-3xl text-slate-600 mb-3"></i>
-                        <p class="text-sm font-medium text-slate-300">No registered licenses found.</p>
-                        <p class="text-xs text-slate-500 mt-1">Register a new product serial key to get started.</p>
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+                        <h2 class="text-lg font-bold text-white">Registered Products & Licenses</h2>
+                        <a href="/downloads/" class="text-xs bg-blue-600 hover:bg-blue-500 text-white font-semibold px-3 py-1.5 rounded-lg transition">Download Central Installer</a>
+                    </div>
+                    
+                    <!-- Dynamic List Container (Handled by Backend Integration) -->
+                    <div id="user-products-list" class="space-y-3">
+                        <div class="text-center py-12 px-4 rounded-xl border border-dashed border-slate-800 bg-slate-950/50">
+                            <i class="fa-solid fa-box-open text-3xl text-slate-600 mb-3"></i>
+                            <p class="text-sm font-medium text-slate-300">No registered licenses found.</p>
+                            <p class="text-xs text-slate-500 mt-1">Register a serial key to add products to your account.</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- TAB 2: PLUGINS PICKED FOR ME -->
                 <div id="tab-plugins-picked" class="tab-content hidden space-y-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-white">Plugins Picked for Me</h2>
-                        <p class="text-xs text-slate-400 mt-1">Get personal recommendations based on your production history and About Me preferences.</p>
+                        <h2 class="text-xl font-bold text-white">Recommended for You</h2>
+                        <p class="text-xs text-slate-400 mt-1">Personalized plugin suggestions tailored to your account profile.</p>
                     </div>
 
-                    <!-- Promo Banner -->
-                    <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 p-6 rounded-2xl font-black text-center shadow-xl">
-                        <span class="text-xs uppercase tracking-widest bg-slate-950 text-amber-400 px-3 py-1 rounded-full inline-block mb-2">Exclusive Offer</span>
-                        <h3 class="text-xl sm:text-2xl">BUY 2 PLUGINS GET 2 FREE</h3>
-                        <p class="text-xs font-semibold text-slate-900 mt-1">Maximum 2 free plugins per order.</p>
-                    </div>
-
-                    <!-- Products Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden p-4 flex flex-col justify-between">
-                            <div>
-                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">98% Match</span>
-                                <div class="h-32 bg-slate-950 rounded-lg my-3 flex items-center justify-center border border-slate-800">
-                                    <i class="fa-solid fa-sliders text-3xl text-blue-500"></i>
-                                </div>
-                                <h4 class="text-sm font-bold text-white">Vocal Tone Suite</h4>
-                                <p class="text-xs text-slate-400 mt-1">$49.99</p>
-                            </div>
-                            <button class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-2 rounded-lg transition">Add to Cart</button>
-                        </div>
-
-                        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden p-4 flex flex-col justify-between">
-                            <div>
-                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">97% Match</span>
-                                <div class="h-32 bg-slate-950 rounded-lg my-3 flex items-center justify-center border border-slate-800">
-                                    <i class="fa-solid fa-wave-square text-3xl text-purple-500"></i>
-                                </div>
-                                <h4 class="text-sm font-bold text-white">Spectral Saturator</h4>
-                                <p class="text-xs text-slate-400 mt-1">$29.99</p>
-                            </div>
-                            <button class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-2 rounded-lg transition">Add to Cart</button>
-                        </div>
-
-                        <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden p-4 flex flex-col justify-between">
-                            <div>
-                                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">95% Match</span>
-                                <div class="h-32 bg-slate-950 rounded-lg my-3 flex items-center justify-center border border-slate-800">
-                                    <i class="fa-solid fa-compact-disc text-3xl text-emerald-500"></i>
-                                </div>
-                                <h4 class="text-sm font-bold text-white">Mastering Limiter</h4>
-                                <p class="text-xs text-slate-400 mt-1">$79.99</p>
-                            </div>
-                            <button class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-2 rounded-lg transition">Add to Cart</button>
+                    <!-- Dynamic Recommendations Container -->
+                    <div id="recommended-plugins-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="col-span-full text-center py-12 rounded-xl border border-dashed border-slate-800 bg-slate-950/50 text-xs text-slate-500">
+                            Fetching dynamic recommendations...
                         </div>
                     </div>
                 </div>
@@ -260,12 +211,12 @@
                 <!-- TAB 3: GET LATEST VERSION -->
                 <div id="tab-get-latest-version" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Get Latest Version</h2>
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 text-xs text-slate-300 leading-relaxed space-y-3">
+                    <div id="updates-notice-box" class="bg-slate-950 border border-slate-800 rounded-xl p-6 text-xs text-slate-300 leading-relaxed space-y-3">
                         <p class="font-semibold text-slate-200">None of your products can be updated to their latest version. Possible reasons:</p>
                         <ul class="list-disc list-inside space-y-1 text-slate-400 pl-2">
                             <li>There are no registered products in your account.</li>
                             <li>All of your products are already at their latest versions.</li>
-                            <li>You are not eligible to update your license/s to the latest version. To be eligible, extend your Diaspora Update Plan here.</li>
+                            <li>You are not eligible to update your license/s to the latest version. To be eligible, extend your Diaspora Update Plan.</li>
                         </ul>
                     </div>
                 </div>
@@ -275,10 +226,10 @@
                     <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Register New Products</h2>
                     <form id="register-key-form" class="space-y-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-2">Serial / Registration Number</label>
-                            <input type="text" id="serial-key-input" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-blue-500">
+                            <label for="serial-key-input" class="block text-xs font-semibold text-slate-300 mb-2">Serial / Registration Key</label>
+                            <input type="text" id="serial-key-input" name="serialKey" required placeholder="DP-XXXX-XXXX-XXXX" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-white placeholder-slate-600 focus:outline-none focus:border-blue-500">
                         </div>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-6 py-2.5 rounded-xl transition">Submit Key</button>
+                        <button type="submit" id="submit-key-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-6 py-2.5 rounded-xl transition">Redeem License</button>
                     </form>
                 </div>
 
@@ -286,19 +237,22 @@
                 <div id="tab-about-me" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
                     <div>
                         <h2 class="text-xl font-bold text-white">About Me</h2>
-                        <p class="text-xs text-slate-400 mt-1 italic">"Why should I fill this out?" Good question! This way we will be able to keep you posted about relevant content and offer recommendations customized to your skills.</p>
+                        <p class="text-xs text-slate-400 mt-1">Select your production background to receive tailored product updates and recommendations.</p>
                     </div>
 
                     <form id="about-me-form" class="space-y-6">
                         <div>
-                            <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Which role(s) best describe(s) you?</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-300">
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Music Producer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Mixing/Recording Engineer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Musician</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Beat Maker</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Mastering Engineer</label>
-                                <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Singer/Songwriter</label>
+                            <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Which role(s) best describe your workflow?</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-300">
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Music Producer" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Music Producer</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Mixing/Recording Engineer" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Mixing/Recording Engineer</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Musician" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Musician</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Beat Maker" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Beat Maker</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Mastering Engineer" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Mastering Engineer</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Singer/Songwriter" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Singer/Songwriter</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Sound Designer" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Sound Designer</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="DJ" class="rounded bg-slate-950 border-slate-800 text-blue-600"> DJ</label>
+                                <label class="flex items-center gap-2"><input type="checkbox" name="roles" value="Educator" class="rounded bg-slate-950 border-slate-800 text-blue-600"> Audio Educator</label>
                             </div>
                         </div>
                         <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-6 py-2.5 rounded-xl transition">Save Preferences</button>
@@ -309,52 +263,47 @@
                 <div id="tab-personal-details" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-6">
                     <h2 class="text-xl font-bold text-white pb-3 border-b border-slate-800">Edit Personal Details</h2>
                     
-                    <div class="space-y-3">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                            <div>
-                                <label class="block text-slate-400 mb-1">Username</label>
-                                <input type="text" id="username-field" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-500 font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-slate-400 mb-1">Email</label>
-                                <input type="email" id="email-field" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-slate-500 font-mono">
-                            </div>
-                        </div>
-                    </div>
-
-                    <form id="personal-details-form" class="space-y-4 text-xs pt-4 border-t border-slate-800">
+                    <form id="personal-details-form" class="space-y-4 text-xs">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
+                                <label class="block text-slate-400 mb-1">Username / Account ID</label>
+                                <input type="text" id="field-username" name="username" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500 font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1">Primary Email</label>
+                                <input type="email" id="field-email" name="email" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-500 font-mono">
+                            </div>
+                            <div>
                                 <label class="block text-slate-300 mb-1">First Name</label>
-                                <input type="text" placeholder="First Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-first-name" name="firstName" placeholder="First Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">Last Name</label>
-                                <input type="text" placeholder="Last Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-last-name" name="lastName" placeholder="Last Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">Phone</label>
-                                <input type="text" placeholder="+1 Phone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <label class="block text-slate-300 mb-1">Phone Number</label>
+                                <input type="tel" id="field-phone" name="phone" placeholder="+1 (555) 000-0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">Company Name</label>
-                                <input type="text" placeholder="Company Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-company" name="company" placeholder="Studio or Company Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">Address</label>
-                                <input type="text" placeholder="Address" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-address" name="address" placeholder="Street Address" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">City</label>
-                                <input type="text" placeholder="City" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-city" name="city" placeholder="City" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
-                                <label class="block text-slate-300 mb-1">Zip Code</label>
-                                <input type="text" placeholder="Zip Code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <label class="block text-slate-300 mb-1">Zip / Postal Code</label>
+                                <input type="text" id="field-zip" name="zip" placeholder="Zip Code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-slate-300 mb-1">Country</label>
-                                <input type="text" placeholder="Country" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
+                                <input type="text" id="field-country" name="country" placeholder="Country" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500">
                             </div>
                         </div>
                         <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-6 py-2.5 rounded-xl transition">Submit Changes</button>
@@ -364,60 +313,66 @@
                 <!-- TAB 7: MY INVOICES -->
                 <div id="tab-my-invoices" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">My Invoices</h2>
-                    <p class="text-xs text-slate-400">No purchase invoices associated with this account.</p>
+                    <div id="user-invoices-container" class="text-xs text-slate-400">
+                        <p>No purchase invoices found.</p>
+                    </div>
                 </div>
 
                 <!-- TAB 8: MY CREDIT CARDS -->
                 <div id="tab-my-credit-cards" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Saved Payment Methods</h2>
-                    <p class="text-xs text-slate-400">No credit cards saved for quick checkout.</p>
+                    <div id="user-payment-methods-container" class="text-xs text-slate-400">
+                        <p>No credit cards saved for quick checkout.</p>
+                    </div>
                 </div>
 
                 <!-- TAB 9: EMAIL PREFERENCES -->
                 <div id="tab-email-preferences" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs">
                     <h2 class="text-lg font-bold text-white pb-3 border-b border-slate-800">Email Preferences</h2>
-                    <label class="flex items-center gap-3 text-slate-300">
-                        <input type="checkbox" checked class="rounded bg-slate-950 border-slate-800 text-blue-600"> Receive product announcements & discount codes
-                    </label>
+                    <form id="email-prefs-form" class="space-y-3">
+                        <label class="flex items-center gap-3 text-slate-300">
+                            <input type="checkbox" name="marketing" checked class="rounded bg-slate-950 border-slate-800 text-blue-600"> Receive news, product announcements, and discount codes
+                        </label>
+                        <label class="flex items-center gap-3 text-slate-300">
+                            <input type="checkbox" name="updates" checked class="rounded bg-slate-950 border-slate-800 text-blue-600"> Receive security updates and license notices
+                        </label>
+                        <button type="submit" class="mt-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs px-5 py-2 rounded-xl transition">Update Preferences</button>
+                    </form>
                 </div>
 
                 <!-- TAB 10: MY COUPONS -->
                 <div id="tab-my-coupons" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">My Coupons</h2>
-                    <p class="text-xs text-slate-400">No active promotional vouchers available.</p>
-                </div>
-
-                <!-- TAB 11: WISH LIST -->
-                <div id="tab-wish-list" class="tab-content hidden bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 pb-3 border-b border-slate-800">Wish List</h2>
-                    <p class="text-xs text-slate-400">Your saved plugins wish list is empty.</p>
+                    <div id="user-coupons-container" class="text-xs text-slate-400">
+                        <p>No active promotional vouchers available.</p>
+                    </div>
                 </div>
 
             </section>
         </div>
     </main>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- FOOTER -->
     <footer class="bg-slate-900/90 border-t border-slate-800 text-slate-400 text-sm mt-auto">
         <div class="max-w-[1440px] mx-auto px-4 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-            <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
+            <p>&copy; 2026 Diaspora Plugins. All rights reserved.</p>
             <div class="flex items-center gap-4">
-                <a href="#" class="hover:text-slate-300 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-slate-300 transition">Terms of Service</a>
+                <a href="/privacy/" class="hover:text-slate-300 transition">Privacy Policy</a>
+                <a href="/terms/" class="hover:text-slate-300 transition">Terms of Service</a>
                 <a href="/support/" class="hover:text-slate-300 transition">Support</a>
             </div>
         </div>
     </footer>
 
-    <!-- Firebase Auth Guard & Production Logic -->
+    <!-- CLIENT LOGIC & EVENT HANDLERS -->
     <script type="module">
         import { auth, signOut, onAuthStateChanged } from '../assets/js/firebase-client.js';
 
         const userNameDisplay = document.getElementById('user-name-display');
         const userEmailHeader = document.getElementById('user-email-header');
         const userEmailMobile = document.getElementById('user-email-mobile');
-        const usernameField = document.getElementById('username-field');
-        const emailField = document.getElementById('email-field');
+        const fieldUsername = document.getElementById('field-username');
+        const fieldEmail = document.getElementById('field-email');
 
         const logoutBtn = document.getElementById('logout-btn');
         const logoutBtnMobile = document.getElementById('logout-btn-mobile');
@@ -429,28 +384,28 @@
         const statusMessage = document.getElementById('status-message');
         const closeStatusBtn = document.getElementById('close-status-btn');
 
-        // Toggle Mobile Navigation
+        // Mobile Menu Drawer Toggle
         mobileMenuToggle.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // --- AUTH GUARD ---
+        // Auth State Handler
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = '/login/';
             } else {
-                const name = user.displayName || user.email.split('@')[0];
+                const displayName = user.displayName || user.email.split('@')[0];
                 const email = user.email || '';
 
-                userNameDisplay.textContent = name;
+                userNameDisplay.textContent = displayName;
                 userEmailHeader.textContent = email;
                 userEmailMobile.textContent = email;
-                usernameField.value = email;
-                emailField.value = email;
+                if (fieldUsername) fieldUsername.value = email;
+                if (fieldEmail) fieldEmail.value = email;
             }
         });
 
-        // --- LOGOUT LOGIC ---
+        // Logout Event Listener
         const handleLogout = async () => {
             try {
                 await signOut(auth);
@@ -460,24 +415,20 @@
             }
         };
 
-        logoutBtn.addEventListener('click', handleLogout);
-        logoutBtnMobile.addEventListener('click', handleLogout);
+        if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+        if (logoutBtnMobile) logoutBtnMobile.addEventListener('click', handleLogout);
 
-        // --- TAB SWITCHER LOGIC ---
+        // Dynamic Tab Switching
         window.switchTab = function(tabId) {
-            // Hide all contents
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             
-            // Show requested tab
-            const target = document.getElementById(`tab-${tabId}`);
-            if (target) target.classList.remove('hidden');
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.remove('hidden');
 
-            // Reset Tab Button Styling
             document.querySelectorAll('.tab-link').forEach(btn => {
                 btn.className = "tab-link w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white";
             });
 
-            // Active Tab Styling
             const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
             if (activeBtn) {
                 activeBtn.className = "tab-link w-full text-left px-3 py-2 rounded-lg text-blue-400 font-semibold bg-blue-600/10 border border-blue-500/20";
@@ -485,7 +436,35 @@
             }
         };
 
-        closeStatusBtn.addEventListener('click', () => statusBanner.classList.add('hidden'));
+        // Notification Display Handler
+        function showNotification(message, type = 'info') {
+            statusBanner.classList.remove('hidden', 'bg-red-950/60', 'border-red-800', 'text-red-300', 'bg-emerald-950/60', 'border-emerald-800', 'text-emerald-300');
+            
+            if (type === 'error') {
+                statusBanner.classList.add('bg-red-950/60', 'border-red-800', 'text-red-300');
+                statusIcon.className = 'fa-solid fa-circle-exclamation text-red-400';
+            } else {
+                statusBanner.classList.add('bg-emerald-950/60', 'border-emerald-800', 'text-emerald-300');
+                statusIcon.className = 'fa-solid fa-circle-check text-emerald-400';
+            }
+            
+            statusMessage.textContent = message;
+        }
+
+        if (closeStatusBtn) {
+            closeStatusBtn.addEventListener('click', () => statusBanner.classList.add('hidden'));
+        }
+
+        // Serial Key Submit Event Handler Placeholder (Ready for Backend Integration)
+        const registerKeyForm = document.getElementById('register-key-form');
+        if (registerKeyForm) {
+            registerKeyForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const serial = document.getElementById('serial-key-input').value.trim();
+                showNotification(`Submitting serial code ${serial}...`, 'info');
+                // Drop backend API call here (e.g., fetch('/api/redeem-license'))
+            });
+        }
     </script>
 </body>
 </html>
