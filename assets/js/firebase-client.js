@@ -9,9 +9,10 @@ import {
     signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+// 1. Import Firestore initialization function
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-// (Copy this directly from your Firebase Console Project Settings)
 const firebaseConfig = {
   apiKey: "AIzaSyCjNAQwJoLMxGOadDeoPv0MOBTd1mbP6OM",
   authDomain: "diaspora-plugins.firebaseapp.com",
@@ -22,9 +23,13 @@ const firebaseConfig = {
   measurementId: "G-X03CKE1G58"
 };
 
-// Initialize Firebase
+// Initialize Firebase App
 const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Services
 export const auth = getAuth(app);
+// 2. Initialize and Export Firestore Instance (db)
+export const db = getFirestore(app);
 
 export { 
     createUserWithEmailAndPassword, 
