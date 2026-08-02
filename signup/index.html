@@ -244,53 +244,67 @@
         });
     </script>
 
-    <!-- Supabase Signup Integration -->
-    <script type="module">
-        import { supabase } from '../assets/js/supabase-client.js';
+    <!-- Firebase Signup Integration -->
+<script type="module">
+    import { 
+        auth, 
+        createUserWithEmailAndPassword, 
+        updateProfile, 
+        sendEmailVerification 
+    } from '../assets/js/firebase-client.js';
 
-        const signupForm = document.getElementById('signup-form');
-        const alertBox = document.getElementById('alert-box');
-        const submitBtn = document.getElementById('submit-btn');
+    const signupForm = document.getElementById('signup-form');
+    const alertBox = document.getElementById('alert-box');
+    const submitBtn = document.getElementById('submit-btn');
 
-        signupForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+    signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const fullName = document.getElementById('fullname').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        const fullName = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            // Loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin text-xs"></i> Creating Account...`;
-            alertBox.classList.add('hidden');
+        // Loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin text-xs"></i> Creating Account...`;
+        alertBox.classList.add('hidden');
 
-            try {
-                const { data, error } = await supabase.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        data: { full_name: fullName }
-                    }
-                });
+        try {
+            // 1. Create user account
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
 
-                if (error) throw error;
+            // 2. Set display name
+            await updateProfile(user, {
+                displayName: fullName
+            });
 
-                // Show success message
-                alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
-                alertBox.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Account created! Check your email to confirm registration.`;
-                alertBox.classList.remove('hidden');
-                signupForm.reset();
+            // 3. Send verification email (optional)
+            await sendEmailVerification(user);
 
-            } catch (err) {
-                // Show error message
-                alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-red-500/10 border-red-500/30 text-red-400";
-                alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${err.message}`;
-                alertBox.classList.remove('hidden');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+            // Show success message
+            alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
+            alertBox.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Account created! A verification link has been sent to your email.`;
+            alertBox.classList.remove('hidden');
+            signupForm.reset();
+
+        } catch (err) {
+            // Friendly error messaging
+            let message = err.message;
+            if (err.code === 'auth/email-already-in-use') {
+                message = 'An account with this email address already exists.';
+            } else if (err.code === 'auth/weak-password') {
+                message = 'Password should be at least 6 characters.';
             }
-        });
-    </script>
+
+            alertBox.className = "mb-6 p-4 rounded-xl text-xs font-medium border bg-red-500/10 border-red-500/30 text-red-400";
+            alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${message}`;
+            alertBox.classList.remove('hidden');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>Create Account</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+        }
+    });
+</script>
 </body>
 </html>
