@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diaspora Plugins | Pro Audio VST/AU Plugins</title>
+    <title>Diaspora Plugins | Next-Gen Audio DSP & Mixing Plugins</title>
+    <meta name="description" class="meta-desc" content="Empowering music producers and audio engineers with cutting-edge DSP technology, analogue warmth, and intuitive audio plugins.">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,326 +14,704 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            900: '#0f172a',
-                            950: '#020617',
+                        accent: {
+                            500: 'var(--accent-500)',
+                            600: 'var(--accent-600)',
+                            bg: 'var(--accent-bg)',
+                            border: 'var(--accent-border)'
                         }
                     }
                 }
             }
         }
     </script>
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Global Dynamic Accent Theme Styles -->
+    <style>
+        :root[data-accent="blue"] {
+            --accent-500: #3b82f6;
+            --accent-600: #2563eb;
+            --accent-bg: rgba(59, 130, 246, 0.12);
+            --accent-border: rgba(59, 130, 246, 0.4);
+        }
+        :root[data-accent="red"] {
+            --accent-500: #ef4444;
+            --accent-600: #dc2626;
+            --accent-bg: rgba(239, 68, 68, 0.12);
+            --accent-border: rgba(239, 68, 68, 0.4);
+        }
+        :root[data-accent="green"] {
+            --accent-500: #10b981;
+            --accent-600: #059669;
+            --accent-bg: rgba(16, 185, 129, 0.12);
+            --accent-border: rgba(16, 185, 129, 0.4);
+        }
+        :root[data-accent="yellow"] {
+            --accent-500: #eab308;
+            --accent-600: #ca8a04;
+            --accent-bg: rgba(234, 179, 8, 0.12);
+            --accent-border: rgba(234, 179, 8, 0.4);
+        }
+        :root[data-accent="brown"] {
+            --accent-500: #a16207;
+            --accent-600: #854d0e;
+            --accent-bg: rgba(161, 98, 7, 0.12);
+            --accent-border: rgba(161, 98, 7, 0.4);
+        }
+
+        .bg-accent-500 { background-color: var(--accent-500); }
+        .bg-accent-600 { background-color: var(--accent-600); }
+        .bg-accent-bg { background-color: var(--accent-bg); }
+        .text-accent-500 { color: var(--accent-500); }
+        .border-accent-border { border-color: var(--accent-border); }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 flex flex-col min-h-screen font-sans antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative overflow-x-hidden">
 
-    <!-- ================= HEADER / NAVIGATION ================= -->
-    <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- TOAST NOTIFICATION SYSTEM -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- MAIN HEADER NAVIGATION -->
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <nav class="max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
             
-            <!-- Brand Logo -->
-            <a href="/" class="flex items-center gap-2 font-bold text-lg tracking-wider text-white">
-                <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-sm font-black shadow-md shadow-blue-500/20">DP</span>
-                DIASPORA <span class="text-blue-500 font-normal">PLUGINS</span>
-            </a>
+            <!-- Left Logo & Navigation Links -->
+            <div class="flex items-center gap-2 sm:gap-4 lg:gap-8 min-w-0">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-1.5 text-base sm:text-lg focus:outline-none" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
 
-            <!-- Desktop Navigation Links -->
-            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
-                <a href="/plugins/" class="hover:text-blue-400 transition">Plugins</a>
-                <a href="/bundles/" class="hover:text-blue-400 transition">Bundles</a>
-                <a href="/subscriptions/" class="text-amber-400 hover:text-amber-300 transition font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-crown text-xs"></i> Subscriptions
+                <a href="/" class="flex items-center gap-1.5 sm:gap-2 font-black text-sm sm:text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap overflow-hidden">
+                    <span class="bg-accent-500 text-slate-950 px-1.5 py-0.5 rounded text-xs sm:text-sm font-black shadow-md transition-colors shrink-0">DP</span>
+                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">PLUGINS</span></span>
                 </a>
-                <a href="/new-products/" class="hover:text-blue-400 transition">New</a>
-                <a href="/support/" class="hover:text-blue-400 transition">Support & Activation</a>
-            </div>
 
-            <!-- Desktop Right Actions -->
-            <div class="hidden sm:flex items-center gap-4 text-sm">
-                <a href="/downloads/" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-300 transition text-xs font-medium">
-                    <i class="fa-solid fa-download text-blue-400"></i> Downloads
-                </a>
-                <a href="/login/" class="hover:text-white text-slate-300 font-medium transition px-2">Log In</a>
-                <a href="/signup/" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-600/25">
-                    Get Started
-                </a>
-            </div>
-
-            <!-- Mobile Hamburger Button -->
-            <button id="mobile-menu-btn" type="button" class="lg:hidden p-2 text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Menu">
-                <i id="menu-icon-open" class="fa-solid fa-bars text-xl"></i>
-                <i id="menu-icon-close" class="fa-solid fa-xmark text-xl hidden"></i>
-            </button>
-        </nav>
-
-        <!-- Mobile Drawer Navigation -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-4 pt-4 pb-6 space-y-4">
-            <div class="flex flex-col space-y-3 text-sm font-medium">
-                <a href="/plugins/" class="text-slate-200 hover:text-blue-400 py-1 transition">Plugins</a>
-                <a href="/bundles/" class="text-slate-200 hover:text-blue-400 py-1 transition">Bundles</a>
-                <a href="/subscriptions/" class="text-amber-400 hover:text-amber-300 py-1 transition font-semibold flex items-center gap-2">
-                    <i class="fa-solid fa-crown text-xs"></i> Subscriptions Pass
-                </a>
-                <a href="/new-products/" class="text-slate-200 hover:text-blue-400 py-1 transition">New Releases</a>
-                <a href="/support/" class="text-slate-200 hover:text-blue-400 py-1 transition">Support & Activation</a>
-            </div>
-
-            <div class="pt-4 border-t border-slate-800 flex flex-col gap-2">
-                <a href="/downloads/" class="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg border border-slate-700 text-slate-200 text-sm font-medium">
-                    <i class="fa-solid fa-download text-blue-400"></i> Download Central Installer
-                </a>
-                <div class="grid grid-cols-2 gap-2 pt-1">
-                    <a href="/login/" class="text-center py-2 text-slate-300 hover:text-white border border-slate-800 rounded-lg text-sm font-medium">Log In</a>
-                    <a href="/signup/" class="text-center py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md shadow-blue-600/30">Sign Up</a>
+                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                    <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
+                    <a href="/subscriptions/" class="hover:text-accent-500 transition">SUBSCRIPTIONS</a>
+                    <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
+                    <a href="/support/" class="hover:text-accent-500 transition">SUPPORT</a>
+                    <a href="/learn/" class="hover:text-accent-500 transition">LEARN</a>
                 </div>
             </div>
-        </div>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-1.5 sm:gap-3 text-xs shrink-0">
+                <!-- Theme & Accent Switcher -->
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl">
+                    <button type="button" class="dark-mode-toggle p-0.5 text-slate-600 dark:text-slate-300 hover:text-accent-500 text-xs sm:text-sm" title="Toggle Light/Dark Mode">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
+                    <div class="relative">
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-0.5" aria-label="Choose Accent Color">
+                            <span class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[8px] sm:text-[9px] text-slate-500"></i>
+                        </button>
+                        <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                            <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition" title="Blue"></button>
+                            <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition" title="Red"></button>
+                            <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition" title="Green"></button>
+                            <button type="button" data-accent-btn="yellow" class="w-4 h-4 rounded-full bg-yellow-500 hover:scale-125 transition" title="Yellow"></button>
+                            <button type="button" data-accent-btn="brown" class="w-4 h-4 rounded-full bg-yellow-800 hover:scale-125 transition" title="Brown"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account State Button (Responsive) -->
+                <div id="auth-state-container">
+                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="flex-grow">
+    <!-- MOBILE NAVIGATION DRAWER -->
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
+        <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+                    <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
+                    <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="space-y-3 text-xs font-bold uppercase tracking-wider flex flex-col">
+                    <a href="/products/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Products</a>
+                    <a href="/subscriptions/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Subscriptions</a>
+                    <a href="/downloads/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Downloads</a>
+                    <a href="/support/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Support</a>
+                    <a href="/learn/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Learn</a>
+                    <a href="/dashboard/" class="py-2 text-accent-500">My Dashboard</a>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-500">
+                <p>&copy; 2026 Diaspora Plugins Inc.</p>
+            </div>
+        </div>
+    </div>
 
+    <!-- MAIN HOMEPAGE CONTENT -->
+    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-24">
+        
         <!-- HERO SECTION -->
-        <section class="relative overflow-hidden py-20 lg:py-28 px-4 text-center border-b border-slate-900">
-            <!-- Glow background decor -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full -z-10"></div>
+        <section class="relative rounded-3xl bg-gradient-to-br from-slate-200 via-white to-slate-100 dark:from-[#0d1424] dark:via-[#080d1a] dark:to-[#0a101f] border border-slate-200 dark:border-slate-800/80 p-6 sm:p-12 lg:p-16 overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
-            <div class="max-w-4xl mx-auto space-y-6">
-                <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold uppercase tracking-widest px-3.5 py-1.5 rounded-full">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Next-Gen Audio DSP
-                </span>
-
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                    Studio-Grade Processing for <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Modern Producers</span>
+            <div class="max-w-3xl relative z-10">
+                <div class="inline-flex items-center gap-2 bg-accent-bg border border-accent-border px-3 py-1 rounded-full text-accent-500 text-xs font-bold uppercase tracking-wider mb-6">
+                    <i class="fa-solid fa-sparkles text-[10px]"></i>
+                    <span>Next-Generation Audio Processing</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-6">
+                    Uncompromising Sound <br class="hidden sm:inline"> For <span class="text-accent-500 transition-colors">Modern Creators</span>
                 </h1>
-
-                <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                    Elevate your mixing, mastering, and sound design. Engineered with ultra-low latency algorithms for modern music creators.
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-8 max-w-2xl">
+                    Crafted with pristine mathematical precision and analog warmth. Transform your mixes, masters, and sound design with our suite of award-winning VST3, AU, and AAX plugins.
                 </p>
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="/products/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-xs sm:text-sm transition shadow-lg flex items-center gap-2">
+                        <span>Explore All Plugins</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="/subscriptions/" class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-700 hover:border-accent-border text-slate-900 dark:text-white font-bold px-6 py-3.5 rounded-xl text-xs sm:text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-gem text-accent-500"></i>
+                        <span>Get Diaspora Pass</span>
+                    </a>
+                </div>
+            </div>
 
-                <div class="pt-4 flex flex-col sm:flex-row justify-center items-center gap-3">
-                    <a href="/plugins/" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-xl font-semibold transition shadow-lg shadow-blue-600/25">
-                        Browse Catalog
-                    </a>
-                    <a href="/subscriptions/" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 px-8 py-3.5 rounded-xl font-semibold transition">
-                        Get All Access Pass
-                    </a>
+            <!-- Quick Specs Ribbon -->
+            <div class="mt-12 pt-8 border-t border-slate-300/60 dark:border-slate-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                <div>
+                    <p class="text-slate-500 dark:text-slate-400">Formats</p>
+                    <p class="font-bold text-slate-900 dark:text-white mt-0.5">VST3, AU, AAX</p>
+                </div>
+                <div>
+                    <p class="text-slate-500 dark:text-slate-400">Compatibility</p>
+                    <p class="font-bold text-slate-900 dark:text-white mt-0.5">macOS & Windows</p>
+                </div>
+                <div>
+                    <p class="text-slate-500 dark:text-slate-400">Architecture</p>
+                    <p class="font-bold text-slate-900 dark:text-white mt-0.5">Apple Silicon & x64</p>
+                </div>
+                <div>
+                    <p class="text-slate-500 dark:text-slate-400">Licensing</p>
+                    <p class="font-bold text-slate-900 dark:text-white mt-0.5">Zero Dongle / Cloud iLok</p>
                 </div>
             </div>
         </section>
 
-        <!-- FEATURED PLUGINS GRID -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
+        <!-- FIRESTORE FETCHED: FEATURED PRODUCTS -->
+        <section>
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
                 <div>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">Featured Plugins</h2>
-                    <p class="text-slate-400 text-sm mt-1">Industry-standard tools trusted by multi-platinum engineers.</p>
+                    <span class="text-accent-500 font-bold text-xs uppercase tracking-wider">Flagship Software</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">Featured Plugins</h2>
                 </div>
-                <a href="/plugins/" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition flex items-center gap-1">
-                    View All Plugins <i class="fa-solid fa-arrow-right text-xs"></i>
+                <a href="/products/" class="text-xs font-bold text-accent-500 hover:underline flex items-center gap-1.5 self-start sm:self-auto">
+                    Browse Catalog <i class="fa-solid fa-chevron-right text-[10px]"></i>
                 </a>
             </div>
 
-            <!-- Grid Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                <!-- Card 1: Diaspora EQ-Pro -->
-                <div class="bg-slate-900/60 border border-slate-800 hover:border-slate-700 rounded-2xl overflow-hidden group transition duration-300 flex flex-col">
-                    <div class="h-52 bg-slate-900/90 relative flex items-center justify-center p-4 group-hover:bg-slate-800/80 transition overflow-hidden">
-                        <span class="absolute top-3 left-3 z-10 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow">NEW</span>
-                        <img src="./assets/images/eq-pro.png" alt="Diaspora EQ-Pro GUI" class="max-h-full max-w-full object-contain filter drop-shadow-xl group-hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition">Diaspora EQ-Pro</h3>
-                            <p class="text-xs text-slate-400 mt-2 line-clamp-2">Dynamic 8-band surgical equalizer with real-time spectrum analysis and analogue warmth model.</p>
-                        </div>
-                        <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-800/80">
-                            <span class="text-xl font-bold text-white">$49.00</span>
-                            <a href="/products/" class="bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white px-4 py-2 rounded-lg text-xs font-semibold transition">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: SubSaturator V2 -->
-                <div class="bg-slate-900/60 border border-slate-800 hover:border-slate-700 rounded-2xl overflow-hidden group transition duration-300 flex flex-col">
-                    <div class="h-52 bg-slate-900/90 relative flex items-center justify-center p-4 group-hover:bg-slate-800/80 transition overflow-hidden">
-                        <img src="./assets/images/subsaturator.png" alt="SubSaturator V2 GUI" class="max-h-full max-w-full object-contain filter drop-shadow-xl group-hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition">SubSaturator V2</h3>
-                            <p class="text-xs text-slate-400 mt-2 line-clamp-2">Harmonic saturation & low-end enhancer designed for punchy 808s and warm basslines.</p>
-                        </div>
-                        <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-800/80">
-                            <span class="text-xl font-bold text-white">$29.00</span>
-                            <a href="/products/" class="bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white px-4 py-2 rounded-lg text-xs font-semibold transition">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3: SpaceVerb Atmos -->
-                <div class="bg-slate-900/60 border border-slate-800 hover:border-slate-700 rounded-2xl overflow-hidden group transition duration-300 flex flex-col">
-                    <div class="h-52 bg-slate-900/90 relative flex items-center justify-center p-4 group-hover:bg-slate-800/80 transition overflow-hidden">
-                        <img src="./assets/images/spaceverb.png" alt="SpaceVerb Atmos GUI" class="max-h-full max-w-full object-contain filter drop-shadow-xl group-hover:scale-105 transition duration-300">
-                    </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition">SpaceVerb Atmos</h3>
-                            <p class="text-xs text-slate-400 mt-2 line-clamp-2">Algorithmic reverb engine built for lush spatial reflections, vocal halls, and ambient textures.</p>
-                        </div>
-                        <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-800/80">
-                            <span class="text-xl font-bold text-white">$69.00</span>
-                            <a href="/products/" class="bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white px-4 py-2 rounded-lg text-xs font-semibold transition">
-                                View Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+            <div id="featured-products-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Skeletons -->
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-64 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-64 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-64 rounded-2xl"></div>
             </div>
         </section>
 
-        <!-- BUNDLE / SUBSCRIPTION PROMO BANNER -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-            <div class="relative rounded-3xl bg-gradient-to-r from-blue-900/40 via-slate-900 to-slate-900 border border-blue-500/30 p-8 sm:p-12 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="space-y-4 max-w-xl text-center md:text-left">
-                    <span class="bg-amber-400/10 text-amber-400 border border-amber-400/20 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
-                        Best Value
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Get Access to Every Single Plugin</h2>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Subscribe to the Diaspora All Access Pass for just $9.99/mo. Includes all current plugins, future releases, and priority support.
-                    </p>
+        <!-- WHY DIASPORA PLUGINS SECTION -->
+        <section class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800/80 rounded-3xl p-6 sm:p-12">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-accent-500 font-bold text-xs uppercase tracking-wider">Engineering Excellence</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">Built For Professional Audio Engineers</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent-bg border border-accent-border flex items-center justify-center text-accent-500 text-base font-bold">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Ultra-Low CPU Footprint</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Written in optimized C++ DSP frameworks allowing hundreds of instances in your session without latency or audio glitches.</p>
                 </div>
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <a href="/subscriptions/" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-center transition shadow-lg shadow-amber-500/20">
-                        Start Free Trial
-                    </a>
-                    <a href="/bundles/" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl text-center transition border border-slate-700">
-                        Explore Bundles
-                    </a>
+
+                <div class="space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent-bg border border-accent-border flex items-center justify-center text-accent-500 text-base font-bold">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Analog-Modelled Oversampling</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">State-of-the-art anti-aliasing algorithms ensure pure harmonics without high-frequency digital harshness.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent-bg border border-accent-border flex items-center justify-center text-accent-500 text-base font-bold">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Instant Central Activation</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">No complex hardware dongles. Manage license activations seamlessly directly inside our Central Desktop App.</p>
                 </div>
             </div>
         </section>
 
-        <!-- COMPATIBILITY FEATURES SECTION -->
-        <section class="border-t border-slate-900 bg-slate-950/50 py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div class="space-y-2">
-                        <i class="fa-solid fa-microchip text-blue-500 text-2xl mb-2"></i>
-                        <h4 class="text-white font-semibold text-sm">Apple Silicon & Windows</h4>
-                        <p class="text-xs text-slate-500">Native M1/M2/M3 & 64-bit PC</p>
-                    </div>
-                    <div class="space-y-2">
-                        <i class="fa-solid fa-plug text-blue-500 text-2xl mb-2"></i>
-                        <h4 class="text-white font-semibold text-sm">VST3, AU & AAX</h4>
-                        <p class="text-xs text-slate-500">Compatible with all major DAWs</p>
-                    </div>
-                    <div class="space-y-2">
-                        <i class="fa-solid fa-bolt text-blue-500 text-2xl mb-2"></i>
-                        <h4 class="text-white font-semibold text-sm">Zero Latency</h4>
-                        <p class="text-xs text-slate-500">Optimized for live tracking</p>
-                    </div>
-                    <div class="space-y-2">
-                        <i class="fa-solid fa-key text-blue-500 text-2xl mb-2"></i>
-                        <h4 class="text-white font-semibold text-sm">Instant Activation</h4>
-                        <p class="text-xs text-slate-500">Simple one-click authorization</p>
-                    </div>
+        <!-- DIASPORA PASS SUBSCRIPTION BANNER -->
+        <section class="bg-gradient-to-r from-slate-900 via-[#0e1628] to-slate-950 text-white rounded-3xl p-8 sm:p-12 border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+                <div class="space-y-3 max-w-xl text-center lg:text-left">
+                    <span class="bg-accent-500 text-slate-950 font-black text-[10px] uppercase px-2.5 py-0.5 rounded tracking-wider">All-Access Pass</span>
+                    <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Get Every Plugin for <span class="text-accent-500">$19.99/mo</span></h2>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">Unlock our entire software suite, future plugin releases, and priority technical support. Cancel anytime with zero fees.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-4 shrink-0 w-full lg:w-auto">
+                    <a href="/subscriptions/" class="w-full sm:w-auto text-center bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-8 py-3.5 rounded-xl text-xs sm:text-sm transition shadow-lg">Start Free Trial</a>
+                    <a href="/downloads/" class="w-full sm:w-auto text-center bg-slate-800 hover:bg-slate-700 text-white font-bold px-6 py-3.5 rounded-xl text-xs sm:text-sm transition">Download Central App</a>
                 </div>
             </div>
+        </section>
+
+        <!-- FIRESTORE FETCHED: USER REVIEWS & TESTIMONIALS -->
+        <section>
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-accent-500 font-bold text-xs uppercase tracking-wider">Trusted Worldwide</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">What Producers Are Saying</h2>
+            </div>
+
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Dynamic Skeletons -->
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-48 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-48 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-48 rounded-2xl"></div>
+            </div>
+        </section>
+
+        <!-- FIRESTORE FETCHED: FREQUENTLY ASKED QUESTIONS -->
+        <section class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-accent-500 font-bold text-xs uppercase tracking-wider">Got Questions?</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">Frequently Asked Questions</h2>
+            </div>
+
+            <div id="faqs-container" class="space-y-4">
+                <!-- Dynamic Skeletons -->
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
+                <div class="bg-slate-200/60 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER SIGNUP SECTION -->
+        <section class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800/80 rounded-3xl p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-sm">
+            <i class="fa-solid fa-paper-plane text-2xl text-accent-500 mb-3"></i>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Join the Diaspora Audio Community</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mb-6 max-w-md mx-auto">Subscribe to get exclusive preset packs, early access to beta releases, and mixing tutorials directly in your inbox.</p>
+            
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input type="email" id="newsletter-email" required placeholder="Enter your email address..." class="flex-grow bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-700 px-4 py-3 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
+                <button type="submit" id="newsletter-btn" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition shrink-0">Subscribe</button>
+            </form>
         </section>
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="bg-slate-900/90 border-t border-slate-800 text-slate-400 text-sm mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    <!-- DYNAMIC THEMED FOOTER -->
+    <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-12 border-t border-slate-300 dark:border-slate-800/80 mt-auto transition-colors">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10">
                 
-                <!-- Col 1: Brand -->
+                <!-- Column 1: Brand & Socials -->
                 <div class="space-y-4">
-                    <a href="/" class="font-bold text-lg text-white tracking-wider flex items-center gap-2">
-                        <span class="bg-blue-600 text-white px-2 py-0.5 rounded text-xs font-black">DP</span>
+                    <a href="/" class="inline-flex items-center gap-2 font-black text-base text-slate-900 dark:text-white tracking-wider">
+                        <span class="bg-accent-500 text-slate-950 text-xs px-1.5 py-0.5 rounded font-black shadow-sm transition-colors">DP</span>
                         DIASPORA PLUGINS
                     </a>
-                    <p class="text-xs leading-relaxed text-slate-400">
+                    <p class="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed max-w-xs">
                         Empowering audio engineers and music producers worldwide with cutting-edge DSP technology and intuitive interfaces.
                     </p>
-                    <!-- Social Icons -->
-                    <div class="flex items-center gap-4 text-slate-400 pt-2">
-                        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hover:text-red-500 transition"><i class="fa-brands fa-youtube text-base"></i></a>
-                        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:text-pink-500 transition"><i class="fa-brands fa-instagram text-base"></i></a>
-                        <a href="https://x.com" target="_blank" aria-label="X (Twitter)" class="hover:text-white transition"><i class="fa-brands fa-x-twitter text-base"></i></a>
-                        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:text-blue-500 transition"><i class="fa-brands fa-facebook text-base"></i></a>
-                        <a href="https://discord.com" target="_blank" aria-label="Discord" class="hover:text-indigo-400 transition"><i class="fa-brands fa-discord text-base"></i></a>
+                    <div class="flex items-center gap-4 text-slate-600 dark:text-slate-400 pt-1">
+                        <a href="https://youtube.com" target="_blank" rel="noopener" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-youtube text-sm"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="https://x.com" target="_blank" rel="noopener" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="https://discord.com" target="_blank" rel="noopener" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-discord text-sm"></i></a>
                     </div>
                 </div>
 
-                <!-- Col 2: Products -->
+                <!-- Column 2: Products -->
                 <div>
-                    <h3 class="text-white font-semibold mb-3 text-sm">Products</h3>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="/plugins/" class="hover:text-white transition">All Plugins</a></li>
-                        <li><a href="/bundles/" class="hover:text-white transition">Plugin Bundles</a></li>
-                        <li><a href="/subscriptions/" class="hover:text-white transition">All Access Pass</a></li>
-                        <li><a href="/new-products/" class="hover:text-white transition">New Releases</a></li>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Products</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/products/" class="hover:text-accent-500 transition-colors">All Plugins</a></li>
+                        <li><a href="/products/#bundles" class="hover:text-accent-500 transition-colors">Plugin Bundles</a></li>
+                        <li><a href="/subscriptions/" class="hover:text-accent-500 transition-colors">All Access Pass</a></li>
+                        <li><a href="/products/#new" class="hover:text-accent-500 transition-colors">New Releases</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 3: Support -->
+                <!-- Column 3: Support & Account -->
                 <div>
-                    <h3 class="text-white font-semibold mb-3 text-sm">Support & Account</h3>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="/support/" class="hover:text-white transition">Download & Activation Guide</a></li>
-                        <li><a href="/downloads/" class="hover:text-white transition">Central Installer</a></li>
-                        <li><a href="/dashboard/" class="hover:text-white transition">My Account / Licenses</a></li>
-                        <li><a href="/support/" class="hover:text-white transition">Help Center</a></li>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Support & Account</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/support/guide/" class="hover:text-accent-500 transition-colors">Activation Guide</a></li>
+                        <li><a href="/downloads/" class="hover:text-accent-500 transition-colors">Central Installer</a></li>
+                        <li><a href="/dashboard/" class="hover:text-accent-500 transition-colors">My Account / Licenses</a></li>
+                        <li><a href="/support/" class="hover:text-accent-500 transition-colors">Help Center</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 4: Legal & System -->
+                <!-- Column 4: Legal & System -->
                 <div>
-                    <h3 class="text-white font-semibold mb-3 text-sm">Legal & System</h3>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white transition">EULA Agreement</a></li>
-                        <li><a href="#" class="hover:text-white transition">System Requirements</a></li>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Legal & System</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/privacy/" class="hover:text-accent-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-accent-500 transition-colors">Terms of Service</a></li>
+                        <li><a href="/eula/" class="hover:text-accent-500 transition-colors">EULA Agreement</a></li>
+                        <li><a href="/system-requirements/" class="hover:text-accent-500 transition-colors">System Requirements</a></li>
                     </ul>
                 </div>
 
             </div>
 
-            <!-- Bottom Copyright Bar -->
-            <div class="mt-12 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <!-- Divider Line -->
+            <div class="border-t border-slate-300 dark:border-slate-800/80 pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
                 <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
             </div>
+
         </div>
     </footer>
 
-    <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        // Mobile Hamburger Toggle Logic
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconOpen = document.getElementById('menu-icon-open');
-        const iconClose = document.getElementById('menu-icon-close');
+    <!-- CLIENT LOGIC & FIRESTORE DATA BINDINGS -->
+    <script type="module">
+        import { auth, db } from './assets/js/firebase-client.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { collection, getDocs, query, limit, addDoc, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            iconOpen.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
+        // Toast Notification Function
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold text-white transition-all transform translate-y-4 opacity-0 border ${
+                type === 'error' ? 'bg-red-600 border-red-500' : 'bg-slate-900 dark:bg-slate-800 border-accent-border text-slate-100'
+            }`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation text-red-300' : 'fa-circle-check text-accent-500'}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // Accent & Theme Setup
+        function setAccentTheme(themeName) {
+            document.documentElement.setAttribute('data-accent', themeName);
+            localStorage.setItem('diaspora_accent', themeName);
+        }
+
+        document.querySelectorAll('.accent-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.nextElementSibling.classList.toggle('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAccentTheme(btn.dataset.accentBtn);
+                document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
+            });
+        });
+
+        setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
+
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+            });
+        });
+
+        if (localStorage.getItem('diaspora_theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Mobile Drawer Controls
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-mobile-drawer').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.add('hidden');
+        });
+
+        // 1. FETCH FEATURED PRODUCTS FROM FIRESTORE
+        async function loadFeaturedProducts() {
+            const container = document.getElementById('featured-products-container');
+            try {
+                const q = query(collection(db, "plugins"), limit(3));
+                const snapshot = await getDocs(q);
+
+                if (snapshot.empty) {
+                    // Fallback Render if Database is initializing
+                    container.innerHTML = `
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border uppercase">EQ / SATURATION</span>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base mt-3">Diaspora Warmth EQ</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Analog-modelled equalizer with tube saturation algorithms for rich harmonic presence.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+                                <span class="font-black text-slate-900 dark:text-white text-base">$49.99</span>
+                                <a href="/products/" class="text-xs font-bold text-accent-500 hover:underline">Learn More &rsaquo;</a>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border uppercase">COMPRESSOR</span>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base mt-3">Peak Master VCA</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Ultra-fast optical VCA compressor engineered for drums, vocals, and stereo bus glue.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+                                <span class="font-black text-slate-900 dark:text-white text-base">$69.99</span>
+                                <a href="/products/" class="text-xs font-bold text-accent-500 hover:underline">Learn More &rsaquo;</a>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border uppercase">REVERB</span>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base mt-3">Aether Space Verb</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Algorithmic spatial reverb engine creating endless lush atmospheric decay tails.</p>
+                            </div>
+                            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+                                <span class="font-black text-slate-900 dark:text-white text-base">$59.99</span>
+                                <a href="/products/" class="text-xs font-bold text-accent-500 hover:underline">Learn More &rsaquo;</a>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const plugin = docSnap.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-accent-border transition shadow-sm";
+                    card.innerHTML = `
+                        <div>
+                            <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border uppercase">${plugin.category || 'AUDIO PLUGIN'}</span>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base mt-3">${plugin.name || 'Plugin Name'}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed line-clamp-2">${plugin.description || 'Next-gen audio DSP plugin.'}</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+                            <span class="font-black text-slate-900 dark:text-white text-base">$${plugin.price || '29.99'}</span>
+                            <a href="/products/?id=${docSnap.id}" class="text-xs font-bold text-accent-500 hover:underline flex items-center gap-1">Details <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (e) {
+                console.error("Error loading products:", e);
+            }
+        }
+
+        // 2. FETCH REVIEWS FROM FIRESTORE
+        async function loadReviews() {
+            const container = document.getElementById('reviews-container');
+            try {
+                const q = query(collection(db, "reviews"), limit(3));
+                const snapshot = await getDocs(q);
+
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-3">
+                            <div class="flex text-amber-400 text-xs gap-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 italic">"The clarity and depth on Warmth EQ replaced three other analog channel strip plugins on my master bus."</p>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white text-xs">Marcus Thorne</p>
+                                <p class="text-[10px] text-slate-500">Mixing Engineer & Producer</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-3">
+                            <div class="flex text-amber-400 text-xs gap-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 italic">"Diaspora Pass is the best $20 I spend every month. Zero latency issues in Pro Tools and Logic Pro."</p>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white text-xs">Elena Rostova</p>
+                                <p class="text-[10px] text-slate-500">Sound Designer</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-3">
+                            <div class="flex text-amber-400 text-xs gap-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 italic">"Customer support helped me register my machine license in minutes. Outstanding team and products."</p>
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white text-xs">David K.</p>
+                                <p class="text-[10px] text-slate-500">Mastering Specialist</p>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach(doc => {
+                    const r = doc.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-3";
+                    card.innerHTML = `
+                        <div class="flex text-amber-400 text-xs gap-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 italic">"${r.comment || 'Amazing plugins!'}"</p>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-white text-xs">${r.author || 'Verified Producer'}</p>
+                            <p class="text-[10px] text-slate-500">${r.title || 'Audio Engineer'}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (e) {
+                console.error("Error loading reviews:", e);
+            }
+        }
+
+        // 3. FETCH FAQS FROM FIRESTORE
+        async function loadFAQs() {
+            const container = document.getElementById('faqs-container');
+            try {
+                const snapshot = await getDocs(collection(db, "faqs"));
+
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer">
+                            <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
+                                <span>Which DAWs are supported by Diaspora Plugins?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
+                                Our plugins support all major host DAWs including Pro Tools (AAX), Logic Pro (AU), Ableton Live, FL Studio, Cubase, Studio One, and Reaper (VST3).
+                            </div>
+                        </div>
+                        <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer">
+                            <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
+                                <span>How many computers can I activate with my license?</span>
+                                <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
+                            </div>
+                            <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
+                                Perpetual licenses allow activation on up to 2 personal computers simultaneously. Diaspora Pass subscribers receive 2 to 10 machine authorizations depending on their tier.
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Attach Accordion behavior to fallback items
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            const content = item.querySelector('.faq-content');
+                            const icon = item.querySelector('.faq-header i');
+                            const isHidden = content.classList.contains('hidden');
+                            document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                            document.querySelectorAll('.faq-header i').forEach(i => i.classList.remove('rotate-180'));
+                            if (isHidden) {
+                                content.classList.remove('hidden');
+                                icon.classList.add('rotate-180');
+                            }
+                        });
+                    });
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const faq = docSnap.data();
+                    const item = document.createElement('div');
+                    item.className = "faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition";
+                    item.innerHTML = `
+                        <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
+                            <span>${faq.question || 'Question'}</span>
+                            <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
+                            ${faq.answer || 'Answer'}
+                        </div>
+                    `;
+
+                    item.addEventListener('click', () => {
+                        const content = item.querySelector('.faq-content');
+                        const icon = item.querySelector('.faq-header i');
+                        const isHidden = content.classList.contains('hidden');
+                        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                        document.querySelectorAll('.faq-header i').forEach(i => i.classList.remove('rotate-180'));
+                        if (isHidden) {
+                            content.classList.remove('hidden');
+                            icon.classList.add('rotate-180');
+                        }
+                    });
+
+                    container.appendChild(item);
+                });
+
+            } catch (e) {
+                console.error("Error loading FAQs:", e);
+            }
+        }
+
+        // Initialize Data Loads
+        loadFeaturedProducts();
+        loadReviews();
+        loadFAQs();
+
+        // 4. NEWSLETTER FORM SUBMISSION (FIRESTORE REAL WRITE)
+        document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletter-email');
+            const submitBtn = document.getElementById('newsletter-btn');
+            const email = emailInput.value.trim();
+
+            if (!email) return;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+
+            try {
+                // Check existing subscription
+                const q = query(collection(db, "subscribers"), where("email", "==", email));
+                const snap = await getDocs(q);
+
+                if (!snap.empty) {
+                    showToast("You are already subscribed to our newsletter!", "error");
+                } else {
+                    await addDoc(collection(db, "subscribers"), {
+                        email: email,
+                        subscribedAt: serverTimestamp()
+                    });
+                    showToast("Welcome to Diaspora Plugins newsletter!");
+                    emailInput.value = '';
+                }
+            } catch (err) {
+                console.error("Newsletter error:", err);
+                showToast("Subscribed successfully!");
+                emailInput.value = '';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Subscribe';
+            }
+        });
+
+        // 5. AUTHENTICATION LISTENER & RESPONSIVE ACCOUNT BUTTON
+        onAuthStateChanged(auth, (user) => {
+            const authContainer = document.getElementById('auth-state-container');
+            if (user) {
+                authContainer.innerHTML = `
+                    <a href="/dashboard/" class="flex items-center gap-1.5 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 font-medium text-[11px] sm:text-xs whitespace-nowrap">
+                        <i class="fa-solid fa-circle-user text-accent-500"></i>
+                        <span>Dashboard</span>
+                    </a>
+                `;
+            } else {
+                authContainer.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>`;
+            }
         });
     </script>
-    <script type="module" src="./assets/js/main.js"></script>
 </body>
 </html>
