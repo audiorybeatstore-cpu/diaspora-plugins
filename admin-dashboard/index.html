@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal | Diaspora Plugins</title>
+    <title>Admin Dashboard | Diaspora Plugins</title>
     <meta name="robots" content="noindex, nofollow">
     
     <!-- Tailwind CSS CDN -->
@@ -81,15 +81,17 @@
 
                 <a href="/" class="flex items-center gap-1.5 sm:gap-2 font-black text-sm sm:text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap overflow-hidden">
                     <span class="bg-red-600 text-white px-1.5 py-0.5 rounded text-xs sm:text-sm font-black shadow-md shrink-0">ADMIN</span>
-                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">CONTROL</span></span>
+                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">DATABASE</span></span>
                 </a>
 
                 <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-                    <a href="#overview" class="hover:text-accent-500 transition">OVERVIEW</a>
-                    <a href="#licenses" class="hover:text-accent-500 transition">LICENSES</a>
-                    <a href="#users" class="hover:text-accent-500 transition">USERS</a>
-                    <a href="#builds" class="hover:text-accent-500 transition">BUILDS</a>
-                    <a href="#telemetry" class="hover:text-accent-500 transition">TELEMETRY</a>
+                    <a href="#section-plugins" class="hover:text-accent-500 transition">PLUGINS</a>
+                    <a href="#section-bundles" class="hover:text-accent-500 transition">BUNDLES</a>
+                    <a href="#section-downloads" class="hover:text-accent-500 transition">DOWNLOADS</a>
+                    <a href="#section-new-releases" class="hover:text-accent-500 transition">NEW RELEASES</a>
+                    <a href="#section-tutorials" class="hover:text-accent-500 transition">LEARN</a>
+                    <a href="#section-guides" class="hover:text-accent-500 transition">GUIDES</a>
+                    <a href="#section-sysreq" class="hover:text-accent-500 transition">SYS REQ</a>
                 </div>
             </div>
 
@@ -116,246 +118,328 @@
                 </div>
 
                 <div id="auth-state-container">
-                    <span class="text-slate-400 text-xs italic">Loading...</span>
+                    <span class="text-slate-400 text-xs italic">Verifying Auth...</span>
                 </div>
             </div>
         </nav>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8 space-y-8">
+    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8 space-y-12">
 
-        <!-- DASHBOARD HEADER -->
+        <!-- STATUS / BANNER -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
             <div>
                 <div class="flex items-center gap-2 text-xs text-red-500 font-bold tracking-wider uppercase">
-                    <i class="fa-solid fa-shield-halved"></i> Internal Management Portal
+                    <i class="fa-solid fa-database"></i> Firestore Data Operations Console
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
-                    System Administration
+                    Content Management System
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                    Monitor plugin telemetry, manage perpetual keys, push binary updates, and oversee user access.
+                    Live document manager connected directly to your Cloud Firestore database collections.
                 </p>
             </div>
             
-            <div class="flex items-center gap-3">
-                <button type="button" onclick="location.reload()" class="bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
-                    <i class="fa-solid fa-rotate text-xs"></i> Refresh System
-                </button>
-            </div>
+            <button type="button" id="refresh-all-btn" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shrink-0">
+                <i class="fa-solid fa-rotate"></i> Sync Firestore
+            </button>
         </div>
 
-        <!-- METRIC METRICS CARDS -->
-        <div id="overview" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Subscribers</span>
-                    <span class="p-2 bg-emerald-500/10 text-emerald-500 rounded-xl text-sm"><i class="fa-solid fa-users"></i></span>
+        <!-- 1. COLLECTION: PLUGINS -->
+        <section id="section-plugins" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-plug text-accent-500"></i> Collection: <span class="font-mono text-accent-500">plugins</span>
+                    </h2>
+                    <p class="text-xs text-slate-500">Schema: name, category, price, description, version, formats, imageUrl, demoAudioUrl</p>
                 </div>
-                <p class="text-2xl font-black text-slate-900 dark:text-white mt-2">4,289</p>
-                <p class="text-[11px] text-emerald-500 font-medium mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +12.4% this month</p>
             </div>
 
-            <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Activated Seats</span>
-                    <span class="p-2 bg-accent-bg text-accent-500 rounded-xl text-sm"><i class="fa-solid fa-laptop-code"></i></span>
-                </div>
-                <p class="text-2xl font-black text-slate-900 dark:text-white mt-2">12,840 / 15,000</p>
-                <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium mt-1">Active machine authorizations</p>
+            <!-- Create Form -->
+            <form id="form-plugins" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="text" id="plugin-name" placeholder="Name (e.g. AetherVerb)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="plugin-category" placeholder="Category (e.g. Reverb)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="number" step="0.01" id="plugin-price" placeholder="Price ($)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="plugin-version" placeholder="Version (e.g. 1.0.0)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="plugin-formats" placeholder="Formats (CSV: VST3, AU, AAX)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="url" id="plugin-imageUrl" placeholder="Image URL" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="url" id="plugin-demoAudioUrl" placeholder="Demo Audio URL" class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="plugin-description" placeholder="Short Description" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <button type="submit" class="lg:col-span-4 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'plugins'</button>
+            </form>
+
+            <!-- Firestore Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Name</th>
+                            <th class="py-2">Category</th>
+                            <th class="py-2">Price</th>
+                            <th class="py-2">Version</th>
+                            <th class="py-2">Formats</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-plugins" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="7" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 2. COLLECTION: BUNDLES -->
+        <section id="section-bundles" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-boxes-packing text-accent-500"></i> Collection: <span class="font-mono text-accent-500">bundles</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: title, price, originalPrice, includedPlugins[], badge</p>
             </div>
 
-            <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Monthly Revenue</span>
-                    <span class="p-2 bg-purple-500/10 text-purple-500 rounded-xl text-sm"><i class="fa-solid fa-wallet"></i></span>
-                </div>
-                <p class="text-2xl font-black text-slate-900 dark:text-white mt-2">$64,320</p>
-                <p class="text-[11px] text-emerald-500 font-medium mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +8.1% vs last month</p>
+            <form id="form-bundles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="text" id="bundle-title" placeholder="Bundle Title" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="number" step="0.01" id="bundle-price" placeholder="Discount Price ($)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="number" step="0.01" id="bundle-originalPrice" placeholder="Original Price ($)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="bundle-includedPlugins" placeholder="Included Plugin IDs (CSV)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="bundle-badge" placeholder="Badge (e.g. Best Value)" class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <button type="submit" class="lg:col-span-3 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'bundles'</button>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Title</th>
+                            <th class="py-2">Price</th>
+                            <th class="py-2">Original Price</th>
+                            <th class="py-2">Plugins Count</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-bundles" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="6" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. COLLECTION: DOWNLOADS -->
+        <section id="section-downloads" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-download text-accent-500"></i> Collection: <span class="font-mono text-accent-500">downloads</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: platform (Mac/Win), version, fileUrl, releaseDate, checksum</p>
             </div>
 
-            <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Telemetry Ping Rate</span>
-                    <span class="p-2 bg-blue-500/10 text-blue-500 rounded-xl text-sm"><i class="fa-solid fa-server"></i></span>
-                </div>
-                <p class="text-2xl font-black text-slate-900 dark:text-white mt-2">99.98%</p>
-                <p class="text-[11px] text-emerald-500 font-medium mt-1">All auth nodes operational</p>
+            <form id="form-downloads" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <select id="download-platform" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                    <option value="Mac">Mac OS</option>
+                    <option value="Win">Windows</option>
+                </select>
+                <input type="text" id="download-version" placeholder="Installer Version (e.g. 3.1.0)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="url" id="download-fileUrl" placeholder="Direct Binary Download URL" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="date" id="download-releaseDate" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="download-checksum" placeholder="SHA256 Checksum Hash" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <button type="submit" class="lg:col-span-3 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'downloads'</button>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Platform</th>
+                            <th class="py-2">Version</th>
+                            <th class="py-2">Release Date</th>
+                            <th class="py-2">Checksum</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-downloads" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="6" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </section>
 
-        <!-- MAIN ADMIN GRID -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- LEFT COLUMN: LICENSE GENERATOR & ACTIONS -->
-            <div class="space-y-6">
-                
-                <!-- GENERATE MANUAL LICENSE CARD -->
-                <div id="licenses" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-                    <h3 class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                        <i class="fa-solid fa-key text-accent-500"></i> Generate License Key
-                    </h3>
-                    <p class="text-xs text-slate-500">Issue custom perpetual licenses, NFR (Not For Resale) keys, or promotional activations directly.</p>
-                    
-                    <form id="license-gen-form" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Target User Email</label>
-                            <input type="email" placeholder="producer@studio.com" required class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
-                        </div>
-
-                        <div>
-                            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Product</label>
-                            <select class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
-                                <option>Diaspora All-Access Bundle</option>
-                                <option>AetherVerb Pro</option>
-                                <option>Dynamic EQ X</option>
-                                <option>Analog Tape Saturator</option>
-                                <option>Sub-Harmonic Synth</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">License Type</label>
-                            <select class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
-                                <option>Perpetual (Standard 3 Seats)</option>
-                                <option>NFR (Review / Press)</option>
-                                <option>Beta Testing Edition</option>
-                                <option>Enterprise (Unlimited Seats)</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="w-full bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2.5 rounded-xl transition text-xs mt-2">
-                            <i class="fa-solid fa-plus-circle mr-1"></i> Issue Key Now
-                        </button>
-                    </form>
-                </div>
-
-                <!-- BINARY RELEASE MANAGER -->
-                <div id="builds" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-                    <h3 class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                        <i class="fa-solid fa-box-archive text-accent-500"></i> Push Plugin Update
-                    </h3>
-                    <p class="text-xs text-slate-500">Register new build binaries for Diaspora Central auto-updater.</p>
-                    
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Plugin Target</label>
-                            <select class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
-                                <option>AetherVerb Pro (v2.4.0)</option>
-                                <option>Dynamic EQ X (v1.8.2)</option>
-                                <option>Diaspora Central Installer (v3.1.0)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Changelog Notes</label>
-                            <textarea rows="3" placeholder="Added Apple Silicon M3 native optimization..." class="w-full bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:border-accent-500"></textarea>
-                        </div>
-                        <button type="button" class="w-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-bold py-2.5 rounded-xl transition text-xs">
-                            <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Publish Binary Update
-                        </button>
-                    </div>
-                </div>
-
+        <!-- 4. COLLECTION: NEW_RELEASES -->
+        <section id="section-new-releases" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-sparkles text-accent-500"></i> Collection: <span class="font-mono text-accent-500">new_releases</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: title, releaseDate, features[], productRef, isHero</p>
             </div>
 
-            <!-- RIGHT COLUMN: USER SEARCH & ACTIVE TELEMETRY LOGS -->
-            <div class="lg:col-span-2 space-y-6">
-                
-                <!-- USER & LICENSE OVERVIEW TABLE -->
-                <div id="users" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                            <i class="fa-solid fa-users-gear text-accent-500"></i> User & Seat Management
-                        </h3>
-                        <input type="text" placeholder="Search by email or license key..." class="bg-slate-50 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 px-3 py-1.5 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500 sm:w-64">
-                    </div>
+            <form id="form-new_releases" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="text" id="release-title" placeholder="Release Title" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="date" id="release-releaseDate" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="release-productRef" placeholder="Product Ref Document ID" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="release-features" placeholder="Features (CSV format)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <label class="flex items-center gap-2 p-2 bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white">
+                    <input type="checkbox" id="release-isHero"> Featured Hero Highlight
+                </label>
+                <button type="submit" class="lg:col-span-3 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'new_releases'</button>
+            </form>
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse text-xs">
-                            <thead>
-                                <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider text-[10px]">
-                                    <th class="py-3 px-2">User / Email</th>
-                                    <th class="py-3 px-2">Plan / Product</th>
-                                    <th class="py-3 px-2">Active Seats</th>
-                                    <th class="py-3 px-2 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60 text-slate-700 dark:text-slate-300">
-                                <tr>
-                                    <td class="py-3 px-2 font-medium text-slate-900 dark:text-white">
-                                        alex.rivera@studio.com
-                                        <span class="block text-[10px] text-slate-400">UID: 9X8A271B</span>
-                                    </td>
-                                    <td class="py-3 px-2"><span class="px-2 py-0.5 rounded-full bg-accent-bg text-accent-500 font-bold text-[10px]">All-Access Pass</span></td>
-                                    <td class="py-3 px-2 font-mono">2 / 3 Seats</td>
-                                    <td class="py-3 px-2 text-right">
-                                        <button class="text-xs text-red-500 hover:text-red-400 font-semibold transition">Revoke Seats</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-2 font-medium text-slate-900 dark:text-white">
-                                        m.chen@soundmasters.io
-                                        <span class="block text-[10px] text-slate-400">UID: 4K1L992P</span>
-                                    </td>
-                                    <td class="py-3 px-2"><span class="px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[10px]">AetherVerb Perpetual</span></td>
-                                    <td class="py-3 px-2 font-mono">3 / 3 Seats</td>
-                                    <td class="py-3 px-2 text-right">
-                                        <button class="text-xs text-red-500 hover:text-red-400 font-semibold transition">Revoke Seats</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 px-2 font-medium text-slate-900 dark:text-white">
-                                        marcus@beatslabs.net
-                                        <span class="block text-[10px] text-slate-400">UID: 2M4V001Q</span>
-                                    </td>
-                                    <td class="py-3 px-2"><span class="px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-500 font-bold text-[10px]">NFR Press Tier</span></td>
-                                    <td class="py-3 px-2 font-mono">1 / 3 Seats</td>
-                                    <td class="py-3 px-2 text-right">
-                                        <button class="text-xs text-red-500 hover:text-red-400 font-semibold transition">Revoke Seats</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Title</th>
+                            <th class="py-2">Release Date</th>
+                            <th class="py-2">Product Ref</th>
+                            <th class="py-2">Hero</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-new_releases" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="6" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-                <!-- REAL-TIME TELEMETRY STREAM -->
-                <div id="telemetry" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-                    <h3 class="font-bold text-slate-900 dark:text-white text-base flex items-center gap-2">
-                        <i class="fa-solid fa-tower-broadcast text-accent-500"></i> Live Telemetry & License Ping Stream
-                    </h3>
-                    
-                    <div class="bg-slate-950 font-mono text-[11px] text-emerald-400 p-4 rounded-xl space-y-1.5 h-48 overflow-y-auto border border-slate-800">
-                        <p><span class="text-slate-500">[05:50:12 UTC]</span> AUTH_OK: User alex.rivera@studio.com verified machine hash (macOS ARM64 - Logic Pro X)</p>
-                        <p><span class="text-slate-500">[05:48:02 UTC]</span> TELEMETRY: AetherVerb Pro v2.4 initialized (DAW: Ableton Live 12)</p>
-                        <p><span class="text-slate-500">[05:42:19 UTC]</span> SEAT_RELEASE: User m.chen@soundmasters.io de-authorized machine MBPRO-2024</p>
-                        <p><span class="text-slate-500">[05:39:55 UTC]</span> AUTH_OK: User marcus@beatslabs.net verified machine hash (Win11 x64 - Pro Tools)</p>
-                        <p><span class="text-slate-500">[05:30:00 UTC]</span> SYSTEM: Automated seat sync completed without anomalies.</p>
-                    </div>
-                </div>
-
+        <!-- 5. COLLECTION: TUTORIALS -->
+        <section id="section-tutorials" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-accent-500"></i> Collection: <span class="font-mono text-accent-500">tutorials</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: title, category, type, duration, summary, author, featured</p>
             </div>
 
-        </div>
+            <form id="form-tutorials" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="text" id="tutorial-title" placeholder="Tutorial Title" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="tutorial-category" placeholder="Category (e.g. Mixing)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="tutorial-type" placeholder="Type (e.g. Video, Article)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="tutorial-duration" placeholder="Duration (e.g. 12 mins)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="tutorial-author" placeholder="Author Name" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="tutorial-summary" placeholder="Summary text" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <label class="flex items-center gap-2 p-2 bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white">
+                    <input type="checkbox" id="tutorial-featured"> Featured Tutorial
+                </label>
+                <button type="submit" class="lg:col-span-3 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'tutorials'</button>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Title</th>
+                            <th class="py-2">Category</th>
+                            <th class="py-2">Author</th>
+                            <th class="py-2">Featured</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-tutorials" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="6" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 6. COLLECTION: GUIDES -->
+        <section id="section-guides" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-book text-accent-500"></i> Collection: <span class="font-mono text-accent-500">guides</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: stepNumber, title, content, category, videoUrl</p>
+            </div>
+
+            <form id="form-guides" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="number" id="guide-stepNumber" placeholder="Step Number (e.g. 1)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="guide-title" placeholder="Guide Step Title" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="guide-category" placeholder="Category (e.g. License Activation)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="url" id="guide-videoUrl" placeholder="Video Embed URL" class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <textarea id="guide-content" placeholder="Content details..." required class="lg:col-span-2 bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white"></textarea>
+                <button type="submit" class="lg:col-span-3 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'guides'</button>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">Step</th>
+                            <th class="py-2">Title</th>
+                            <th class="py-2">Category</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-guides" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="5" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 7. COLLECTION: SYSTEM_REQUIREMENTS -->
+        <section id="section-sysreq" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-desktop text-accent-500"></i> Collection: <span class="font-mono text-accent-500">system_requirements</span>
+                </h2>
+                <p class="text-xs text-slate-500">Schema: os, minCpu, recommendedRam, supportedDaws[]</p>
+            </div>
+
+            <form id="form-system_requirements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 dark:bg-[#080d1a] p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+                <input type="text" id="sys-os" placeholder="OS (e.g. macOS 12+)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="sys-minCpu" placeholder="Min CPU (e.g. Apple Silicon / Intel i5)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="sys-recommendedRam" placeholder="Recommended RAM (e.g. 16 GB)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <input type="text" id="sys-supportedDaws" placeholder="Supported DAWs (CSV)" required class="bg-white dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 p-2 rounded-lg text-slate-900 dark:text-white">
+                <button type="submit" class="lg:col-span-4 bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold py-2 rounded-lg transition">+ Add Document to 'system_requirements'</button>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
+                            <th class="py-2">Doc ID</th>
+                            <th class="py-2">OS</th>
+                            <th class="py-2">Min CPU</th>
+                            <th class="py-2">RAM</th>
+                            <th class="py-2">DAWs Count</th>
+                            <th class="py-2 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-system_requirements" class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono text-[11px]">
+                        <tr><td colspan="6" class="py-4 text-center text-slate-400 font-sans">Connecting to Firestore...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-8 border-t border-slate-300 dark:border-slate-800/80 mt-auto transition-colors">
-        <div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-500">
-            <p>&copy; 2026 Diaspora Plugins Inc. Authorized Admin Access Only.</p>
-            <div class="flex items-center gap-4">
-                <a href="/privacy/" class="hover:text-accent-500">Privacy Policy</a>
-                <a href="/terms/" class="hover:text-accent-500">Terms of Service</a>
-            </div>
+    <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-8 border-t border-slate-300 dark:border-slate-800/80 mt-auto">
+        <div class="max-w-[1440px] mx-auto px-6 flex justify-between items-center text-[11px] text-slate-500">
+            <p>&copy; 2026 Diaspora Plugins Inc. Authorized Firestore Admin Console.</p>
         </div>
     </footer>
 
-    <!-- DYNAMIC LOGIC & EVENT LISTENERS -->
+    <!-- REAL FIRESTORE INTEGRATION SCRIPT -->
     <script type="module">
-        import { auth } from '../assets/js/firebase-client.js';
+        import { auth, db } from '../assets/js/firebase-client.js';
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { 
+            collection, 
+            getDocs, 
+            addDoc, 
+            deleteDoc, 
+            doc 
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // ACCENT THEME SYSTEM
         function setAccentTheme(themeName) {
@@ -379,19 +463,18 @@
 
         setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
 
-        // DARK MODE CONTROLLER
+        // DARK MODE
         document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
             btn.addEventListener('click', () => {
                 const isDark = document.documentElement.classList.toggle('dark');
                 localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
             });
         });
-
         if (localStorage.getItem('diaspora_theme') === 'light') {
             document.documentElement.classList.remove('dark');
         }
 
-        // AUTH & ADMIN GUARD
+        // AUTH CONTROL
         onAuthStateChanged(auth, (user) => {
             const container = document.getElementById('auth-state-container');
             if (user) {
@@ -402,16 +485,215 @@
                     </div>
                 `;
                 document.getElementById('admin-logout-btn').addEventListener('click', () => signOut(auth));
+                fetchAllCollections();
             } else {
-                // REDIRECT UNAUTHENTICATED USERS TO LOGIN
                 window.location.href = '/login/';
             }
         });
 
-        // DEMO LICENSE FORM SUBMISSION
-        document.getElementById('license-gen-form').addEventListener('submit', (e) => {
+        // GENERIC FIRESTORE FETCH & RENDER FUNCTION
+        async function fetchCollection(collectionName, renderRowFn) {
+            const tbody = document.getElementById(`table-${collectionName}`);
+            try {
+                const querySnapshot = await getDocs(collection(db, collectionName));
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="10" class="py-4 text-center text-slate-400 font-sans italic">No documents found in '${collectionName}' collection.</td></tr>`;
+                    return;
+                }
+                tbody.innerHTML = '';
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = renderRowFn(docSnap.id, data);
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error(`Error loading ${collectionName}:`, error);
+                tbody.innerHTML = `<tr><td colspan="10" class="py-4 text-center text-red-500 font-sans">Error: ${error.message}</td></tr>`;
+            }
+        }
+
+        // DELETE DOCUMENT
+        window.deleteDocument = async (collectionName, docId) => {
+            if (!confirm(`Permanently delete document '${docId}' from collection '${collectionName}'?`)) return;
+            try {
+                await deleteDoc(doc(db, collectionName, docId));
+                fetchAllCollections();
+            } catch (err) {
+                alert('Delete failed: ' + err.message);
+            }
+        };
+
+        // FETCH ALL COLLECTIONS ACCORDING TO SPECIFIED SCHEMAS
+        function fetchAllCollections() {
+            // 1. Plugins
+            fetchCollection('plugins', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.name || ''}</td>
+                <td class="py-2">${data.category || ''}</td>
+                <td class="py-2 text-emerald-500">$${data.price || 0}</td>
+                <td class="py-2">${data.version || ''}</td>
+                <td class="py-2">${Array.isArray(data.formats) ? data.formats.join(', ') : (data.formats || '')}</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('plugins', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 2. Bundles
+            fetchCollection('bundles', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.title || ''}</td>
+                <td class="py-2 text-emerald-500">$${data.price || 0}</td>
+                <td class="py-2 line-through text-slate-500">$${data.originalPrice || 0}</td>
+                <td class="py-2">${Array.isArray(data.includedPlugins) ? data.includedPlugins.length : 0} plugins</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('bundles', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 3. Downloads
+            fetchCollection('downloads', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.platform || ''}</td>
+                <td class="py-2">${data.version || ''}</td>
+                <td class="py-2">${data.releaseDate || ''}</td>
+                <td class="py-2 truncate max-w-[120px]">${data.checksum || ''}</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('downloads', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 4. New Releases
+            fetchCollection('new_releases', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.title || ''}</td>
+                <td class="py-2">${data.releaseDate || ''}</td>
+                <td class="py-2">${data.productRef || ''}</td>
+                <td class="py-2">${data.isHero ? 'YES' : 'NO'}</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('new_releases', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 5. Tutorials
+            fetchCollection('tutorials', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.title || ''}</td>
+                <td class="py-2">${data.category || ''}</td>
+                <td class="py-2">${data.author || ''}</td>
+                <td class="py-2">${data.featured ? 'YES' : 'NO'}</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('tutorials', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 6. Guides
+            fetchCollection('guides', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 font-bold">Step ${data.stepNumber || ''}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.title || ''}</td>
+                <td class="py-2">${data.category || ''}</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('guides', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+
+            // 7. System Requirements
+            fetchCollection('system_requirements', (id, data) => `
+                <td class="py-2 text-slate-400">${id}</td>
+                <td class="py-2 text-slate-900 dark:text-white font-bold">${data.os || ''}</td>
+                <td class="py-2">${data.minCpu || ''}</td>
+                <td class="py-2">${data.recommendedRam || ''}</td>
+                <td class="py-2">${Array.isArray(data.supportedDaws) ? data.supportedDaws.length : 0} DAWs</td>
+                <td class="py-2 text-right"><button onclick="deleteDocument('system_requirements', '${id}')" class="text-red-500 hover:underline">Delete</button></td>
+            `);
+        }
+
+        // REFRESH BUTTON
+        document.getElementById('refresh-all-btn').addEventListener('click', fetchAllCollections);
+
+        // FORM SUBMISSIONS FOR ADDING REAL DATA
+        document.getElementById('form-plugins').addEventListener('submit', async (e) => {
             e.preventDefault();
-            alert('New License Key successfully generated and emailed to recipient!');
+            await addDoc(collection(db, 'plugins'), {
+                name: document.getElementById('plugin-name').value,
+                category: document.getElementById('plugin-category').value,
+                price: parseFloat(document.getElementById('plugin-price').value),
+                version: document.getElementById('plugin-version').value,
+                formats: document.getElementById('plugin-formats').value.split(',').map(s => s.trim()),
+                imageUrl: document.getElementById('plugin-imageUrl').value,
+                demoAudioUrl: document.getElementById('plugin-demoAudioUrl').value,
+                description: document.getElementById('plugin-description').value
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-bundles').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'bundles'), {
+                title: document.getElementById('bundle-title').value,
+                price: parseFloat(document.getElementById('bundle-price').value),
+                originalPrice: parseFloat(document.getElementById('bundle-originalPrice').value),
+                includedPlugins: document.getElementById('bundle-includedPlugins').value.split(',').map(s => s.trim()),
+                badge: document.getElementById('bundle-badge').value
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-downloads').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'downloads'), {
+                platform: document.getElementById('download-platform').value,
+                version: document.getElementById('download-version').value,
+                fileUrl: document.getElementById('download-fileUrl').value,
+                releaseDate: document.getElementById('download-releaseDate').value,
+                checksum: document.getElementById('download-checksum').value
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-new_releases').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'new_releases'), {
+                title: document.getElementById('release-title').value,
+                releaseDate: document.getElementById('release-releaseDate').value,
+                productRef: document.getElementById('release-productRef').value,
+                features: document.getElementById('release-features').value.split(',').map(s => s.trim()),
+                isHero: document.getElementById('release-isHero').checked
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-tutorials').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'tutorials'), {
+                title: document.getElementById('tutorial-title').value,
+                category: document.getElementById('tutorial-category').value,
+                type: document.getElementById('tutorial-type').value,
+                duration: document.getElementById('tutorial-duration').value,
+                author: document.getElementById('tutorial-author').value,
+                summary: document.getElementById('tutorial-summary').value,
+                featured: document.getElementById('tutorial-featured').checked
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-guides').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'guides'), {
+                stepNumber: parseInt(document.getElementById('guide-stepNumber').value),
+                title: document.getElementById('guide-title').value,
+                category: document.getElementById('guide-category').value,
+                videoUrl: document.getElementById('guide-videoUrl').value,
+                content: document.getElementById('guide-content').value
+            });
+            e.target.reset();
+            fetchAllCollections();
+        });
+
+        document.getElementById('form-system_requirements').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await addDoc(collection(db, 'system_requirements'), {
+                os: document.getElementById('sys-os').value,
+                minCpu: document.getElementById('sys-minCpu').value,
+                recommendedRam: document.getElementById('sys-recommendedRam').value,
+                supportedDaws: document.getElementById('sys-supportedDaws').value.split(',').map(s => s.trim())
+            });
+            e.target.reset();
+            fetchAllCollections();
         });
     </script>
 </body>
