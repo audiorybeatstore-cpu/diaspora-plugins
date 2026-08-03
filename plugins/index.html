@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Plugins | Diaspora Plugins</title>
+    <title>Plugins | Diaspora Plugins</title>
     <meta name="description" content="Explore pro-grade audio processing plugins for VST3, AU, and AAX. Dynamic EQs, warm compressors, spatial reverbs, and saturators.">
     
     <!-- Tailwind CSS CDN -->
@@ -85,9 +85,9 @@
                 </a>
 
                 <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
-                    <!-- ACTIVE LINK -->
                     <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
-                    <a href="/plugins/" class="text-accent-500 transition">PRODUCTS</a>
+                    <!-- ACTIVE LINK: PLUGINS -->
+                    <a href="/plugins/" class="text-accent-500 transition">PLUGINS</a>
                     <a href="/subscriptions/" class="hover:text-accent-500 transition">SUBSCRIPTIONS</a>
                     <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
                     <a href="/support/" class="hover:text-accent-500 transition">SUPPORT</a>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="space-y-3 text-xs font-bold uppercase tracking-wider flex flex-col">
                     <a href="/products/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Products</a>
-                    <a href="/plugins/" class="py-2 text-accent-500">Products</a>
+                    <a href="/plugins/" class="py-2 text-accent-500">Plugins</a>
                     <a href="/subscriptions/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Subscriptions</a>
                     <a href="/downloads/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Downloads</a>
                     <a href="/support/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Support</a>
@@ -167,7 +167,7 @@
         <!-- SEARCH AND CATEGORY FILTER -->
         <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center shadow-sm">
             <div class="flex items-center gap-1.5 overflow-x-auto pb-2 lg:pb-0 scrollbar-none text-xs font-bold">
-                <button type="button" data-filter="all" class="plugin-filter-btn bg-accent-500 text-slate-950 px-3.5 py-2 rounded-xl transition whitespace-nowrap">All Products</button>
+                <button type="button" data-filter="all" class="plugin-filter-btn bg-accent-500 text-slate-950 px-3.5 py-2 rounded-xl transition whitespace-nowrap">All Plugins</button>
                 <button type="button" data-filter="EQ" class="plugin-filter-btn bg-slate-100 dark:bg-[#080d1a] hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-3.5 py-2 rounded-xl transition whitespace-nowrap">Equalizers</button>
                 <button type="button" data-filter="Compressor" class="plugin-filter-btn bg-slate-100 dark:bg-[#080d1a] hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-3.5 py-2 rounded-xl transition whitespace-nowrap">Dynamics & VCA</button>
                 <button type="button" data-filter="Reverb" class="plugin-filter-btn bg-slate-100 dark:bg-[#080d1a] hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 px-3.5 py-2 rounded-xl transition whitespace-nowrap">Spatial & Reverb</button>
@@ -315,7 +315,7 @@
                             price: 89,
                             version: 'v2.4.1',
                             badge: 'Bestseller',
-                            description: 'Analog-modeled dynamic dynamic equalizer with smooth low-frequency warmth algorithms.',
+                            description: 'Analog-modeled dynamic equalizer with smooth low-frequency warmth algorithms.',
                             formats: 'VST3, AU, AAX'
                         },
                         {
@@ -398,7 +398,7 @@
                             <span class="text-xs text-slate-400 block font-mono">Price</span>
                             <span class="text-lg font-black text-slate-900 dark:text-white">$${p.price}</span>
                         </div>
-                        <a href="/products/${p.id}/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
+                        <a href="/plugins/${p.id}/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5">
                             <span>Details</span>
                             <i class="fa-solid fa-chevron-right text-[9px]"></i>
                         </a>
