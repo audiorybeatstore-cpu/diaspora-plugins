@@ -74,17 +74,17 @@
 
     <!-- MAIN HEADER NAVIGATION -->
     <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
-        <nav class="max-w-[1440px] mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <nav class="max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
             
             <!-- Left Logo & Navigation Links -->
-            <div class="flex items-center gap-4 lg:gap-8">
-                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-2 text-lg">
+            <div class="flex items-center gap-2 sm:gap-4 lg:gap-8 min-w-0">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-1.5 text-base sm:text-lg">
                     <i class="fa-solid fa-bars"></i>
                 </button>
 
-                <a href="/" class="flex items-center gap-2 font-black text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap">
-                    <span class="bg-accent-500 text-slate-950 px-2 py-0.5 rounded text-sm font-black shadow-md transition-colors">DP</span>
-                    DIASPORA <span class="text-accent-500 font-normal transition-colors">PLUGINS</span>
+                <a href="/" class="flex items-center gap-1.5 sm:gap-2 font-black text-sm sm:text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap overflow-hidden">
+                    <span class="bg-accent-500 text-slate-950 px-1.5 py-0.5 rounded text-xs sm:text-sm font-black shadow-md transition-colors shrink-0">DP</span>
+                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">PLUGINS</span></span>
                 </a>
 
                 <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
@@ -97,18 +97,18 @@
             </div>
 
             <!-- Right Controls -->
-            <div class="flex items-center gap-2 lg:gap-3 text-xs">
+            <div class="flex items-center gap-1.5 sm:gap-3 text-xs shrink-0">
                 <!-- Theme Switcher -->
-                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2 py-1.5 rounded-xl">
-                    <button type="button" class="dark-mode-toggle p-1 text-slate-600 dark:text-slate-300 hover:text-accent-500" title="Toggle Light/Dark Mode">
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl">
+                    <button type="button" class="dark-mode-toggle p-0.5 text-slate-600 dark:text-slate-300 hover:text-accent-500 text-xs sm:text-sm" title="Toggle Light/Dark Mode">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
                     </button>
                     <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
                     <div class="relative">
-                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-1">
-                            <span class="w-3.5 h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
-                            <i class="fa-solid fa-chevron-down text-[9px] text-slate-500"></i>
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-0.5">
+                            <span class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[8px] sm:text-[9px] text-slate-500"></i>
                         </button>
                         <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
                             <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition"></button>
@@ -122,7 +122,7 @@
 
                 <!-- Account State Button -->
                 <div id="auth-state-container">
-                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-4 py-2 rounded-xl font-bold transition">Sign In</a>
+                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>
                 </div>
             </div>
         </nav>
@@ -181,7 +181,7 @@
                             <span class="text-xs text-slate-500 dark:text-slate-400">/ month</span>
                         </div>
                         <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all 30+ plugins</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all plugins</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Continuous updates</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> 2 Machine licenses</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Standard support</li>
@@ -205,7 +205,7 @@
                             <span class="text-xs text-slate-500 dark:text-slate-400">/ year</span>
                         </div>
                         <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all 30+ plugins</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Access to all plugins</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Continuous updates</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> 4 Machine licenses</li>
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-accent-500"></i> Priority support response</li>
@@ -240,140 +240,45 @@
             </div>
         </section>
 
-        <!-- RECENTLY ADDED PLUGINS SECTION -->
+        <!-- FIRESTORE FETCHED: RECENTLY ADDED PLUGINS SECTION -->
         <section class="max-w-6xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-800/80">
             <div class="flex items-center justify-between mb-8">
                 <div>
                     <h2 class="text-xl font-bold text-slate-900 dark:text-white">Included in your Subscription</h2>
-                    <p class="text-xs text-slate-500">Recently added software & mixing tools available immediately.</p>
+                    <p class="text-xs text-slate-500">Latest software & mixing tools available immediately in your suite.</p>
                 </div>
-                <a href="/products/" class="text-xs text-accent-500 font-bold hover:underline flex items-center gap-1">View All 30+ <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
+                <a href="/products/" class="text-xs text-accent-500 font-bold hover:underline flex items-center gap-1">View All Products <i class="fa-solid fa-arrow-right text-[10px]"></i></a>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Plugin Item 1 -->
-                <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-accent-border transition">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border">NEW RELEASE</span>
-                            <span class="text-[10px] text-slate-500">v2.4.0</span>
-                        </div>
-                        <h4 class="font-bold text-slate-900 dark:text-white text-sm">Spectral Sculptor Pro</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Surgical dynamic resonance suppressor and smart EQ buffer.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
-                        <span class="text-slate-400">VST3 / AU / AAX</span>
-                        <span class="text-accent-500 font-bold">Included</span>
-                    </div>
-                </div>
-
-                <!-- Plugin Item 2 -->
-                <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-accent-border transition">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded">UPDATED</span>
-                            <span class="text-[10px] text-slate-500">v1.8.2</span>
-                        </div>
-                        <h4 class="font-bold text-slate-900 dark:text-white text-sm">Vintage Tape Warmth</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Analog reel saturation with authentic wow & flutter modelling.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
-                        <span class="text-slate-400">VST3 / AU / AAX</span>
-                        <span class="text-accent-500 font-bold">Included</span>
-                    </div>
-                </div>
-
-                <!-- Plugin Item 3 -->
-                <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-accent-border transition">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border">NEW RELEASE</span>
-                            <span class="text-[10px] text-slate-500">v1.0.0</span>
-                        </div>
-                        <h4 class="font-bold text-slate-900 dark:text-white text-sm">Sub-Low Saturator</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Harmonic sub-bass synthesizer for kick drums and 808s.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
-                        <span class="text-slate-400">VST3 / AU / AAX</span>
-                        <span class="text-accent-500 font-bold">Included</span>
-                    </div>
-                </div>
-
-                <!-- Plugin Item 4 -->
-                <div class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-accent-border transition">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded">POPULAR</span>
-                            <span class="text-[10px] text-slate-500">v3.1.0</span>
-                        </div>
-                        <h4 class="font-bold text-slate-900 dark:text-white text-sm">Neural Vocal Suite</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">AI-assisted pitch correction and vocal chain processing.</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
-                        <span class="text-slate-400">VST3 / AU / AAX</span>
-                        <span class="text-accent-500 font-bold">Included</span>
-                    </div>
-                </div>
+            <!-- Dynamic Plugins Container -->
+            <div id="firestore-plugins-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Loading Skeleton -->
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-40 rounded-2xl p-4"></div>
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-40 rounded-2xl p-4"></div>
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-40 rounded-2xl p-4"></div>
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-40 rounded-2xl p-4"></div>
             </div>
         </section>
 
-        <!-- FREQUENTLY ASKED QUESTIONS (FAQ) SECTION -->
+        <!-- FIRESTORE FETCHED: FREQUENTLY ASKED QUESTIONS (FAQ) SECTION -->
         <section class="max-w-4xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-800/80">
             <div class="text-center mb-10">
                 <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Frequently Asked Questions</h2>
                 <p class="text-xs text-slate-500">Have questions about licensing, billing, or compatibility? We have answers.</p>
             </div>
 
-            <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition">
-                    <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
-                        <span>Can I cancel my subscription at any time?</span>
-                        <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
-                    </div>
-                    <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
-                        Yes, absolutely! You can cancel your monthly or annual plan at any time through your user dashboard. Your plugins will remain fully functional until the end of your paid billing cycle.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 2 -->
-                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition">
-                    <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
-                        <span>How many computers can I activate my plugins on?</span>
-                        <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
-                    </div>
-                    <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
-                        Monthly passes include 2 machine authorizations, Annual passes include 4, and Lifetime licenses include 10. You can manage or revoke active machines easily inside your Diaspora account dashboard.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition">
-                    <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
-                        <span>Do I need an iLok USB dongle?</span>
-                        <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
-                    </div>
-                    <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
-                        No iLok physical dongle is required! We use the **Diaspora Central Installer** for instant online machine authentication and automatic updates directly to your DAW.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 4 -->
-                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition">
-                    <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
-                        <span>What happens to my projects if my subscription expires?</span>
-                        <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
-                    </div>
-                    <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
-                        Your DAW sessions will continue to load, and your plugin parameters/settings will remain saved. However, processing will be bypassed until your subscription is renewed or reactivated.
-                    </div>
-                </div>
+            <!-- Dynamic FAQs Container -->
+            <div id="firestore-faqs-container" class="space-y-4">
+                <!-- Loading Skeleton -->
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
+                <div class="bg-slate-200/50 dark:bg-slate-800/40 animate-pulse h-14 rounded-2xl"></div>
             </div>
         </section>
 
     </main>
 
-    <!-- DYNAMIC THEMED FOOTER (Matches image_ac6061.png + reacts to theme accent changes) -->
+    <!-- DYNAMIC THEMED FOOTER -->
     <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-12 border-t border-slate-300 dark:border-slate-800/80 mt-auto transition-colors">
         <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
             
@@ -471,7 +376,7 @@
     <script type="module">
         import { auth, db } from '../assets/js/firebase-client.js';
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { collection, getDocs, query, limit } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         let currentUser = null;
         let selectedPlan = null;
@@ -533,23 +438,101 @@
             document.getElementById('mobile-drawer-overlay').classList.add('hidden');
         });
 
-        // FAQ Accordion Logic
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const content = item.querySelector('.faq-content');
-                const icon = item.querySelector('.faq-header i');
-                const isHidden = content.classList.contains('hidden');
+        // 1. FETCH PLUGINS FROM FIRESTORE
+        async function loadFirestorePlugins() {
+            const container = document.getElementById('firestore-plugins-container');
+            try {
+                // Fetch up to 4 recent plugins from your "plugins" collection
+                const q = query(collection(db, "plugins"), limit(4));
+                const snapshot = await getDocs(q);
 
-                // Close all others
-                document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-                document.querySelectorAll('.faq-header i').forEach(i => i.classList.remove('rotate-180'));
-
-                if (isHidden) {
-                    content.classList.remove('hidden');
-                    icon.classList.add('rotate-180');
+                if (snapshot.empty) {
+                    container.innerHTML = `<p class="col-span-full text-center text-xs text-slate-500">No plugins found in database.</p>`;
+                    return;
                 }
-            });
-        });
+
+                container.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const tag = data.tag || 'INCLUDED';
+                    const version = data.version || 'v1.0.0';
+
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-accent-border transition";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-accent-bg text-accent-500 text-[10px] font-bold px-2 py-0.5 rounded border border-accent-border uppercase">${tag}</span>
+                                <span class="text-[10px] text-slate-500">${version}</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">${data.name || 'Untitled Plugin'}</h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">${data.description || 'Premium audio DSP processing module.'}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px]">
+                            <span class="text-slate-400">${data.formats || 'VST3 / AU / AAX'}</span>
+                            <span class="text-accent-500 font-bold">Included</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (err) {
+                console.error("Firestore plugins error:", err);
+                container.innerHTML = `<p class="col-span-full text-center text-xs text-red-500">Failed to load plugins from database.</p>`;
+            }
+        }
+
+        // 2. FETCH FAQS FROM FIRESTORE
+        async function loadFirestoreFAQs() {
+            const container = document.getElementById('firestore-faqs-container');
+            try {
+                const snapshot = await getDocs(collection(db, "faqs"));
+
+                if (snapshot.empty) {
+                    container.innerHTML = `<p class="text-center text-xs text-slate-500">No FAQs currently available.</p>`;
+                    return;
+                }
+
+                container.innerHTML = '';
+                snapshot.forEach(docSnap => {
+                    const faq = docSnap.data();
+                    const item = document.createElement('div');
+                    item.className = "faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 cursor-pointer transition";
+                    item.innerHTML = `
+                        <div class="faq-header flex justify-between items-center text-xs font-bold text-slate-900 dark:text-white">
+                            <span>${faq.question || 'Question'}</span>
+                            <i class="fa-solid fa-chevron-down text-slate-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-content hidden text-xs text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/60 leading-relaxed">
+                            ${faq.answer || 'Answer details.'}
+                        </div>
+                    `;
+
+                    // Accordion click binding
+                    item.addEventListener('click', () => {
+                        const content = item.querySelector('.faq-content');
+                        const icon = item.querySelector('.faq-header i');
+                        const isHidden = content.classList.contains('hidden');
+
+                        document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                        document.querySelectorAll('.faq-header i').forEach(i => i.classList.remove('rotate-180'));
+
+                        if (isHidden) {
+                            content.classList.remove('hidden');
+                            icon.classList.add('rotate-180');
+                        }
+                    });
+
+                    container.appendChild(item);
+                });
+            } catch (err) {
+                console.error("Firestore FAQs error:", err);
+                container.innerHTML = `<p class="text-center text-xs text-red-500">Failed to load FAQs from database.</p>`;
+            }
+        }
+
+        // Initialize Firestore Data Fetching
+        loadFirestorePlugins();
+        loadFirestoreFAQs();
 
         // Open Payment Modal Procedure
         function openPaymentModal(plan) {
@@ -570,13 +553,13 @@
 
             if (user) {
                 authContainer.innerHTML = `
-                    <a href="/dashboard/" class="flex items-center gap-2 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-3 py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 font-medium">
+                    <a href="/dashboard/" class="flex items-center gap-1.5 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-slate-700 dark:text-slate-200 hover:border-slate-400 font-medium text-[11px] sm:text-xs whitespace-nowrap">
                         <i class="fa-solid fa-circle-user text-accent-500"></i>
                         <span>Dashboard</span>
                     </a>
                 `;
 
-                // Handle post-stripe verification (if returning from Stripe with success query param)
+                // Handle post-stripe verification
                 const urlParams = new URLSearchParams(window.location.search);
                 const sessionId = urlParams.get('session_id');
 
@@ -611,7 +594,7 @@
                     }
                 }
             } else {
-                authContainer.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-4 py-2 rounded-xl font-bold transition">Sign In</a>`;
+                authContainer.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>`;
             }
         });
 
@@ -663,7 +646,7 @@
 
             } catch (err) {
                 console.error("Payment initiation error:", err);
-                showToast("Payment unverified or unconfigured.", "error");
+                showToast("Real payment gateway unverified or unconfigured.", "error");
                 checkoutBtn.disabled = false;
                 checkoutBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Proceed to Secure Stripe Checkout`;
             }
