@@ -1,1 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support & Help Center | Diaspora Plugins</title>
+    <meta name="description" content="Get help with Diaspora Plugins. Search FAQs, read activation guides, fix DAW compatibility issues, or contact technical support.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: {
+                            500: 'var(--accent-500)',
+                            600: 'var(--accent-600)',
+                            bg: 'var(--accent-bg)',
+                            border: 'var(--accent-border)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Dynamic Accent Color System -->
+    <style>
+        :root[data-accent="blue"] {
+            --accent-500: #3b82f6;
+            --accent-600: #2563eb;
+            --accent-bg: rgba(59, 130, 246, 0.12);
+            --accent-border: rgba(59, 130, 246, 0.4);
+        }
+        :root[data-accent="red"] {
+            --accent-500: #ef4444;
+            --accent-600: #dc2626;
+            --accent-bg: rgba(239, 68, 68, 0.12);
+            --accent-border: rgba(239, 68, 68, 0.4);
+        }
+        :root[data-accent="green"] {
+            --accent-500: #10b981;
+            --accent-600: #059669;
+            --accent-bg: rgba(16, 185, 129, 0.12);
+            --accent-border: rgba(16, 185, 129, 0.4);
+        }
+        :root[data-accent="yellow"] {
+            --accent-500: #eab308;
+            --accent-600: #ca8a04;
+            --accent-bg: rgba(234, 179, 8, 0.12);
+            --accent-border: rgba(234, 179, 8, 0.4);
+        }
+        :root[data-accent="brown"] {
+            --accent-500: #a16207;
+            --accent-600: #854d0e;
+            --accent-bg: rgba(161, 98, 7, 0.12);
+            --accent-border: rgba(161, 98, 7, 0.4);
+        }
+
+        .bg-accent-500 { background-color: var(--accent-500); }
+        .bg-accent-600 { background-color: var(--accent-600); }
+        .bg-accent-bg { background-color: var(--accent-bg); }
+        .text-accent-500 { color: var(--accent-500); }
+        .border-accent-border { border-color: var(--accent-border); }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <nav class="max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 lg:gap-8 min-w-0">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-1.5 text-base sm:text-lg focus:outline-none" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <a href="/" class="flex items-center gap-1.5 sm:gap-2 font-black text-sm sm:text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap overflow-hidden">
+                    <span class="bg-accent-500 text-slate-950 px-1.5 py-0.5 rounded text-xs sm:text-sm font-black shadow-md transition-colors shrink-0">DP</span>
+                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">PLUGINS</span></span>
+                </a>
+
+                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                    <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
+                    <a href="/plugins/" class="hover:text-accent-500 transition">PLUGINS</a>
+                    <a href="/bundles/" class="hover:text-accent-500 transition">BUNDLES</a>
+                    <a href="/subscriptions/" class="hover:text-accent-500 transition">SUBSCRIPTIONS</a>
+                    <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
+                    <!-- ACTIVE LINK: SUPPORT -->
+                    <a href="/support/" class="text-accent-500 transition">SUPPORT</a>
+                    <a href="/learn/" class="hover:text-accent-500 transition">LEARN</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 sm:gap-3 text-xs shrink-0">
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl">
+                    <button type="button" class="dark-mode-toggle p-0.5 text-slate-600 dark:text-slate-300 hover:text-accent-500 text-xs sm:text-sm" title="Toggle Light/Dark Mode">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
+                    <div class="relative">
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-0.5" aria-label="Choose Accent Color">
+                            <span class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[8px] sm:text-[9px] text-slate-500"></i>
+                        </button>
+                        <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                            <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition" title="Blue"></button>
+                            <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition" title="Red"></button>
+                            <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition" title="Green"></button>
+                            <button type="button" data-accent-btn="yellow" class="w-4 h-4 rounded-full bg-yellow-500 hover:scale-125 transition" title="Yellow"></button>
+                            <button type="button" data-accent-btn="brown" class="w-4 h-4 rounded-full bg-yellow-800 hover:scale-125 transition" title="Brown"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="auth-state-container">
+                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
+        <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+                    <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
+                    <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="space-y-3 text-xs font-bold uppercase tracking-wider flex flex-col">
+                    <a href="/products/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Products</a>
+                    <a href="/plugins/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Plugins</a>
+                    <a href="/bundles/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Bundles</a>
+                    <a href="/subscriptions/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Subscriptions</a>
+                    <a href="/downloads/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Downloads</a>
+                    <a href="/support/" class="py-2 text-accent-500">Support</a>
+                    <a href="/learn/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Learn</a>
+                    <a href="/dashboard/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">My Dashboard</a>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-500">
+                <p>&copy; 2026 Diaspora Plugins Inc.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8 sm:py-12 space-y-12">
+        
+        <!-- BREADCRUMB & SEARCH HERO -->
+        <div class="text-center max-w-3xl mx-auto space-y-4">
+            <div class="flex items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                <a href="/" class="hover:text-accent-500 transition">Home</a>
+                <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                <span class="text-slate-900 dark:text-white font-semibold">Support Center</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">How can we help you?</h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                Search our knowledge base, explore setup guides, or send a message directly to our engineering support team.
+            </p>
+
+            <div class="relative max-w-xl mx-auto pt-2">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="faq-search" placeholder="Search activation, DAW setup, license keys, iLok..." class="w-full bg-white dark:bg-[#0d1424] border border-slate-300 dark:border-slate-800 rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-accent-500 shadow-md transition">
+            </div>
+        </div>
+
+        <!-- QUICK CATEGORIES -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="#activation-guide" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 hover:border-accent-border p-6 rounded-2xl transition shadow-sm group">
+                <div class="w-10 h-10 bg-accent-bg border border-accent-border rounded-xl flex items-center justify-center text-accent-500 text-lg mb-4 group-hover:scale-110 transition">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">License & Activation</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Machine authorization, key redeems, and subscription licenses.</p>
+            </a>
+
+            <a href="#central-hub" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 hover:border-accent-border p-6 rounded-2xl transition shadow-sm group">
+                <div class="w-10 h-10 bg-accent-bg border border-accent-border rounded-xl flex items-center justify-center text-accent-500 text-lg mb-4 group-hover:scale-110 transition">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Central Hub Setup</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Installing plugins, managing paths, and resolving installer crashes.</p>
+            </a>
+
+            <a href="#daw-compatibility" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 hover:border-accent-border p-6 rounded-2xl transition shadow-sm group">
+                <div class="w-10 h-10 bg-accent-bg border border-accent-border rounded-xl flex items-center justify-center text-accent-500 text-lg mb-4 group-hover:scale-110 transition">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">DAW Compatibility</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Plugin scanning guides for Logic Pro, Ableton, Pro Tools & FL Studio.</p>
+            </a>
+
+            <a href="#billing-account" class="bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 hover:border-accent-border p-6 rounded-2xl transition shadow-sm group">
+                <div class="w-10 h-10 bg-accent-bg border border-accent-border rounded-xl flex items-center justify-center text-accent-500 text-lg mb-4 group-hover:scale-110 transition">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-base">Billing & Account</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Invoices, payment updates, and subscription cancellations.</p>
+            </a>
+        </div>
+
+        <!-- FREQUENTLY ASKED QUESTIONS -->
+        <div class="space-y-6 max-w-4xl mx-auto">
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight text-center">Frequently Asked Questions</h2>
+
+            <div class="space-y-3" id="faq-accordion">
+                <!-- FAQ ITEM 1 -->
+                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden transition">
+                    <button type="button" class="faq-trigger w-full px-6 py-4 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4">
+                        <span>How do I activate my plugins after purchasing?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                        Once you purchase a plugin or subscription, your authorization key is automatically bound to your account. Open the <strong>Diaspora Central Hub</strong>, log in with your credentials, and click "Activate All" to bind your local machine license.
+                    </div>
+                </div>
+
+                <!-- FAQ ITEM 2 -->
+                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden transition">
+                    <button type="button" class="faq-trigger w-full px-6 py-4 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4">
+                        <span>Do your plugins support Apple Silicon (M1/M2/M3) natively?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                        Yes! All Diaspora plugins are built with native ARM64 Universal Binary support for macOS, meaning they run natively on Apple Silicon chips without needing Rosetta 2 translation layer.
+                    </div>
+                </div>
+
+                <!-- FAQ ITEM 3 -->
+                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden transition">
+                    <button type="button" class="faq-trigger w-full px-6 py-4 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4">
+                        <span>How many machines can I authorize simultaneously?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                        Each individual license grants up to <strong>3 active machine authorizations</strong> at any given time (e.g., desktop studio rig, mobile laptop, and secondary workstation). You can deactivate machines via your online Dashboard at any time.
+                    </div>
+                </div>
+
+                <!-- FAQ ITEM 4 -->
+                <div class="faq-item bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden transition">
+                    <button type="button" class="faq-trigger w-full px-6 py-4 text-left font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between gap-4">
+                        <span>My DAW isn't picking up the VST3 or AU plugins. What should I do?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800/60 pt-3">
+                        First, perform a full rescanning of your plugin directories inside your DAW preferences. Make sure your system path settings point to:
+                        <br><br>
+                        <strong>macOS (AU):</strong> <code>/Library/Audio/Plug-Ins/Components/</code><br>
+                        <strong>Windows (VST3):</strong> <code>C:\Program Files\Common Files\VST3\</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT FORM SECTION -->
+        <div class="max-w-3xl mx-auto bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm space-y-6">
+            <div>
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">Still need support? Send a ticket</h2>
+                <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Our customer care and DSP engineering support team typically responds within 24 hours.</p>
+            </div>
+
+            <form id="support-ticket-form" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Your Name</label>
+                        <input type="text" required placeholder="John Doe" class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+                        <input type="email" required placeholder="producer@studio.com" class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Operating System</label>
+                        <select class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
+                            <option value="macOS-Arm">macOS (Apple Silicon M1/M2/M3)</option>
+                            <option value="macOS-Intel">macOS (Intel Core)</option>
+                            <option value="Windows-11">Windows 11 (64-bit)</option>
+                            <option value="Windows-10">Windows 10 (64-bit)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Primary DAW</label>
+                        <select class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500">
+                            <option value="Ableton">Ableton Live</option>
+                            <option value="Logic">Logic Pro X</option>
+                            <option value="ProTools">Pro Tools</option>
+                            <option value="FLStudio">FL Studio</option>
+                            <option value="StudioOne">Studio One</option>
+                            <option value="Cubase">Cubase / Nuendo</option>
+                            <option value="Other">Other DAW</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Issue Description</label>
+                    <textarea rows="4" required placeholder="Describe what issue or error you are encountering..." class="w-full bg-slate-100 dark:bg-[#080d1a] border border-slate-300 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-accent-500"></textarea>
+                </div>
+
+                <button type="submit" class="bg-accent-500 hover:bg-accent-600 text-slate-950 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center justify-center gap-2 w-full sm:w-auto">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit Ticket</span>
+                </button>
+            </form>
+
+            <div id="ticket-success-msg" class="hidden p-4 bg-emerald-500/10 border border-emerald-500/40 rounded-xl text-emerald-500 text-xs font-bold text-center">
+                <i class="fa-solid fa-circle-check text-sm mr-1.5"></i> Ticket submitted! Our team will review your details and email you shortly.
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-12 border-t border-slate-300 dark:border-slate-800/80 mt-auto transition-colors">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10">
+                <div class="space-y-4">
+                    <a href="/" class="inline-flex items-center gap-2 font-black text-base text-slate-900 dark:text-white tracking-wider">
+                        <span class="bg-accent-500 text-slate-950 text-xs px-1.5 py-0.5 rounded font-black shadow-sm transition-colors">DP</span>
+                        DIASPORA PLUGINS
+                    </a>
+                    <p class="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed max-w-xs">
+                        Empowering audio engineers and music producers worldwide with cutting-edge DSP technology and intuitive interfaces.
+                    </p>
+                    <div class="flex items-center gap-3 pt-1 text-slate-600 dark:text-slate-400">
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-youtube text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-discord text-sm"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Products</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/plugins/" class="hover:text-accent-500 transition-colors">All Plugins</a></li>
+                        <li><a href="/bundles/" class="hover:text-accent-500 transition-colors">Plugin Bundles</a></li>
+                        <li><a href="/subscriptions/" class="hover:text-accent-500 transition-colors">All Access Pass</a></li>
+                        <li><a href="/new-products/" class="hover:text-accent-500 transition-colors">New Releases</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Support & Account</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/support/guide/" class="hover:text-accent-500 transition-colors">Activation Guide</a></li>
+                        <li><a href="/downloads/" class="hover:text-accent-500 transition-colors">Central Installer</a></li>
+                        <li><a href="/dashboard/" class="hover:text-accent-500 transition-colors">My Account / Licenses</a></li>
+                        <li><a href="/support/" class="hover:text-accent-500 transition-colors">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Legal & System</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/privacy/" class="hover:text-accent-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="hover:text-accent-500 transition-colors">Terms of Service</a></li>
+                        <li><a href="/eula/" class="hover:text-accent-500 transition-colors">EULA Agreement</a></li>
+                        <li><a href="/system-requirements/" class="hover:text-accent-500 transition-colors">System Requirements</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-300 dark:border-slate-800/80 pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
+                <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DYNAMIC LOGIC & EVENT LISTENERS -->
+    <script type="module">
+        import { auth } from '../assets/js/firebase-client.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // ACCENT THEME SYSTEM
+        function setAccentTheme(themeName) {
+            document.documentElement.setAttribute('data-accent', themeName);
+            localStorage.setItem('diaspora_accent', themeName);
+        }
+
+        document.querySelectorAll('.accent-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.nextElementSibling.classList.toggle('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAccentTheme(btn.dataset.accentBtn);
+                document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
+            });
+        });
+
+        setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
+
+        // DARK MODE CONTROLLER
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+            });
+        });
+
+        if (localStorage.getItem('diaspora_theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // MOBILE DRAWER
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-mobile-drawer').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.add('hidden');
+        });
+
+        // FAQ ACCORDION INTERACTION
+        document.querySelectorAll('.faq-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const content = trigger.nextElementSibling;
+                const icon = trigger.querySelector('i');
+                const isHidden = content.classList.contains('hidden');
+
+                document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                document.querySelectorAll('.faq-trigger i').forEach(i => i.classList.remove('rotate-180'));
+
+                if (isHidden) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // FAQ SEARCH
+        document.getElementById('faq-search').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // TICKET FORM SUBMISSION
+        document.getElementById('support-ticket-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.target.reset();
+            const msg = document.getElementById('ticket-success-msg');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 5000);
+        });
+
+        // AUTH STATE
+        onAuthStateChanged(auth, (user) => {
+            const container = document.getElementById('auth-state-container');
+            if (user) {
+                container.innerHTML = `
+                    <a href="/dashboard/" class="flex items-center gap-1.5 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-slate-700 dark:text-slate-200 font-medium text-[11px] sm:text-xs whitespace-nowrap">
+                        <i class="fa-solid fa-circle-user text-accent-500"></i>
+                        <span>Dashboard</span>
+                    </a>
+                `;
+            } else {
+                container.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>`;
+            }
+        });
+    </script>
+</body>
+</html>
