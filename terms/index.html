@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Diaspora Plugins</title>
+    <meta name="description" content="Terms of Service governing the use of Diaspora Plugins websites, software products, and subscription services.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        accent: {
+                            500: 'var(--accent-500)',
+                            600: 'var(--accent-600)',
+                            bg: 'var(--accent-bg)',
+                            border: 'var(--accent-border)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Dynamic Accent Color System -->
+    <style>
+        :root[data-accent="blue"] {
+            --accent-500: #3b82f6;
+            --accent-600: #2563eb;
+            --accent-bg: rgba(59, 130, 246, 0.12);
+            --accent-border: rgba(59, 130, 246, 0.4);
+        }
+        :root[data-accent="red"] {
+            --accent-500: #ef4444;
+            --accent-600: #dc2626;
+            --accent-bg: rgba(239, 68, 68, 0.12);
+            --accent-border: rgba(239, 68, 68, 0.4);
+        }
+        :root[data-accent="green"] {
+            --accent-500: #10b981;
+            --accent-600: #059669;
+            --accent-bg: rgba(16, 185, 129, 0.12);
+            --accent-border: rgba(16, 185, 129, 0.4);
+        }
+        :root[data-accent="yellow"] {
+            --accent-500: #eab308;
+            --accent-600: #ca8a04;
+            --accent-bg: rgba(234, 179, 8, 0.12);
+            --accent-border: rgba(234, 179, 8, 0.4);
+        }
+        :root[data-accent="brown"] {
+            --accent-500: #a16207;
+            --accent-600: #854d0e;
+            --accent-bg: rgba(161, 98, 7, 0.12);
+            --accent-border: rgba(161, 98, 7, 0.4);
+        }
+
+        .bg-accent-500 { background-color: var(--accent-500); }
+        .bg-accent-600 { background-color: var(--accent-600); }
+        .bg-accent-bg { background-color: var(--accent-bg); }
+        .text-accent-500 { color: var(--accent-500); }
+        .border-accent-border { border-color: var(--accent-border); }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-[#080d1a] text-slate-900 dark:text-slate-100 flex flex-col min-h-screen font-sans antialiased transition-colors duration-200 relative overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-[#080d1a]/95 border-b border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <nav class="max-w-[1440px] mx-auto px-3 sm:px-4 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 lg:gap-8 min-w-0">
+                <button type="button" id="mobile-menu-btn" class="lg:hidden text-slate-700 dark:text-slate-200 p-1.5 text-base sm:text-lg focus:outline-none" aria-label="Open Mobile Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <a href="/" class="flex items-center gap-1.5 sm:gap-2 font-black text-sm sm:text-lg tracking-wider text-slate-900 dark:text-white whitespace-nowrap overflow-hidden">
+                    <span class="bg-accent-500 text-slate-950 px-1.5 py-0.5 rounded text-xs sm:text-sm font-black shadow-md transition-colors shrink-0">DP</span>
+                    <span class="truncate">DIASPORA <span class="text-accent-500 font-normal transition-colors hidden sm:inline">PLUGINS</span></span>
+                </a>
+
+                <div class="hidden xl:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                    <a href="/products/" class="hover:text-accent-500 transition">PRODUCTS</a>
+                    <a href="/plugins/" class="hover:text-accent-500 transition">PLUGINS</a>
+                    <a href="/bundles/" class="hover:text-accent-500 transition">BUNDLES</a>
+                    <a href="/subscriptions/" class="hover:text-accent-500 transition">SUBSCRIPTIONS</a>
+                    <a href="/downloads/" class="hover:text-accent-500 transition">DOWNLOADS</a>
+                    <a href="/support/" class="hover:text-accent-500 transition">SUPPORT</a>
+                    <a href="/learn/" class="hover:text-accent-500 transition">LEARN</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 sm:gap-3 text-xs shrink-0">
+                <div class="relative flex items-center bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl">
+                    <button type="button" class="dark-mode-toggle p-0.5 text-slate-600 dark:text-slate-300 hover:text-accent-500 text-xs sm:text-sm" title="Toggle Light/Dark Mode">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    <span class="text-slate-300 dark:text-slate-700 mx-1">|</span>
+                    <div class="relative">
+                        <button type="button" class="accent-dropdown-btn flex items-center gap-1 p-0.5" aria-label="Choose Accent Color">
+                            <span class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-accent-500 ring-1 ring-white/20"></span>
+                            <i class="fa-solid fa-chevron-down text-[8px] sm:text-[9px] text-slate-500"></i>
+                        </button>
+                        <div class="accent-dropdown-menu hidden absolute right-0 mt-2 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl p-2 z-50 flex gap-2">
+                            <button type="button" data-accent-btn="blue" class="w-4 h-4 rounded-full bg-blue-500 hover:scale-125 transition" title="Blue"></button>
+                            <button type="button" data-accent-btn="red" class="w-4 h-4 rounded-full bg-red-500 hover:scale-125 transition" title="Red"></button>
+                            <button type="button" data-accent-btn="green" class="w-4 h-4 rounded-full bg-emerald-500 hover:scale-125 transition" title="Green"></button>
+                            <button type="button" data-accent-btn="yellow" class="w-4 h-4 rounded-full bg-yellow-500 hover:scale-125 transition" title="Yellow"></button>
+                            <button type="button" data-accent-btn="brown" class="w-4 h-4 rounded-full bg-yellow-800 hover:scale-125 transition" title="Brown"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="auth-state-container">
+                    <a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden lg:hidden">
+        <div class="fixed left-0 top-0 h-full w-4/5 max-w-xs bg-white dark:bg-[#0e1628] border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-4">
+                    <span class="font-black text-slate-900 dark:text-white">NAVIGATION</span>
+                    <button type="button" id="close-mobile-drawer" class="text-slate-400 hover:text-slate-900 dark:hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="space-y-3 text-xs font-bold uppercase tracking-wider flex flex-col">
+                    <a href="/products/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Products</a>
+                    <a href="/plugins/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Plugins</a>
+                    <a href="/bundles/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Bundles</a>
+                    <a href="/subscriptions/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Subscriptions</a>
+                    <a href="/downloads/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Downloads</a>
+                    <a href="/support/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Support</a>
+                    <a href="/learn/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">Learn</a>
+                    <a href="/dashboard/" class="py-2 text-slate-700 dark:text-slate-300 hover:text-accent-500">My Dashboard</a>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-500">
+                <p>&copy; 2026 Diaspora Plugins Inc.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-[1440px] w-full mx-auto px-4 lg:px-8 py-8 sm:py-12 space-y-10">
+        
+        <!-- BREADCRUMB & PAGE HEADER -->
+        <div>
+            <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
+                <a href="/" class="hover:text-accent-500 transition">Home</a>
+                <i class="fa-solid fa-chevron-right text-[8px]"></i>
+                <span class="text-slate-900 dark:text-white font-semibold">Terms of Service</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                Terms of Service
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
+                Last updated: January 1, 2026. Please read these terms carefully before accessing or using Diaspora Plugins services.
+            </p>
+        </div>
+
+        <!-- DOCUMENT CONTENT CONTAINER -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- TABLE OF CONTENTS (DESKTOP SIDEBAR) -->
+            <div class="hidden lg:block space-y-2 text-xs sticky top-24 h-fit bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
+                <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2 text-[10px] text-slate-400">Navigation</h3>
+                <a href="#acceptance" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">1. Acceptance of Terms</a>
+                <a href="#accounts" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">2. User Accounts</a>
+                <a href="#licensing" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">3. Software Licensing</a>
+                <a href="#payments" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">4. Payments & Subscriptions</a>
+                <a href="#ip" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">5. Intellectual Property</a>
+                <a href="#liability" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">6. Limitation of Liability</a>
+                <a href="#changes" class="block py-1 text-slate-600 dark:text-slate-300 hover:text-accent-500">7. Changes to Terms</a>
+            </div>
+
+            <!-- LEGAL ARTICLES -->
+            <div class="lg:col-span-3 bg-white dark:bg-[#0d1424] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-10 space-y-8 shadow-sm text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                
+                <section id="acceptance" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">1.</span> Acceptance of Terms
+                    </h2>
+                    <p>
+                        By purchasing, installing, or utilizing software, services, or websites operated by Diaspora Plugins Inc. ("Company", "we", "us"), you agree to be bound by these Terms of Service. If you do not agree to all terms, you may not access or use our software or platform.
+                    </p>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="accounts" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">2.</span> User Accounts & Authorization
+                    </h2>
+                    <p>
+                        To access downloads, license activations, or subscriptions, you must create a verified account. You are responsible for keeping your credentials confidential and for all actions taken under your account.
+                    </p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>You must provide accurate, current, and complete registration information.</li>
+                        <li>Account sharing or transferring license authorizations to unauthorized third parties is strictly prohibited.</li>
+                    </ul>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="licensing" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">3.</span> Software Licensing
+                    </h2>
+                    <p>
+                        All audio software provided by Diaspora Plugins is licensed, not sold. Granted licenses are non-exclusive, non-transferable, and revocable subject to our <a href="/eula/" class="text-accent-500 hover:underline">End User License Agreement (EULA)</a>.
+                    </p>
+                    <p>
+                        Each perpetual or subscription license allows active authorization on up to three (3) personal workstations owned or controlled by the primary license holder.
+                    </p>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="payments" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">4.</span> Payments, Renewals & Cancellation
+                    </h2>
+                    <p>
+                        <strong>Perpetual Licenses:</strong> Sales of digital software products are final once license keys or installers are delivered, subject to applicable refund policies.
+                    </p>
+                    <p>
+                        <strong>Subscriptions (All Access Pass):</strong> Recurring billing occurs automatically at the selected interval (monthly or annually) until cancelled. You may cancel subscription renewals at any time via your Account Dashboard.
+                    </p>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="ip" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">5.</span> Intellectual Property
+                    </h2>
+                    <p>
+                        All code, UI designs, DSP algorithms, audio presets, graphics, and documentation are protected by global copyright and intellectual property laws. You may not reverse-engineer, decompile, or modify any portion of Diaspora Plugins software.
+                    </p>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="liability" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">6.</span> Limitation of Liability
+                    </h2>
+                    <p>
+                        Diaspora Plugins provides software "as is" without warranty of any kind. Under no circumstances shall Diaspora Plugins Inc. be liable for lost profits, data loss, audio project corruption, or indirect damages resulting from software use or host DAW incompatibility.
+                    </p>
+                </section>
+
+                <hr class="border-slate-200 dark:border-slate-800/80">
+
+                <section id="changes" class="space-y-3">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="text-accent-500">7.</span> Changes to Terms
+                    </h2>
+                    <p>
+                        We reserve the right to revise these Terms of Service at any time. Updates take effect immediately upon publication. Continued use of our software or services constitutes acceptance of revised terms.
+                    </p>
+                </section>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-200 dark:bg-[#050811] text-slate-700 dark:text-slate-400 text-xs py-12 border-t border-slate-300 dark:border-slate-800/80 mt-auto transition-colors">
+        <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10">
+                <div class="space-y-4">
+                    <a href="/" class="inline-flex items-center gap-2 font-black text-base text-slate-900 dark:text-white tracking-wider">
+                        <span class="bg-accent-500 text-slate-950 text-xs px-1.5 py-0.5 rounded font-black shadow-sm transition-colors">DP</span>
+                        DIASPORA PLUGINS
+                    </a>
+                    <p class="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed max-w-xs">
+                        Empowering audio engineers and music producers worldwide with cutting-edge DSP technology and intuitive interfaces.
+                    </p>
+                    <div class="flex items-center gap-3 pt-1 text-slate-600 dark:text-slate-400">
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-youtube text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="hover:text-accent-500 transition-colors"><i class="fa-brands fa-discord text-sm"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Products</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/plugins/" class="hover:text-accent-500 transition-colors">All Plugins</a></li>
+                        <li><a href="/bundles/" class="hover:text-accent-500 transition-colors">Plugin Bundles</a></li>
+                        <li><a href="/subscriptions/" class="hover:text-accent-500 transition-colors">All Access Pass</a></li>
+                        <li><a href="/new-products/" class="hover:text-accent-500 transition-colors">New Releases</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Support & Account</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/support/guide/" class="hover:text-accent-500 transition-colors">Activation Guide</a></li>
+                        <li><a href="/downloads/" class="hover:text-accent-500 transition-colors">Central Installer</a></li>
+                        <li><a href="/dashboard/" class="hover:text-accent-500 transition-colors">My Account / Licenses</a></li>
+                        <li><a href="/support/" class="hover:text-accent-500 transition-colors">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-4">Legal & System</h4>
+                    <ul class="space-y-2.5 text-[11px]">
+                        <li><a href="/privacy/" class="hover:text-accent-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms/" class="text-accent-500 font-bold transition-colors">Terms of Service</a></li>
+                        <li><a href="/eula/" class="hover:text-accent-500 transition-colors">EULA Agreement</a></li>
+                        <li><a href="/system-requirements/" class="hover:text-accent-500 transition-colors">System Requirements</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-300 dark:border-slate-800/80 pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500">
+                <p>&copy; 2026 Diaspora Plugins Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DYNAMIC LOGIC & EVENT LISTENERS -->
+    <script type="module">
+        import { auth } from '../assets/js/firebase-client.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // ACCENT THEME SYSTEM
+        function setAccentTheme(themeName) {
+            document.documentElement.setAttribute('data-accent', themeName);
+            localStorage.setItem('diaspora_accent', themeName);
+        }
+
+        document.querySelectorAll('.accent-dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.nextElementSibling.classList.toggle('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-accent-btn]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setAccentTheme(btn.dataset.accentBtn);
+                document.querySelectorAll('.accent-dropdown-menu').forEach(m => m.classList.add('hidden'));
+            });
+        });
+
+        setAccentTheme(localStorage.getItem('diaspora_accent') || 'blue');
+
+        // DARK MODE CONTROLLER
+        document.querySelectorAll('.dark-mode-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('diaspora_theme', isDark ? 'dark' : 'light');
+            });
+        });
+
+        if (localStorage.getItem('diaspora_theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // MOBILE DRAWER
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.remove('hidden');
+        });
+        document.getElementById('close-mobile-drawer').addEventListener('click', () => {
+            document.getElementById('mobile-drawer-overlay').classList.add('hidden');
+        });
+
+        // AUTH STATE DETECTOR
+        onAuthStateChanged(auth, (user) => {
+            const container = document.getElementById('auth-state-container');
+            if (user) {
+                container.innerHTML = `
+                    <a href="/dashboard/" class="flex items-center gap-1.5 bg-slate-100 dark:bg-[#0e1628] border border-slate-300 dark:border-slate-800 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-xl text-slate-700 dark:text-slate-200 font-medium text-[11px] sm:text-xs whitespace-nowrap">
+                        <i class="fa-solid fa-circle-user text-accent-500"></i>
+                        <span>Dashboard</span>
+                    </a>
+                `;
+            } else {
+                container.innerHTML = `<a href="/login/" class="bg-accent-500 hover:bg-accent-600 text-slate-950 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition whitespace-nowrap">Sign In</a>`;
+            }
+        });
+    </script>
+</body>
+</html>
